@@ -1,0 +1,71 @@
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+*.csproj.user
+*.dbmdl
+*.bak
+*.log
+*.sql
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.suo
+*.swp
+*.tmp
+*.vscode
+
+# Environment Files
+.env
+.env.*
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# ASP.NET Core
+# wwwroot/
+# *.nupkg
+# *.pdb
+# *.dmp
+# *.pidb
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]eleases/
+[Rr]eleases/
+[Aa]ssets/
+[Bb]in/
+[Oo]bj/
+
+# Package management
+*.nupkg
+*.snupkg
+*.csproj.user
+*.nuspec
+
+# IDE specific files
+.vs/
+.vscode/
+.idea/
+
+# ASP.NET Core HTTPS development certificate
+# https://localhost:*/ 

@@ -1,0 +1,92 @@
+﻿@model DolphinFx.Models.ApplicationDetails
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ApplicationDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ClientID" class="control-label"></label>
+                <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID" id="clientDropdown"></select>
+                <span asp-validation-for="ClientID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationID" class="control-label"></label>
+                <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID" id="applicationDropdown"></select>
+                <span asp-validation-for="ApplicationID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientName" class="control-label"></label>
+                <input asp-for="ClientName" class="form-control" id="clientNameInput" readonly />
+                <span asp-validation-for="ClientName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Environment" class="control-label"></label>
+                <input asp-for="Environment" class="form-control" />
+                <span asp-validation-for="Environment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationName" class="control-label"></label>
+                <input asp-for="ApplicationName" class="form-control" id="applicationNameInput" readonly/>
+                <span asp-validation-for="ApplicationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Link" class="control-label"></label>
+                <input asp-for="Link" class="form-control" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Path" class="control-label"></label>
+                <input asp-for="Path" class="form-control" />
+                <span asp-validation-for="Path" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<!-- jQuery or JavaScript to auto-fill ClientName and ApplicationName -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Fetch ClientName when ClientID is selected
+            $('#clientDropdown').change(function () {
+                var selectedClientId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetClientName", "ApplicationDetails")',
+                    data: { clientId: selectedClientId },
+                    success: function (result) {
+                        $('#clientNameInput').val(result);
+                    }
+                });
+            });
+
+            // Fetch ApplicationName when ApplicationID is selected
+            $('#applicationDropdown').change(function () {
+                var selectedApplicationId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetApplicationName", "ApplicationDetails")',
+                    data: { applicationId: selectedApplicationId },
+                    success: function (result) {
+                        $('#applicationNameInput').val(result);
+                    }
+                });
+            });
+        });
+    </script>
+}
