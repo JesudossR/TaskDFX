@@ -52,14 +52,8 @@ body {
 
 .table a {
   text-decoration: none;
-  color: #007bff;
   padding: 4px 8px;
   border-radius: 4px;
-}
-
-.table a:hover {
-  background-color: black;
-  color: #0056b3;
 }
 
 .table .actions a {
@@ -130,4 +124,13 @@ body {
 
 .details-actions a.btn-primary:hover {
   background-color: #0056b3;
+}
+.yellow:hover{
+  background-color: rgb(43, 206, 10);
+}
+.red:hover{
+  background-color: red;
+}
+.blue:hover{
+  background-color: blueviolet;
 }
