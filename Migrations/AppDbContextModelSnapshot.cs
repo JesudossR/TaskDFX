@@ -72,6 +72,9 @@ namespace DolphinFx.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("EnvironmentID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -85,6 +88,8 @@ namespace DolphinFx.Migrations
                     b.HasIndex("ApplicationID");
 
                     b.HasIndex("ClientID");
+
+                    b.HasIndex("EnvironmentID");
 
                     b.ToTable("ApplicationDetails");
                 });
@@ -199,9 +204,17 @@ namespace DolphinFx.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DolphinFx.Models.Environment", "Environments")
+                        .WithMany()
+                        .HasForeignKey("EnvironmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Applications");
 
                     b.Navigation("Client");
+
+                    b.Navigation("Environments");
                 });
 
             modelBuilder.Entity("DolphinFx.Models.Team", b =>

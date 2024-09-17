@@ -46,6 +46,7 @@ namespace DolphinFx.Controllers
             // Populate dropdowns
             ViewBag.ClientID = new SelectList(_context.Clients, "ClientID", "ClientID");
             ViewBag.ApplicationID = new SelectList(_context.Applications, "ApplicationID", "ApplicationID");
+            ViewBag.EnvironmentID = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentID");
 
             return View();
         }
@@ -53,7 +54,7 @@ namespace DolphinFx.Controllers
         // POST: ApplicationDetails/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClientID,ApplicationID,ClientName,Environment,ApplicationName,Link,Path")] ApplicationDetails applicationDetails)
+        public async Task<IActionResult> Create([Bind("Id,ClientID,ApplicationID,ClientName,EnvironmentID,Environment,ApplicationName,Link,Path")] ApplicationDetails applicationDetails)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +66,7 @@ namespace DolphinFx.Controllers
             // Repopulate dropdowns in case of validation errors
             ViewBag.ClientID = new SelectList(_context.Clients, "ClientID", "ClientID", applicationDetails.ClientID);
             ViewBag.ApplicationID = new SelectList(_context.Applications, "ApplicationID", "ApplicationID", applicationDetails.ApplicationID);
-
+            ViewBag.EnvironmentID = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentID", applicationDetails.EnvironmentID);
             return View(applicationDetails);
         }
 
@@ -86,6 +87,7 @@ namespace DolphinFx.Controllers
             // Populate dropdowns
             ViewBag.ClientID = new SelectList(_context.Clients, "ClientID", "ClientID", applicationDetails.ClientID);
             ViewBag.ApplicationID = new SelectList(_context.Applications, "ApplicationID", "ApplicationID", applicationDetails.ApplicationID);
+            ViewBag.EnvironmentID = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentID", applicationDetails.EnvironmentID);
 
             return View(applicationDetails);
         }
@@ -124,7 +126,7 @@ namespace DolphinFx.Controllers
             // Repopulate dropdowns in case of validation errors
             ViewBag.ClientID = new SelectList(_context.Clients, "ClientID", "ClientName", applicationDetails.ClientID);
             ViewBag.ApplicationID = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", applicationDetails.ApplicationID);
-
+            ViewBag.EnvironmentID = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentID", applicationDetails.EnvironmentID);
             return View(applicationDetails);
         }
 
@@ -186,8 +188,18 @@ namespace DolphinFx.Controllers
             return Json("");
         }
 
+        public JsonResult GetEnvironmentName(int environmentId)
+        {
+            var environment = _context.Environments.FirstOrDefault(e => e.EnvironmentID == environmentId);
+            if (environment != null)
+            {
+                return Json(environment.EnvironmentName); // Adjust property name as necessary
+            }
+            return Json("");
+        }
     }
 }
+
 
 
 //using System;

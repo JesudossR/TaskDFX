@@ -8,7 +8,7 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus,input:focus,.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -19,4 +19,115 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+/* Styles for tables page */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.table thead {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table a {
+  text-decoration: none;
+  color: #007bff;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.table a:hover {
+  background-color: black;
+  color: #0056b3;
+}
+
+.table .actions a {
+  margin: 0 5px;
+}
+
+.table .actions a:first-child {
+  margin-left: 0;
+}
+
+.table .actions a:last-child {
+  margin-right: 0;
+}
+
+/* Styles for details page */
+.details-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.details-container h4 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.details-list {
+  margin: 0;
+  padding: 0;
+}
+
+.details-list dt {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.details-list dd {
+  margin-bottom: 15px;
+  padding-left: 0;
+}
+
+.details-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.details-value {
+  color: #555;
+}
+
+.details-actions {
+  margin-top: 20px;
+}
+
+.details-actions a {
+  text-decoration: none;
+  color: #007bff;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.details-actions a.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.details-actions a.btn-primary:hover {
+  background-color: #0056b3;
 }

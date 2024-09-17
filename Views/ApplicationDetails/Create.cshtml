@@ -3,47 +3,76 @@
 @{
     ViewData["Title"] = "Create";
 }
+<style>
+    .flex-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px; /* Adjust the gap between elements */
+    }
+    
+    .form-group {
+        flex: 1 1 45%; /* Adjusts the flex basis to ensure two items per row */
+        margin-bottom: 16px; /* Adds space below each form group */
+    }
+    
+    .form-group label {
+        display: block; /* Ensures the label takes up its own line */
+        margin-bottom: 4px; /* Adds space between label and input */
+    }
+</style>
 
 <h1>Create</h1>
 
 <h4>ApplicationDetails</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ClientID" class="control-label">Client ID</label>
-                <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID" id="clientDropdown"></select>
+            <div class="flex-box">
+                <div class="form-group">
+                    <label asp-for="ClientID" class="control-label">Client ID</label>
+                    <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID" id="clientDropdown"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ClientName" class="control-label">Client Name</label>
+                    <input asp-for="ClientName" class="form-control" id="clientNameInput" readonly />
+                    <span asp-validation-for="ClientName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ApplicationID" class="control-label">Application ID</label>
-                <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID" id="applicationDropdown"></select>
+            <div class="flex-box">
+                <div class="form-group">
+                    <label asp-for="ApplicationID" class="control-label">Application ID</label>
+                    <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID" id="applicationDropdown"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ApplicationName" class="control-label">Application Name</label>
+                    <input asp-for="ApplicationName" class="form-control" id="applicationNameInput" readonly />
+                    <span asp-validation-for="ApplicationName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ClientName" class="control-label"></label>
-                <input asp-for="ClientName" class="form-control" id="clientNameInput" readonly />
-                <span asp-validation-for="ClientName" class="text-danger"></span>
+            <div class="flex-box">
+                <div class="form-group">
+                    <label asp-for="EnvironmentID" class="control-label">Environment ID</label>
+                    <select asp-for="EnvironmentID" class="form-control" asp-items="ViewBag.EnvironmentID" id="environmentDropdown"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Environment" class="control-label">Environment Name</label>
+                    <input asp-for="Environment" class="form-control" id="environmentNameInput" readonly />
+                    <span asp-validation-for="Environment" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Environment" class="control-label"></label>
-                <input asp-for="Environment" class="form-control" />
-                <span asp-validation-for="Environment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ApplicationName" class="control-label"></label>
-                <input asp-for="ApplicationName" class="form-control" id="applicationNameInput"  readonly/>
-                <span asp-validation-for="ApplicationName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Link" class="control-label"></label>
-                <input asp-for="Link" class="form-control" />
-                <span asp-validation-for="Link" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Path" class="control-label"></label>
-                <input asp-for="Path" class="form-control" />
-                <span asp-validation-for="Path" class="text-danger"></span>
+            <div class="flex-box">
+                <div class="form-group">
+                    <label asp-for="Link" class="control-label">Link</label>
+                    <input asp-for="Link" class="form-control" />
+                    <span asp-validation-for="Link" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Path" class="control-label">Path</label>
+                    <input asp-for="Path" class="form-control" />
+                    <span asp-validation-for="Path" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -56,7 +85,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-<!-- jQuery or JavaScript to auto-fill ClientName and ApplicationName -->
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -80,6 +108,18 @@
                     data: { applicationId: selectedApplicationId },
                     success: function (result) {
                         $('#applicationNameInput').val(result);
+                    }
+                });
+            });
+
+            // Fetch EnvironmentName when EnvironmentID is selected
+            $('#environmentDropdown').change(function () {
+                var selectedEnvironmentId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetEnvironmentName", "ApplicationDetails")',
+                    data: { environmentId: selectedEnvironmentId },
+                    success: function (result) {
+                        $('#environmentNameInput').val(result);
                     }
                 });
             });

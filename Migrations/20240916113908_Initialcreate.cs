@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DolphinFx.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initialcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -89,6 +89,30 @@ namespace DolphinFx.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    TeamID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TeamName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TeamDescription = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClientID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.TeamID);
+                    table.ForeignKey(
+                        name: "FK_Teams_Clients_ClientID",
+                        column: x => x.ClientID,
+                        principalTable: "Clients",
+                        principalColumn: "ClientID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ApplicationDetails",
                 columns: table => new
                 {
@@ -98,6 +122,7 @@ namespace DolphinFx.Migrations
                     ApplicationID = table.Column<int>(type: "int", nullable: false),
                     ClientName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    EnvironmentID = table.Column<int>(type: "int", nullable: false),
                     Environment = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ApplicationName = table.Column<string>(type: "longtext", nullable: false)
@@ -122,29 +147,11 @@ namespace DolphinFx.Migrations
                         principalTable: "Clients",
                         principalColumn: "ClientID",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Teams",
-                columns: table => new
-                {
-                    TeamID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TeamName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    TeamDescription = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClientID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teams", x => x.TeamID);
                     table.ForeignKey(
-                        name: "FK_Teams_Clients_ClientID",
-                        column: x => x.ClientID,
-                        principalTable: "Clients",
-                        principalColumn: "ClientID",
+                        name: "FK_ApplicationDetails_Environments_EnvironmentID",
+                        column: x => x.EnvironmentID,
+                        principalTable: "Environments",
+                        principalColumn: "EnvironmentID",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -160,6 +167,11 @@ namespace DolphinFx.Migrations
                 column: "ClientID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ApplicationDetails_EnvironmentID",
+                table: "ApplicationDetails",
+                column: "EnvironmentID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teams_ClientID",
                 table: "Teams",
                 column: "ClientID");
@@ -172,9 +184,6 @@ namespace DolphinFx.Migrations
                 name: "ApplicationDetails");
 
             migrationBuilder.DropTable(
-                name: "Environments");
-
-            migrationBuilder.DropTable(
                 name: "Teams");
 
             migrationBuilder.DropTable(
@@ -182,6 +191,9 @@ namespace DolphinFx.Migrations
 
             migrationBuilder.DropTable(
                 name: "Applications");
+
+            migrationBuilder.DropTable(
+                name: "Environments");
 
             migrationBuilder.DropTable(
                 name: "Clients");

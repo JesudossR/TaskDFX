@@ -21,6 +21,10 @@ namespace DolphinFx.Models
         public string ClientName { get; set; } = string.Empty; // Required
 
         [Required]
+        [ForeignKey("Environment")]
+        public int EnvironmentID { get; set; }
+        public virtual Environment? Environments { get; set; } // Navigation property
+        [Required]
         public string Environment { get; set; } = string.Empty; // Required
 
         [Required]

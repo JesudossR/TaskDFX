@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DolphinFx.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240914141327_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240916113908_Initialcreate")]
+    partial class Initialcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,6 +75,9 @@ namespace DolphinFx.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("EnvironmentID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -88,6 +91,8 @@ namespace DolphinFx.Migrations
                     b.HasIndex("ApplicationID");
 
                     b.HasIndex("ClientID");
+
+                    b.HasIndex("EnvironmentID");
 
                     b.ToTable("ApplicationDetails");
                 });
@@ -202,9 +207,17 @@ namespace DolphinFx.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DolphinFx.Models.Environment", "Environments")
+                        .WithMany()
+                        .HasForeignKey("EnvironmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Applications");
 
                     b.Navigation("Client");
+
+                    b.Navigation("Environments");
                 });
 
             modelBuilder.Entity("DolphinFx.Models.Team", b =>

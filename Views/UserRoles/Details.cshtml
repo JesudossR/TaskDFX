@@ -6,25 +6,25 @@
 
 <h1>Details</h1>
 
-<div>
+<div class="details-container">
     <h4>UserRole</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <dl class="row" class="details-list">
+        <dt class = "col-sm-2" >
             @Html.DisplayNameFor(model => model.Role)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10" >
             @Html.DisplayFor(model => model.Role)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2" >
             @Html.DisplayNameFor(model => model.RoleDescription)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10" >
             @Html.DisplayFor(model => model.RoleDescription)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.UserID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="details-actions">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.UserID">Edit</a> |
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
 </div>

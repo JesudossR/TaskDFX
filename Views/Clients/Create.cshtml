@@ -3,41 +3,83 @@
 @{
     ViewData["Title"] = "Create";
 }
+<style>
+    .flex-box {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
 
+    .form-group {
+        flex: 1 1 45%;
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .form-group input {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+</style>
 <h1>Create</h1>
 
 <h4>Client</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ClientName" class="control-label"></label>
-                <input asp-for="ClientName" class="form-control" />
-                <span asp-validation-for="ClientName" class="text-danger"></span>
+            <div class="flex-box">
+                <div class="form-group">
+                    <label asp-for="ClientName" class="control-label"></label>
+                    <input asp-for="ClientName" />
+                    <span asp-validation-for="ClientName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PrimaryContact" class="control-label"></label>
+                    <input asp-for="PrimaryContact" />
+                    <span asp-validation-for="PrimaryContact" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PrimaryContact" class="control-label"></label>
-                <input asp-for="PrimaryContact" class="form-control" />
-                <span asp-validation-for="PrimaryContact" class="text-danger"></span>
+            <div class="flex-box">
+                <div class="form-group">
+                    <label asp-for="PrimaryEmailID" class="control-label"></label>
+                    <input asp-for="PrimaryEmailID" />
+                    <span asp-validation-for="PrimaryEmailID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SecondaryContact" class="control-label"></label>
+                    <input asp-for="SecondaryContact" />
+                    <span asp-validation-for="SecondaryContact" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PrimaryEmailID" class="control-label"></label>
-                <input asp-for="PrimaryEmailID" class="form-control" />
-                <span asp-validation-for="PrimaryEmailID" class="text-danger"></span>
+            <div class="flex-box">
+                <div class="form-group">
+                    <label asp-for="SecondaryEmailID" class="control-label"></label>
+                    <input asp-for="SecondaryEmailID" />
+                    <span asp-validation-for="SecondaryEmailID" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="SecondaryContact" class="control-label"></label>
-                <input asp-for="SecondaryContact" class="form-control" />
-                <span asp-validation-for="SecondaryContact" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecondaryEmailID" class="control-label"></label>
-                <input asp-for="SecondaryEmailID" class="form-control" />
-                <span asp-validation-for="SecondaryEmailID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+
+            <div class="">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -47,4 +89,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-

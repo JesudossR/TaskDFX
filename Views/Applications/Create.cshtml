@@ -3,31 +3,69 @@
 @{
     ViewData["Title"] = "Create";
 }
+<style>
+    .flex-box {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
 
+    .form-group {
+        flex: 1 1 45%;
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .form-group input {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+</style>
 <h1>Create</h1>
 
 <h4>Application</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ApplicationName" class="control-label"></label>
-                <input asp-for="ApplicationName" class="form-control" />
-                <span asp-validation-for="ApplicationName" class="text-danger"></span>
+            <div class="flex-box">
+                <div class="form-group">
+                    <label asp-for="ApplicationName" class="control-label"></label>
+                    <input asp-for="ApplicationName"  />
+                    <span asp-validation-for="ApplicationName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ApplicationShortName" class="control-label"></label>
+                    <input asp-for="ApplicationShortName"  />
+                    <span asp-validation-for="ApplicationShortName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ApplicationShortName" class="control-label"></label>
-                <input asp-for="ApplicationShortName" class="form-control" />
-                <span asp-validation-for="ApplicationShortName" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="ApplicationDescription" class="control-label"></label>
-                <input asp-for="ApplicationDescription" class="form-control" />
+                <input asp-for="ApplicationDescription"  />
                 <span asp-validation-for="ApplicationDescription" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -37,4 +75,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
