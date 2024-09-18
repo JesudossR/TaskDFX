@@ -7,6 +7,27 @@ html {
     font-size: 16px;
   }
 }
+.navbar {
+  flex-direction: column; /* Stack the items vertically */
+  width: 200px; /* Set a fixed width for the sidebar */
+  position: fixed; /* Fix it to the left side */
+  height: 100%; /* Make it full height */
+  background-color: #ffffff; /* Background color for navbar */
+  border-right: 1px solid #e5e5e5; /* Right border */
+}
+
+.container {
+  margin-left: 220px; /* Leave space for the navbar */
+}
+
+.navbar-nav .nav-item {
+  width: 100%; /* Make nav items take full width */
+}
+
+.navbar-nav .nav-link {
+  text-align: left; /* Align text to the left */
+  padding: 10px 15px; /* Add padding for better touch targets */
+}
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus,input:focus,.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
