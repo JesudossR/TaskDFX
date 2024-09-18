@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DolphinFx.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialcreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -113,23 +113,62 @@ namespace DolphinFx.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "DatabaseDetails",
+                columns: table => new
+                {
+                    DbId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Datasource = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Username = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    EnvironmentID = table.Column<int>(type: "int", nullable: false),
+                    ApplicationID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DatabaseDetails", x => x.DbId);
+                    table.ForeignKey(
+                        name: "FK_DatabaseDetails_Applications_ApplicationID",
+                        column: x => x.ApplicationID,
+                        principalTable: "Applications",
+                        principalColumn: "ApplicationID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DatabaseDetails_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DatabaseDetails_Environments_EnvironmentID",
+                        column: x => x.EnvironmentID,
+                        principalTable: "Environments",
+                        principalColumn: "EnvironmentID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ApplicationDetails",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ClientID = table.Column<int>(type: "int", nullable: false),
-                    ApplicationID = table.Column<int>(type: "int", nullable: false),
-                    ClientName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     EnvironmentID = table.Column<int>(type: "int", nullable: false),
-                    Environment = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ApplicationName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ApplicationID = table.Column<int>(type: "int", nullable: false),
                     Link = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Path = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    User = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -153,6 +192,12 @@ namespace DolphinFx.Migrations
                         principalTable: "Environments",
                         principalColumn: "EnvironmentID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationDetails_UserRoles_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserRoles",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -172,6 +217,26 @@ namespace DolphinFx.Migrations
                 column: "EnvironmentID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ApplicationDetails_UserId",
+                table: "ApplicationDetails",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DatabaseDetails_ApplicationID",
+                table: "DatabaseDetails",
+                column: "ApplicationID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DatabaseDetails_ClientId",
+                table: "DatabaseDetails",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DatabaseDetails_EnvironmentID",
+                table: "DatabaseDetails",
+                column: "EnvironmentID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teams_ClientID",
                 table: "Teams",
                 column: "ClientID");
@@ -182,6 +247,9 @@ namespace DolphinFx.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ApplicationDetails");
+
+            migrationBuilder.DropTable(
+                name: "DatabaseDetails");
 
             migrationBuilder.DropTable(
                 name: "Teams");

@@ -31,82 +31,62 @@
             <input type="hidden" asp-for="Id" />
             <div class="flex-box">
                 <div class="form-group">
-                    <label asp-for="ClientID" class="control-label">Client ID</label>
-                    <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID" id="clientDropdown"></select>
-                    <span asp-validation-for="ClientID" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ApplicationID" class="control-label">Application ID</label>
-                    <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID" id="applicationDropdown"></select>
-                    <span asp-validation-for="ApplicationID" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="flex-box">
-                <div class="form-group">
-                    <label asp-for="ClientName" class="control-label">Client Name</label>
-                    <input asp-for="ClientName" class="form-control" id="clientNameInput" readonly />
-                    <span asp-validation-for="ClientName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Environment" class="control-label">Environment</label>
-                    <input asp-for="Environment" class="form-control" />
-                    <span asp-validation-for="Environment" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="flex-box">
-                <div class="form-group">
-                    <label asp-for="ApplicationName" class="control-label">Application Name</label>
-                    <input asp-for="ApplicationName" class="form-control" id="applicationNameInput" readonly />
-                    <span asp-validation-for="ApplicationName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Link" class="control-label">Link</label>
-                    <input asp-for="Link" class="form-control" />
-                    <span asp-validation-for="Link" class="text-danger"></span>
-                </div>
+                <label asp-for="ClientID" class="control-label">Client Name</label>
+                <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
+                <span asp-validation-for="ClientID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Path" class="control-label">Path</label>
+                <label asp-for="EnvironmentID" class="control-label">Environment Name</label>
+                <select asp-for="EnvironmentID" class="form-control" asp-items="ViewBag.EnvironmentID"></select>
+                <span asp-validation-for="EnvironmentID" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group">
+                <label asp-for="ApplicationID" class="control-label">Application Name</label>
+                <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID"></select>
+                <span asp-validation-for="ApplicationID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Link" class="control-label"></label>
+                <input asp-for="Link" class="form-control" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group">
+                <label asp-for="Path" class="control-label"></label>
                 <input asp-for="Path" class="form-control" />
                 <span asp-validation-for="Path" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="User" class="control-label"></label>
+                <input asp-for="User" class="form-control" />
+                <span asp-validation-for="User" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group">
+                <label asp-for="UserId" class="control-label">User Name</label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            </div>
+            
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+ 
 </div>
 
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            // Fetch ClientName when ClientID is selected
-            $('#clientDropdown').change(function () {
-                var selectedClientId = $(this).val();
-                $.ajax({
-                    url: '@Url.Action("GetClientName", "ApplicationDetails")',
-                    data: { clientId: selectedClientId },
-                    success: function (result) {
-                        $('#clientNameInput').val(result);
-                    }
-                });
-            });
-
-            // Fetch ApplicationName when ApplicationID is selected
-            $('#applicationDropdown').change(function () {
-                var selectedApplicationId = $(this).val();
-                $.ajax({
-                    url: '@Url.Action("GetApplicationName", "ApplicationDetails")',
-                    data: { applicationId: selectedApplicationId },
-                    success: function (result) {
-                        $('#applicationNameInput').val(result);
-                    }
-                });
-            });
-        });
-    </script>
-}

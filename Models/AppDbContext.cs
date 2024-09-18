@@ -12,6 +12,7 @@ namespace DolphinFx.Models
         public DbSet<Environment> Environments { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<ApplicationDetails> ApplicationDetails { get; set; }
+        public DbSet<DatabaseDetail> DatabaseDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Application Details Table</h1>
+<h1>Index</h1>
 
 <p>
     <a class="btn btn-primary" asp-action="Create">Create New</a>
@@ -13,19 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ClientName)
+                @Html.DisplayNameFor(model => model.Client)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Environment)
+                @Html.DisplayNameFor(model => model.Environments)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationName)
+                @Html.DisplayNameFor(model => model.Applications)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Link)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Path)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserRole)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
             </th>
             <th></th>
         </tr>
@@ -34,13 +43,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ClientName)
+                @Html.DisplayFor(modelItem => item.Client.ClientName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Environment)
+                @Html.DisplayFor(modelItem => item.Environments.EnvironmentName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationName)
+                @Html.DisplayFor(modelItem => item.Applications.ApplicationName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Link)
@@ -49,8 +58,17 @@
                 @Html.DisplayFor(modelItem => item.Path)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.User)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserRole.Role)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
                 <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a class="btn btn-primary blue " asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-primary blue" asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a class="btn btn-primary red" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

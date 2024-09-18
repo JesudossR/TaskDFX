@@ -1,0 +1,80 @@
+﻿@model DolphinFx.Models.DatabaseDetail
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<style>
+    .flex-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px; /* Adjust the gap between elements */
+    }
+    
+    .form-group {
+        flex: 1 1 45%; /* Adjusts the flex basis to ensure two items per row */
+        margin-bottom: 16px; /* Adds space below each form group */
+    }
+    
+    .form-group label {
+        display: block; /* Ensures the label takes up its own line */
+        margin-bottom: 4px; /* Adds space between label and input */
+    }
+</style>
+<h1>Edit</h1>
+
+<h4>DatabaseDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DbId" />
+            <div class="flex-box">
+                <div class="form-group">
+                <label asp-for="Datasource" class="control-label"></label>
+                <input asp-for="Datasource" class="form-control" />
+                <span asp-validation-for="Datasource" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="flex-box">
+                <div class="form-group">
+                <label asp-for="EnvironmentID" class="control-label"></label>
+                <select asp-for="EnvironmentID" class="form-control" asp-items="ViewBag.EnvironmentID"></select>
+                <span asp-validation-for="EnvironmentID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationID" class="control-label"></label>
+                <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID"></select>
+                <span asp-validation-for="ApplicationID" class="text-danger"></span>
+            </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    
+</div>
+

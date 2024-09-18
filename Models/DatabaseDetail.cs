@@ -7,12 +7,12 @@ namespace DolphinFx.Models
     {
         [Key]
         public int DbId { get; set; }
-        [Required]
-        public string? ClientName { get; set; }
-        [Required]
-        public string? Environment { get; set; }
-        [Required]
-        public string? ApplicationName { get; set; }
+        //[Required]
+        //public string? ClientName { get; set; }
+        //[Required]
+        //public string? Environment { get; set; }
+        //[Required]
+        //public string? ApplicationName { get; set; }
         [Required]
         public string? Datasource { get; set; }
         [Required]

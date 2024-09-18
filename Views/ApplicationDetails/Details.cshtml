@@ -11,22 +11,22 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClientName)
+            @Html.DisplayNameFor(model => model.Client)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClientName)
+            @Html.DisplayFor(model => model.Client.ClientName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Environment)
+            @Html.DisplayNameFor(model => model.Environments)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Environment)
+            @Html.DisplayFor(model => model.Environments.EnvironmentName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ApplicationName)
+            @Html.DisplayNameFor(model => model.Applications)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationName)
+            @Html.DisplayFor(model => model.Applications.ApplicationName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Link)
@@ -40,9 +40,27 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Path)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserRole)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserRole.Role)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
     </dl>
 </div>
-<div class="details-actions">
+<div>
     <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a class="btn btn-primary" asp-action="Index">Back to List</a>
 </div>

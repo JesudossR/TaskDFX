@@ -57,20 +57,8 @@ namespace DolphinFx.Migrations
                     b.Property<int>("ApplicationID")
                         .HasColumnType("int");
 
-                    b.Property<string>("ApplicationName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<int>("ClientID")
                         .HasColumnType("int");
-
-                    b.Property<string>("ClientName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Environment")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<int>("EnvironmentID")
                         .HasColumnType("int");
@@ -79,9 +67,20 @@ namespace DolphinFx.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -90,6 +89,8 @@ namespace DolphinFx.Migrations
                     b.HasIndex("ClientID");
 
                     b.HasIndex("EnvironmentID");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ApplicationDetails");
                 });
@@ -122,6 +123,46 @@ namespace DolphinFx.Migrations
                     b.HasKey("ClientID");
 
                     b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("DolphinFx.Models.DatabaseDetail", b =>
+                {
+                    b.Property<int>("DbId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("DbId"));
+
+                    b.Property<int>("ApplicationID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Datasource")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("EnvironmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("DbId");
+
+                    b.HasIndex("ApplicationID");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("EnvironmentID");
+
+                    b.ToTable("DatabaseDetails");
                 });
 
             modelBuilder.Entity("DolphinFx.Models.Environment", b =>
@@ -210,7 +251,42 @@ namespace DolphinFx.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DolphinFx.Models.UserRole", "UserRole")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Applications");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Environments");
+
+                    b.Navigation("UserRole");
+                });
+
+            modelBuilder.Entity("DolphinFx.Models.DatabaseDetail", b =>
+                {
+                    b.HasOne("DolphinFx.Models.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DolphinFx.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DolphinFx.Models.Environment", "Environments")
+                        .WithMany()
+                        .HasForeignKey("EnvironmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
 
                     b.Navigation("Client");
 
