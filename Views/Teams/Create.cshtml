@@ -43,7 +43,9 @@
             <div class="flex-box">
                 <div class="form-group">
                     <label asp-for="ClientID" class="control-label">Client Name</label>
-                    <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
+                    <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID">
+                        <option value="" disabled selected>--Select a Client--</option>
+                    </select>
                 </div>
             </div>
             

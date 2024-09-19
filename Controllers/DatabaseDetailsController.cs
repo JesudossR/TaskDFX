@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
+using OfficeOpenXml;
 
 namespace DolphinFx.Controllers
 {
@@ -165,6 +166,49 @@ namespace DolphinFx.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> ExportToExcel()
+        {
+            var databaseDetails = await _context.DatabaseDetails
+                .Include(d => d.Client)
+                .Include(d => d.Environments)
+                .Include(d => d.Application)
+                .ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("DatabaseDetails");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Datasource";
+                worksheet.Cells[1, 2].Value = "Username";
+                worksheet.Cells[1, 3].Value = "Password";
+                worksheet.Cells[1, 4].Value = "Client";
+                worksheet.Cells[1, 5].Value = "Environment";
+                worksheet.Cells[1, 6].Value = "Application";
+
+                // Add data
+                for (int i = 0; i < databaseDetails.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = databaseDetails[i].Datasource;
+                    worksheet.Cells[i + 2, 2].Value = databaseDetails[i].Username;
+                    worksheet.Cells[i + 2, 3].Value = databaseDetails[i].Password;
+                    worksheet.Cells[i + 2, 4].Value = databaseDetails[i].Client?.ClientName;
+                    worksheet.Cells[i + 2, 5].Value = databaseDetails[i].Environments?.EnvironmentName;
+                    worksheet.Cells[i + 2, 6].Value = databaseDetails[i].Application?.ApplicationName;
+                }
+
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Set content type and file name
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "DatabaseDetails.xlsx";
+
+                return File(stream.ToArray(), contentType, fileName);
+            }
         }
 
         private bool DatabaseDetailExists(int id)

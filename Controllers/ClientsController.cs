@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
+using OfficeOpenXml;
 
 namespace DolphinFx.Controllers
 {
@@ -140,6 +141,43 @@ namespace DolphinFx.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> ExportToExcel()
+        {
+            var clients = await _context.Clients.ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Clients");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Client Name";
+                worksheet.Cells[1, 2].Value = "Primary Contact";
+                worksheet.Cells[1, 3].Value = "Primary Email";
+                worksheet.Cells[1, 4].Value = "Secondary Contact";
+                worksheet.Cells[1, 5].Value = "Secondary Email";
+
+                // Add data
+                for (int i = 0; i < clients.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = clients[i].ClientName;
+                    worksheet.Cells[i + 2, 2].Value = clients[i].PrimaryContact;
+                    worksheet.Cells[i + 2, 3].Value = clients[i].PrimaryEmailID;
+                    worksheet.Cells[i + 2, 4].Value = clients[i].SecondaryContact;
+                    worksheet.Cells[i + 2, 5].Value = clients[i].SecondaryEmailID;
+                }
+
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Set content type and file name
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Clients.xlsx";
+
+                return File(stream.ToArray(), contentType, fileName);
+            }
         }
 
         private bool ClientExists(int id)

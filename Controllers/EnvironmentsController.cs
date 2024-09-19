@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
+using OfficeOpenXml;
 
 namespace DolphinFx.Controllers
 {
@@ -146,6 +147,37 @@ namespace DolphinFx.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> ExportToExcel()
+        {
+            var environments = await _context.Environments.ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Environments");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Environment Name";
+                worksheet.Cells[1, 2].Value = "Environment Description";
+
+                // Add data
+                for (int i = 0; i < environments.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = environments[i].EnvironmentName;
+                    worksheet.Cells[i + 2, 2].Value = environments[i].EnvironmentDescription;
+                }
+
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Set content type and file name
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Environments.xlsx";
+
+                return File(stream.ToArray(), contentType, fileName);
+            }
         }
 
         private bool EnvironmentExists(int id)

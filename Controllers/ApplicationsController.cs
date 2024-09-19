@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
+using OfficeOpenXml;
 
 namespace DolphinFx.Controllers
 {
@@ -146,6 +147,39 @@ namespace DolphinFx.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> ExportToExcel()
+        {
+            var applications = await _context.Applications.ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Applications");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Application Name";
+                worksheet.Cells[1, 2].Value = "Short Name";
+                worksheet.Cells[1, 3].Value = "Description";
+
+                // Add data
+                for (int i = 0; i < applications.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = applications[i].ApplicationName;
+                    worksheet.Cells[i + 2, 2].Value = applications[i].ApplicationShortName;
+                    worksheet.Cells[i + 2, 3].Value = applications[i].ApplicationDescription;
+                }
+
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Set content type and file name
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Applications.xlsx";
+
+                return File(stream.ToArray(), contentType, fileName);
+            }
         }
 
         private bool ApplicationExists(int id)

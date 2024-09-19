@@ -1,5 +1,6 @@
 using DolphinFx.Models;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// Set the license context for EPPlus
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // or LicenseContext.Commercial
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

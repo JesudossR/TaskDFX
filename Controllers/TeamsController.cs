@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
+using OfficeOpenXml;
 
 namespace DolphinFx.Controllers
 {
@@ -153,6 +154,39 @@ namespace DolphinFx.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> ExportToExcel()
+        {
+            var teams = await _context.Teams.Include(t => t.Client).ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Teams");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Team Name";
+                worksheet.Cells[1, 2].Value = "Team Description";
+                worksheet.Cells[1, 3].Value = "Client Name";
+
+                // Add data
+                for (int i = 0; i < teams.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = teams[i].TeamName;
+                    worksheet.Cells[i + 2, 2].Value = teams[i].TeamDescription;
+                    worksheet.Cells[i + 2, 3].Value = teams[i].Client?.ClientName ?? "N/A";
+                }
+
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Set content type and file name
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Teams.xlsx";
+
+                return File(stream.ToArray(), contentType, fileName);
+            }
         }
 
         private bool TeamExists(int id)

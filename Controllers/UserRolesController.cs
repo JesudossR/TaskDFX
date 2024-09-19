@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
+using OfficeOpenXml;
 
 namespace DolphinFx.Controllers
 {
@@ -172,5 +173,37 @@ namespace DolphinFx.Controllers
             };
             return roles;
         }
+        public async Task<IActionResult> ExportToExcel()
+        {
+            var userRoles = await _context.UserRoles.ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("UserRoles");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Role";
+                worksheet.Cells[1, 2].Value = "Role Description";
+
+                // Add data
+                for (int i = 0; i < userRoles.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = userRoles[i].Role;
+                    worksheet.Cells[i + 2, 2].Value = userRoles[i].RoleDescription;
+                }
+
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Set content type and file name
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "UserRoles.xlsx";
+
+                return File(stream.ToArray(), contentType, fileName);
+            }
+        }
+
     }
 }

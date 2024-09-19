@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
+using OfficeOpenXml;
 
 namespace DolphinFx.Controllers
 {
@@ -68,6 +69,7 @@ namespace DolphinFx.Controllers
             {
                 _context.Add(applicationDetails);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Application detail added.";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", applicationDetails.ApplicationID);
@@ -115,6 +117,7 @@ namespace DolphinFx.Controllers
                 {
                     _context.Update(applicationDetails);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Application detail updated.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -170,7 +173,56 @@ namespace DolphinFx.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Application detail deleted.";
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> ExportToExcel()
+        {
+            var applicationDetails = await _context.ApplicationDetails
+                .Include(a => a.Client)
+                .Include(a => a.Environments)
+                .Include(a => a.Applications)
+                .Include(a => a.UserRole)
+                .ToListAsync();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("ApplicationDetails");
+
+                // Add header
+                worksheet.Cells[1, 1].Value = "Client Name";
+                worksheet.Cells[1, 2].Value = "Environment Name";
+                worksheet.Cells[1, 3].Value = "Application Name";
+                worksheet.Cells[1, 4].Value = "Link";
+                worksheet.Cells[1, 5].Value = "Path";
+                worksheet.Cells[1, 6].Value = "User";
+                worksheet.Cells[1, 7].Value = "User Role";
+                worksheet.Cells[1, 8].Value = "Password";
+
+                // Add data
+                for (int i = 0; i < applicationDetails.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = applicationDetails[i].Client?.ClientName;
+                    worksheet.Cells[i + 2, 2].Value = applicationDetails[i].Environments?.EnvironmentName;
+                    worksheet.Cells[i + 2, 3].Value = applicationDetails[i].Applications?.ApplicationName;
+                    worksheet.Cells[i + 2, 4].Value = applicationDetails[i].Link;
+                    worksheet.Cells[i + 2, 5].Value = applicationDetails[i].Path;
+                    worksheet.Cells[i + 2, 6].Value = applicationDetails[i].User;
+                    worksheet.Cells[i + 2, 7].Value = applicationDetails[i].UserRole?.Role;
+                    worksheet.Cells[i + 2, 8].Value = applicationDetails[i].Password;
+                }
+
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Set content type and file name
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "ApplicationDetails.xlsx";
+
+                return File(stream.ToArray(), contentType, fileName);
+            }
         }
 
         private bool ApplicationDetailsExists(int id)
