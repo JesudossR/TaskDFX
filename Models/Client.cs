@@ -10,15 +10,16 @@ namespace DolphinFx.Models
         [Required]
         public string ClientName { get; set; } = string.Empty; // Required and non-nullable
 
-        [Required]
-        [Range(1000000000, 9999999999)] // Ensure it's a 10-digit number
+        [Required(ErrorMessage = "Primary Contact is required.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Primary Contact must be exactly 10 digits.")]
+        [MaxLength(10)]
         public long PrimaryContact { get; set; } // 10 digits
 
         [Required]
         [EmailAddress]
         public string PrimaryEmailID { get; set; } = string.Empty; // Required and valid email
 
-        [Range(1000000000, 9999999999)] // Optional but if provided, must be 10 digits
+        // [Range(1000000000, 9999999999)] // Optional but if provided, must be 10 digits
         public long? SecondaryContact { get; set; } // 10 digits
 
         [EmailAddress]

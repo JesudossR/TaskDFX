@@ -50,12 +50,12 @@
             <div class="flex-box">
                 <div class="form-group">
                     <label asp-for="ClientName" class="control-label"></label>
-                    <input asp-for="ClientName" />
+                    <input asp-for="ClientName"  maxlength="20" minlength="3" placeholder="Enter Client Name"  minlength="3" />
                     <span asp-validation-for="ClientName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="PrimaryContact" class="control-label"></label>
-                    <input asp-for="PrimaryContact" />
+                    <input asp-for="PrimaryContact" maxlength="10" />
                     <span asp-validation-for="PrimaryContact" class="text-danger"></span>
                 </div>
             </div>

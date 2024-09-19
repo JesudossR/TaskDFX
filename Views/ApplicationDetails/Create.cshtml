@@ -22,7 +22,7 @@
 </style>
 <h1>Create</h1>
 
-<h4>ApplicationDetails</h4>
+<h4>Application Details</h4>
 <hr />
 <div class="row">
     <div class="col-md-12">
@@ -63,7 +63,7 @@
             </div>
             <div class="flex-box">
                 <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
+                <label asp-for="UserId" class="control-label">User Name</label>
                 <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
             </div>
             <div class="form-group">
@@ -71,10 +71,9 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            </div>
-            
+            </div>     
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input role="alert" type="submit" value="Create" class=" btn btn-primary " />
                  <a class="btn btn-primary"  asp-action="Index">Back to List</a>
             </div>
         </form>
