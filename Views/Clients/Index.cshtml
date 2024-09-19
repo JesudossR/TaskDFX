@@ -9,51 +9,54 @@
 <p>
     <a class="btn btn-primary" asp-action="Create">Create New</a>
 </p>
-<table class="table">
+
+<style>
+    .table {
+        padding: 0; /* Reduce table padding */
+        
+    }
+
+    .table th, .table td {
+        padding: 5px; /* Adjust padding for table cells */
+    }
+
+    .action-buttons a {
+        margin: 0 4px; /* Space out the buttons */
+        padding: 4px 8px; /* Adjust button padding */
+        text-decoration: none; /* Remove underline from buttons */
+        color: #fff; /* Ensure text color is white */
+    }
+
+    .action-buttons .btn-primary {
+        font-size: 0.875rem; /* Adjust button font size */
+    }
+</style>
+
+<table class="table " style="padding:6px 3px;">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrimaryContact)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrimaryEmailID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SecondaryContact)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SecondaryEmailID)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.ClientName)</th>
+            <th>@Html.DisplayNameFor(model => model.PrimaryContact)</th>
+            <th>@Html.DisplayNameFor(model => model.PrimaryEmailID)</th>
+            <th>@Html.DisplayNameFor(model => model.SecondaryContact)</th>
+            <th>@Html.DisplayNameFor(model => model.SecondaryEmailID)</th>
+            <th>Actions</th> <!-- Column header for action buttons -->
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrimaryContact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrimaryEmailID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecondaryContact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecondaryEmailID)
-            </td>
-            <td>
-                <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@item.ClientID">Edit</a> |
-                <a class="btn btn-primary blue" asp-action="Details" asp-route-id="@item.ClientID">Details</a> |
-                <a class="btn btn-primary red"  asp-action="Delete" asp-route-id="@item.ClientID">Delete</a>
+            <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
+            <td>@Html.DisplayFor(modelItem => item.PrimaryContact)</td>
+            <td>@Html.DisplayFor(modelItem => item.PrimaryEmailID)</td>
+            <td>@Html.DisplayFor(modelItem => item.SecondaryContact)</td>
+            <td>@Html.DisplayFor(modelItem => item.SecondaryEmailID)</td>
+            <td class="action-buttons">
+                <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@item.ClientID">Edit</a>
+                <a class="btn btn-primary blue" asp-action="Details" asp-route-id="@item.ClientID">Details</a>
+                <a class="btn btn-primary red" asp-action="Delete" asp-route-id="@item.ClientID">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

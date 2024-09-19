@@ -41,7 +41,7 @@ namespace DolphinFx.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ClientName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PrimaryContact = table.Column<long>(type: "bigint", nullable: false),
+                    PrimaryContact = table.Column<long>(type: "bigint", maxLength: 10, nullable: false),
                     PrimaryEmailID = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     SecondaryContact = table.Column<long>(type: "bigint", nullable: true),

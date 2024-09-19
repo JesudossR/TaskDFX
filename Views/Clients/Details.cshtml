@@ -4,45 +4,58 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Client Details</h1>
 
 <div class="details-container">
     <h4>Client</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ClientName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ClientName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PrimaryContact)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PrimaryContact)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PrimaryEmailID)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PrimaryEmailID)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SecondaryContact)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SecondaryContact)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SecondaryEmailID)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SecondaryEmailID)
         </dd>
     </dl>
 </div>
+
 <div class="details-actions">
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.ClientID">Edit</a> |
-    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@Model.ClientID">Edit</a> |
+    <a class="btn btn-primary red" asp-action="Index">Back to List</a>
 </div>
+
+@section Styles {
+    <style>
+        .details-container {
+            margin-bottom: 20px;
+        }
+
+        .details-actions {
+            margin-top: 20px;
+        }
+    </style>
+}

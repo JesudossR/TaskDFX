@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DolphinFx.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240918121901_InitialCreate")]
+    [Migration("20240919051037_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -111,6 +111,7 @@ namespace DolphinFx.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<long>("PrimaryContact")
+                        .HasMaxLength(10)
                         .HasColumnType("bigint");
 
                     b.Property<string>("PrimaryEmailID")

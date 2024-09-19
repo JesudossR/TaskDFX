@@ -38,6 +38,13 @@
         border-radius: .25rem;
         transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     }
+
+    /* Flex container for buttons */
+    .button-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
 </style>
 
 <h1>Edit</h1>
@@ -57,7 +64,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="PrimaryContact" class="control-label"></label>
-                    <input asp-for="PrimaryContact" maxlength="20" />
+                    <input asp-for="PrimaryContact" data-validate/>
                     <span asp-validation-for="PrimaryContact" class="text-danger"></span>
                 </div>
             </div>
@@ -69,7 +76,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="SecondaryContact" class="control-label"></label>
-                    <input asp-for="SecondaryContact" />
+                    <input asp-for="SecondaryContact" data-validate/>
                     <span asp-validation-for="SecondaryContact" class="text-danger"></span>
                 </div>
             </div>
@@ -80,13 +87,31 @@
                     <span asp-validation-for="SecondaryEmailID" class="text-danger"></span>
                 </div>
             </div>
-            <div class="">
+
+            <!-- Button row -->
+            <div class="button-row">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-secondary" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+       
+
+            document.querySelectorAll('input[data-validate]').forEach(input => {
+                input.addEventListener('input', function() {
+                    // Allow only digits and restrict to 10 characters
+                    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+                });
+            });
+        });
+
+       
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

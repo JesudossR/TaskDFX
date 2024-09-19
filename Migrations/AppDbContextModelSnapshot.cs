@@ -108,6 +108,7 @@ namespace DolphinFx.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<long>("PrimaryContact")
+                        .HasMaxLength(10)
                         .HasColumnType("bigint");
 
                     b.Property<string>("PrimaryEmailID")

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -45,12 +44,11 @@ namespace DolphinFx.Controllers
         // GET: UserRoles/Create
         public IActionResult Create()
         {
+            ViewData["Roles"] = GetRoles(); // Populate the dropdown
             return View();
         }
 
         // POST: UserRoles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserID,Role,RoleDescription")] UserRole userRole)
@@ -61,6 +59,9 @@ namespace DolphinFx.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // Re-populate the dropdown if there's an error
+            ViewData["Roles"] = GetRoles();
             return View(userRole);
         }
 
@@ -77,12 +78,13 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
+
+            // Populate the dropdown with roles
+            ViewData["Roles"] = GetRoles();
             return View(userRole);
         }
 
         // POST: UserRoles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserID,Role,RoleDescription")] UserRole userRole)
@@ -112,6 +114,9 @@ namespace DolphinFx.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            // Re-populate the dropdown if there's an error
+            ViewData["Roles"] = GetRoles();
             return View(userRole);
         }
 
@@ -151,6 +156,21 @@ namespace DolphinFx.Controllers
         private bool UserRoleExists(int id)
         {
             return _context.UserRoles.Any(e => e.UserID == id);
+        }
+
+        // Helper method to get roles for dropdown
+        private IEnumerable<SelectListItem> GetRoles()
+        {
+            // Example roles; replace with actual role retrieval logic
+            var roles = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Maker", Text = "Maker" },
+                new SelectListItem { Value = "Checker", Text = "Checker" },
+                new SelectListItem { Value = "Admin", Text = "Admin" },
+                new SelectListItem { Value = "View", Text = "View" },
+                new SelectListItem { Value = "Both", Text = "Both" }
+            };
+            return roles;
         }
     }
 }

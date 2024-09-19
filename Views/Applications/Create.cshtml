@@ -74,3 +74,43 @@
 </div>
 
 
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @* <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const applicationNameInput = document.querySelector('input[name="ApplicationName"]');
+            const applicationShortNameInput = document.querySelector('input[name="ApplicationShortName"]');
+            
+            function validateName(inputElement, errorMessageElement) {
+                const regex = /^[a-zA-Z][a-zA-Z\s]*$/;
+                if (!regex.test(inputElement.value)) {
+                    errorMessageElement.textContent = "Name must contain only letters and spaces and start with a letter.";
+                } else {
+                    errorMessageElement.textContent = "";
+                }
+            }
+
+            applicationNameInput.addEventListener('input', function() {
+                const errorMessage = document.querySelector('span[data-valmsg-for="ApplicationName"]');
+                validateName(this, errorMessage);
+            });
+
+            applicationShortNameInput.addEventListener('input', function() {
+                const errorMessage = document.querySelector('span[data-valmsg-for="ApplicationShortName"]');
+                validateName(this, errorMessage);
+            });
+        });
+
+        $.validator.addMethod('validName', function(value, element) {
+            return /^[a-zA-Z][a-zA-Z\s]*$/.test(value);
+        }, 'Name must contain only letters and spaces and start with a letter.');
+
+        $.validator.unobtrusive.adapters.add('validname', function(options) {
+            options.rules['validName'] = true;
+            options.messages['validName'] = options.message;
+        });
+    </script> *@
+    <partial name="_ValidationScriptsPartial" />
+}
