@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DolphinFx.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240920073226_initial")]
-    partial class initial
+    [Migration("20240920101002_Initialcreate")]
+    partial class Initialcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

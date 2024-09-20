@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DolphinFx.styles.css" asp-append-version="true" />
      @RenderSection("Styles", required: false)
+
+    <style>
+        /* Custom class for the active button */
+        .active-link {
+            background-color: #b6b8ab !important; /* Light blue background */
+            color: white !important; /* White text color */
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -70,6 +79,34 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.3/jquery.validate.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate.unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+   
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.1.2/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Apply 'active-link' class to the current clicked link
+            $(".nav-link").click(function () {
+                // Remove the active class from all links
+                $(".nav-link").removeClass("active-link");
+
+                // Add the active class to the clicked link
+                $(this).addClass("active-link");
+            });
+
+            // Handle the active link on page load based on current URL
+            const currentUrl = window.location.href;
+            $(".nav-link").each(function () {
+                if (this.href === currentUrl) {
+                    $(this).addClass("active-link");
+                }
+            });
+        });
+    </script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
