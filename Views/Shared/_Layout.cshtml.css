@@ -46,3 +46,26 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+/* Ensure the navbar items are displayed by default on larger screens */
+@media (min-width: 992px) {
+  .navbar-collapse {
+      display: flex !important;  /* Show items as flex on large screens */
+      flex-basis: auto !important; /* Allow items to occupy space */
+  }
+
+  .navbar-toggler {
+      display: none; /* Hide the hamburger icon on larger screens */
+  }
+}
+
+/* On smaller screens, show the hamburger icon and hide the nav items */
+@media (max-width: 991px) {
+  .navbar-collapse {
+      display: none; /* Hide items by default on small screens */
+  }
+  
+  
+  .navbar-toggler {
+      display: block; /* Show the hamburger icon on smaller screens */
+  }
+}
