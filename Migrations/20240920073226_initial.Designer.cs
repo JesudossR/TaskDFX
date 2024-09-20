@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DolphinFx.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240919051037_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240920073226_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,15 +34,18 @@ namespace DolphinFx.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ApplicationID"));
 
                     b.Property<string>("ApplicationDescription")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("ApplicationName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("ApplicationShortName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(5)
+                        .HasColumnType("varchar(5)");
 
                     b.HasKey("ApplicationID");
 
@@ -80,7 +83,8 @@ namespace DolphinFx.Migrations
 
                     b.Property<string>("User")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -108,10 +112,10 @@ namespace DolphinFx.Migrations
 
                     b.Property<string>("ClientName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<long>("PrimaryContact")
-                        .HasMaxLength(10)
                         .HasColumnType("bigint");
 
                     b.Property<string>("PrimaryEmailID")
@@ -156,7 +160,8 @@ namespace DolphinFx.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("DbId");
 
@@ -178,11 +183,13 @@ namespace DolphinFx.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("EnvironmentID"));
 
                     b.Property<string>("EnvironmentDescription")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("EnvironmentName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("EnvironmentID");
 
@@ -202,11 +209,13 @@ namespace DolphinFx.Migrations
 
                     b.Property<string>("TeamDescription")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("TeamName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("TeamID");
 
@@ -228,7 +237,8 @@ namespace DolphinFx.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("RoleDescription")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
 
                     b.HasKey("UserID");
 

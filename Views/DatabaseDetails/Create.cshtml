@@ -79,4 +79,29 @@
 <div>
   
 </div>
+@section Scripts{
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.querySelector('input[name="Password"]');
+        const passwordErrorMessage = document.querySelector('span[data-valmsg-for="Password"]');
+
+        passwordInput.addEventListener('input', function() {
+            // Regular expression: 
+            // (?=.*[a-z]) -> At least one lowercase letter
+            // (?=.*[A-Z]) -> At least one uppercase letter
+            // (?=.*\d) -> At least one digit
+            // .{8,} -> At least 8 characters (no max limit)
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+            if (!passwordPattern.test(this.value)) {
+                passwordErrorMessage.textContent = "Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, and one digit.";
+            } else {
+                passwordErrorMessage.textContent = "";
+            }
+        });
+    });
+
+
+    </script>
+}
 

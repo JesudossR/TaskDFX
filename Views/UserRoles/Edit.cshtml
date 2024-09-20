@@ -52,3 +52,30 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts{
+     <script>
+     document.addEventListener('DOMContentLoaded', function() {
+            // Select the RoleDescription input and its validation message span
+            const roleDescriptionInput = document.querySelector('input[name="RoleDescription"]');
+            const roleDescriptionErrorMessage = document.querySelector('span[data-valmsg-for="RoleDescription"]');
+            
+            // Add an event listener to validate the input on every change
+            roleDescriptionInput.addEventListener('input', function() {
+                // Regex to ensure the Role Description starts with a letter and contains only letters, numbers, and spaces
+                const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
+                
+                // Validate and replace any invalid characters
+                if (!regex.test(this.value)) {
+                    this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+                }
+                
+                // Check if the first character is a letter
+                if (!/^[a-zA-Z]/.test(this.value)) {
+                    roleDescriptionErrorMessage.textContent = "Role Description must start with a letter.";
+                } else {
+                    roleDescriptionErrorMessage.textContent = "";
+                }
+            });
+        });
+    </script>
+}

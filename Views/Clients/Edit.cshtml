@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="PrimaryContact" class="control-label"></label>
-                    <input asp-for="PrimaryContact" data-validate/>
+                    <input asp-for="PrimaryContact" data-validate style="appearance: none; -moz-appearance: textfield;"/>
                     <span asp-validation-for="PrimaryContact" class="text-danger"></span>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="SecondaryContact" class="control-label"></label>
-                    <input asp-for="SecondaryContact" data-validate/>
+                    <input asp-for="SecondaryContact" data-validate style="appearance: none; -moz-appearance: textfield;"/>
                     <span asp-validation-for="SecondaryContact" class="text-danger"></span>
                 </div>
             </div>
@@ -95,13 +95,39 @@
             </div>
         </form>
     </div>
+    <style>
+    /* Hide the default spinner buttons */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
 </div>
 
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script>
-       
+       document.addEventListener('DOMContentLoaded', function() {
+    const clientNameInput = document.querySelector('input[name="ClientName"]');
+   
+    
+    clientNameInput.addEventListener('input', function() {
+    // Regex to ensure the client name starts with a letter and can contain letters, numbers, and spaces, but no special characters
+    const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
+    const errorMessage = document.querySelector('span[data-valmsg-for="ClientName"]');
+    
+    // Replace any character that is not a letter, number, or space
+    this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+    
+    // Check if the first character is a letter
+    if (!/^[a-zA-Z]/.test(this.value)) {
+        errorMessage.textContent = "Client Name must start with a letter.";
+    } else {
+        errorMessage.textContent = "";
+    }
+});
 
             document.querySelectorAll('input[data-validate]').forEach(input => {
                 input.addEventListener('input', function() {

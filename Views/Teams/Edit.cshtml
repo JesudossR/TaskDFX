@@ -63,6 +63,30 @@
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const teamNameInput = document.querySelector('input[name="TeamName"]');
+        const errorMessage = document.querySelector('span[data-valmsg-for="TeamName"]');
+        
+        teamNameInput.addEventListener('input', function() {
+            // Regex to ensure the team name starts with a letter and can contain letters, numbers, and spaces, but no special characters
+            const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
+            
+            // Validate and replace any character that is not a letter, number, or space
+            if (!regex.test(this.value)) {
+                this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+            }
+            
+            // Check if the first character is a letter
+            if (!/^[a-zA-Z]/.test(this.value)) {
+                errorMessage.textContent = "Team Name must start with a letter.";
+            } else {
+                errorMessage.textContent = "";
+            }
+        });
+    });
+    </script>
+
    
     <partial name="_ValidationScriptsPartial" />
 }

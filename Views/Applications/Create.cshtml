@@ -78,39 +78,58 @@
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    @* <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const applicationNameInput = document.querySelector('input[name="ApplicationName"]');
-            const applicationShortNameInput = document.querySelector('input[name="ApplicationShortName"]');
+   @* <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const teamNameInput = document.querySelector('input[name="ApplicationName"]');
+        const errorMessage = document.querySelector('span[data-valmsg-for="ApplicationName"]');
+        
+        teamNameInput.addEventListener('input', function() {
+            // Regex to ensure the team name starts with a letter and can contain letters, numbers, and spaces, but no special characters
+            const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
             
-            function validateName(inputElement, errorMessageElement) {
-                const regex = /^[a-zA-Z][a-zA-Z\s]*$/;
-                if (!regex.test(inputElement.value)) {
-                    errorMessageElement.textContent = "Name must contain only letters and spaces and start with a letter.";
-                } else {
-                    errorMessageElement.textContent = "";
-                }
+            // Validate and replace any character that is not a letter, number, or space
+            if (!regex.test(this.value)) {
+                this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
             }
-
-            applicationNameInput.addEventListener('input', function() {
-                const errorMessage = document.querySelector('span[data-valmsg-for="ApplicationName"]');
-                validateName(this, errorMessage);
-            });
-
-            applicationShortNameInput.addEventListener('input', function() {
-                const errorMessage = document.querySelector('span[data-valmsg-for="ApplicationShortName"]');
-                validateName(this, errorMessage);
-            });
+            
+            // Check if the first character is a letter
+            if (!/^[a-zA-Z]/.test(this.value)) {
+                errorMessage.textContent = "Application Name must start with a letter.";
+            } else {
+                errorMessage.textContent = "";
+            }
         });
-
-        $.validator.addMethod('validName', function(value, element) {
-            return /^[a-zA-Z][a-zA-Z\s]*$/.test(value);
-        }, 'Name must contain only letters and spaces and start with a letter.');
-
-        $.validator.unobtrusive.adapters.add('validname', function(options) {
-            options.rules['validName'] = true;
-            options.messages['validName'] = options.message;
-        });
+    });
     </script> *@
+     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Define the validation function
+        function addValidation(inputName, fieldName) {
+            const inputField = document.querySelector(`input[name="${inputName}"]`);
+            const errorMessage = document.querySelector(`span[data-valmsg-for="${inputName}"]`);
+            
+            inputField.addEventListener('input', function() {
+                const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
+
+                // Replace invalid characters
+                if (!regex.test(this.value)) {
+                    this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+                }
+
+                // Ensure the first character is a letter
+                if (!/^[a-zA-Z]/.test(this.value)) {
+                    errorMessage.textContent = `${fieldName} must start with a letter.`;
+                } else {
+                    errorMessage.textContent = "";
+                }
+            });
+        }
+
+        // Apply validation to the desired fields
+        addValidation("ApplicationName", "Application Name");
+        addValidation("ApplicationShortName", "Application Short Name");
+        addValidation("ApplicationDescription", "Application Description");
+    });
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }
