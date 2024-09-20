@@ -164,3 +164,12 @@ body {
 .blue:hover{
   background-color: blueviolet;
 }
+
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  text-align: center;
+  height: 90%; /* Ensures full height for vertical centering */
+}

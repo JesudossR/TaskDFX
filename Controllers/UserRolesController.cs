@@ -58,6 +58,7 @@ namespace DolphinFx.Controllers
             {
                 _context.Add(userRole);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "User Role created.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -101,6 +102,7 @@ namespace DolphinFx.Controllers
                 {
                     _context.Update(userRole);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "User Role updated.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -151,6 +153,7 @@ namespace DolphinFx.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "User Role deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
 

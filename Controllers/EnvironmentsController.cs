@@ -60,6 +60,7 @@ namespace DolphinFx.Controllers
             {
                 _context.Add(environment);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Environment added.";
                 return RedirectToAction(nameof(Index));
             }
             return View(environment);
@@ -99,6 +100,7 @@ namespace DolphinFx.Controllers
                 {
                     _context.Update(environment);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Environment updated.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,6 +148,7 @@ namespace DolphinFx.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Environment deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> ExportToExcel()

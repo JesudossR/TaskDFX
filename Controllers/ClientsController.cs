@@ -56,6 +56,7 @@ namespace DolphinFx.Controllers
             {
                 _context.Add(client);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Client added.";
                 return RedirectToAction(nameof(Index));
             }
             return View(client);
@@ -93,6 +94,7 @@ namespace DolphinFx.Controllers
                 {
                     _context.Update(client);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Client updated.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -140,6 +142,7 @@ namespace DolphinFx.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Client deleted.";
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> ExportToExcel()

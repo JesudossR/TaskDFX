@@ -13,23 +13,31 @@
 
 <style>
     .table {
-        padding: 0; /* Reduce table padding */
-        
+        padding: 0;
+        /* Reduce table padding */
+
     }
 
-    .table th, .table td {
-        padding: 5px; /* Adjust padding for table cells */
+    .table th,
+    .table td {
+        padding: 5px;
+        /* Adjust padding for table cells */
     }
 
     .action-buttons a {
-        margin: 0 4px; /* Space out the buttons */
-        padding: 4px 8px; /* Adjust button padding */
-        text-decoration: none; /* Remove underline from buttons */
-        color: #fff; /* Ensure text color is white */
+        margin: 0 4px;
+        /* Space out the buttons */
+        padding: 4px 8px;
+        /* Adjust button padding */
+        text-decoration: none;
+        /* Remove underline from buttons */
+        color: #fff;
+        /* Ensure text color is white */
     }
 
     .action-buttons .btn-primary {
-        font-size: 0.875rem; /* Adjust button font size */
+        font-size: 0.875rem;
+        /* Adjust button font size */
     }
 </style>
 
@@ -45,19 +53,61 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
-            <td>@Html.DisplayFor(modelItem => item.PrimaryContact)</td>
-            <td>@Html.DisplayFor(modelItem => item.PrimaryEmailID)</td>
-            <td>@Html.DisplayFor(modelItem => item.SecondaryContact)</td>
-            <td>@Html.DisplayFor(modelItem => item.SecondaryEmailID)</td>
-            <td class="action-buttons">
-                <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@item.ClientID">Edit</a>
-                <a class="btn btn-primary blue" asp-action="Details" asp-route-id="@item.ClientID">Details</a>
-                <a class="btn btn-primary red" asp-action="Delete" asp-route-id="@item.ClientID">Delete</a>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
+                <td>@Html.DisplayFor(modelItem => item.PrimaryContact)</td>
+                <td>@Html.DisplayFor(modelItem => item.PrimaryEmailID)</td>
+                <td>@Html.DisplayFor(modelItem => item.SecondaryContact)</td>
+                <td>@Html.DisplayFor(modelItem => item.SecondaryEmailID)</td>
+                <td class="action-buttons">
+                    <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@item.ClientID">Edit</a>
+                    <a class="btn btn-primary blue" asp-action="Details" asp-route-id="@item.ClientID">Details</a>
+                    <a class="btn btn-primary red" asp-action="Delete" asp-route-id="@item.ClientID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<!-- Bootstrap Modal for Success Message -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    @TempData["SuccessMessage"]
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
+
+    <script>
+        $(document).ready(function () {
+            // Check if there is a success message
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage) {
+                $("#successModal").modal("show");
+            }
+        });
+    </script>
+}

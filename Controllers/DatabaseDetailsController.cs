@@ -67,6 +67,7 @@ namespace DolphinFx.Controllers
             {
                 _context.Add(databaseDetail);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Database Details created.";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", databaseDetail.ApplicationID);
@@ -112,6 +113,7 @@ namespace DolphinFx.Controllers
                 {
                     _context.Update(databaseDetail);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Database Details updated.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -165,6 +167,7 @@ namespace DolphinFx.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Database Details deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> ExportToExcel()
