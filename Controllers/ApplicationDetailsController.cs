@@ -147,7 +147,7 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
 
-            var applicationDetails = await _context.ApplicationDetails
+            var applicationDetails = await _context.ApplicationDetails //taking all details from ApplicationDetails and returning to view and showing that "Are you sure to delete ?"
                 .Include(a => a.Applications)
                 .Include(a => a.Client)
                 .Include(a => a.Environments)

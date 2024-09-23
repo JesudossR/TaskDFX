@@ -14,18 +14,31 @@
     <style>
         /* Custom class for the active button */
         .active-link {
-            background-color: #b6b8ab !important; /* Light blue background */
-            color: white !important; /* White text color */
+            background: linear-gradient(135deg, #ffe6d8, #fff3e6); /* Light blue background */
+            color: black !important; /* White text color */
             border-radius: 5px;
+        }
+
+        body{
+             /*background: linear-gradient(to right, #F78FAD, #FDEB82);
+             background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+             background: linear-gradient(135deg, #a2c2e6, #e4c1f9);
+                     background: linear-gradient(135deg, #ff7e5f, #feb47b);
+                             background: linear-gradient(135deg, #89f7fe, #66a6ff);
+             */
+            background: linear-gradient(135deg, #ffe6d8, #fff3e6);
+            
         }
     </style>
 </head>
 
 <body>
     <header>
-    <nav class="navbar navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        @* <nav class="navbar navbar-toggleable-sm navbar-light bg-dark  border-bottom box-shadow mb-3">*@
+           <nav class="navbar navbar-toggleable-sm navbar-light bg-dark text-white border-bottom box-shadow mb-3">
+
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DolphinFx</a>
+            <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">DolphinFx</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
                  <span class="navbar-toggler-icon"></span>
@@ -33,28 +46,28 @@
             <div class="collapse navbar-collapse show-list" id="navbarNav">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Create">Client</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Clients" asp-action="Create">Client</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Create">Team</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Teams" asp-action="Create">Team</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Applications" asp-action="Create">Application</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Applications" asp-action="Create">Application</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Environments" asp-action="Create">Environment</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Environments" asp-action="Create">Environment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="UserRoles" asp-action="Create">User Role</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="UserRoles" asp-action="Create">User Role</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="ApplicationDetails" asp-action="Create">Application Detail</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="ApplicationDetails" asp-action="Create">Application Detail</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="DatabaseDetails" asp-action="Create">Database Detail</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="DatabaseDetails" asp-action="Create">Database Detail</a>
                     </li>
                 </ul>
             </div>

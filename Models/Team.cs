@@ -22,6 +22,7 @@ namespace DolphinFx.Models
         [ForeignKey("Client")]
         public int ClientID { get; set; } // Foreign Key to client
 
-        public virtual Client? Client { get; set; } // Navigation property
+        public virtual Client? Client { get; set; } // Navigation property -- Each Team belongs to one Client
+                                                    // establishing Relationship -> 1 - to - 1
     }
 }

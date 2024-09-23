@@ -33,7 +33,19 @@ namespace DolphinFx.Models
         public string? SecondaryEmailID { get; set; } // Optional and valid email
 
         // Navigation property
-        public virtual ICollection<Team>? Teams { get; set; } // One client can have many teams
+        public virtual ICollection<Team>? Teams { get; set; } // One client can have many teams -- This is represented by the Teams collection in the Client class.
+        //establishing relationship -> 1 - to - many
+        /*
+                          public virtual ICollection<Team>? Teams { get; set; } 
+
+                                                                      && 
+
+                          modelBuilder.Entity<Client>()
+                         .HasMany(c => c.Teams)
+                         .WithOne(t => t.Client)
+                         .HasForeignKey(t => t.ClientID);
+                                                                      --> same meaning 
+         */
         public virtual ICollection<ApplicationDetails>? ApplicationDetails { get; set; } // Navigation property for ApplicationDetails
     }
 }
