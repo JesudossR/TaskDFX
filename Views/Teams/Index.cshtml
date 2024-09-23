@@ -3,14 +3,32 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1>Teams Table</h1>
+<style>
+    .table{
+        text-align: center;
+        margin: 0 auto;
+    }
+      body {
+      height: 100%;
+      margin: 0;
+     
+      justify-content: center; /* Horizontal centering */
+      align-items: center;    /* Vertical centering */
+      text-align: center;     /* Centers text and table content */
+    }
+    .button-container {
+      text-align: right; /* Align buttons to the right */
+      margin-right: auto; /* Optional margin to add space from the right */
+    }
+</style>
+<h1>Teams</h1>
 
-<p>
+<p class="button-container">
     <a class="btn btn-primary" asp-action="Create">Create New</a>
     <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a> <!-- Export to Excel button -->
 </p>
 </p>
-<table class="table">
+<table class="table" style="width:100%;">
     <thead>
         <tr>
             <th>
@@ -38,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.Client.ClientName)
             </td>
             <td>
-                <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@item.TeamID">Edit</a> |
-                <a class="btn btn-primary blue" asp-action="Details" asp-route-id="@item.TeamID">Details</a> |
-                <a class="btn btn-primary red" asp-action="Delete" asp-route-id="@item.TeamID">Delete</a>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.TeamID">Edit</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.TeamID">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.TeamID">Delete</a>
             </td>
         </tr>
 }

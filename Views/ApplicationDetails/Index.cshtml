@@ -4,75 +4,135 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
+    .table {
+        padding: 0;
+        /* Reduce table padding */
 
-<h1>Index</h1>
+    }
 
-<p>
+    .table th,
+    .table tr {
+        padding: 3px;
+        /* Adjust padding for table cells */
+    }
+    .table td ,.table tr{
+         padding: 7px;
+    }
+    .action-buttons a {
+        margin: 0 4px;
+        /* Space out the buttons */
+        padding: 4px 8px;
+        /* Adjust button padding */
+        text-decoration: none;
+        /* Remove underline from buttons */
+        color: #fff;
+        /* Ensure text color is white */
+    }
+
+    .action-buttons .btn-primary {
+        font-size: 0.875rem;
+        /* Adjust button font size */
+    }
+   table .theading
+    {
+        text-align: center;
+        padding:20px;
+    }
+</style>
+
+
+<style>
+    @* .table{
+        text-align: center;
+        margin: 0 auto;
+        @* border-radius: 15px solid !important; *@
+    }
+      body { 
+      height: 100%;
+      margin: 0;
+     
+      justify-content: center; /* Horizontal centering */
+      align-items: center;    /* Vertical centering */
+      text-align: center;     /* Centers text and table content */
+    }
+
+     .button-container {
+      text-align: right; /* Align buttons to the right */
+      margin-right: auto; /* Optional margin to add space from the right */
+    }
+</style>
+
+
+
+<h1>Application Details </h1>
+
+<p  class="button-container">
     <a class="btn btn-primary" asp-action="Create">Create New</a>
     <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
 
 </p>
-<table class="table">
-    <thead>
+<table class="table"  style="width:100%;">
+    <thead  class = "theading">
         <tr>
-            <th>
+            <th  >
                 Client Name
             </th>
-            <th>
+            <th  >
                 Environment Name
             </th>
             <th>
                 Application Name
             </th>
-            <th>
+            <th >
                 Link
             </th>
-            <th>
+            <th >
                 Path
             </th>
-            <th>
+            <th >
                 User
-            </th>
-            <th>
+            </th >
+            <th  >
                 User Role
             </th>
-            <th>
+            <th  >
                 Password
             </th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody >
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td   >
                 @Html.DisplayFor(modelItem => item.Client.ClientName)
             </td>
-            <td>
+            <td  >
                 @Html.DisplayFor(modelItem => item.Environments.EnvironmentName)
             </td>
-            <td>
+            <td  >
                 @Html.DisplayFor(modelItem => item.Applications.ApplicationName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Link)
+            <td  >
+                  <a href="@item.Link" target="_blank">Go to Link</a>
             </td>
-            <td>
+            <td  >
                 @Html.DisplayFor(modelItem => item.Path)
             </td>
-            <td>
+            <td  >
                 @Html.DisplayFor(modelItem => item.User)
             </td>
-            <td>
+            <td  >
                 @Html.DisplayFor(modelItem => item.UserRole.Role)
             </td>
-            <td>
+            <td  >
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
-            <td>
-                <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a class="btn btn-primary blue" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a class="btn btn-primary red" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <td  >
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
