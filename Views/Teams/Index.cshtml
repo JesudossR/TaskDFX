@@ -3,67 +3,99 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <style>
-    .table{
+    .table {
         text-align: center;
         margin: 0 auto;
     }
-      body {
-      height: 100%;
-      margin: 0;
-     
-      justify-content: center; /* Horizontal centering */
-      align-items: center;    /* Vertical centering */
-      text-align: center;     /* Centers text and table content */
+
+    body {
+        height: 100%;
+        margin: 0;
+        justify-content: center; /* Horizontal centering */
+        align-items: center; /* Vertical centering */
+        text-align: center; /* Centers text and table content */
     }
+
     .button-container {
-      text-align: right; /* Align buttons to the right */
-      margin-right: auto; /* Optional margin to add space from the right */
+        text-align: right;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px;
+    }
+
+    .action-buttons a {
+        margin: 0 4px;
+        padding: 4px 8px;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .action-buttons .btn-primary {
+        font-size: 0.875rem;
+    }
+
+    .search-container {
+        margin-bottom: 20px;
+        text-align: left; /* Align search input to the left */
+        margin-right: 10px;
+    }
+
+    .search-button-container {
+        display: flex;
+        justify-content: space-between; /* Space out the items */
+        align-items: center; /* Center vertically */
+        margin-bottom: 20px; /* Space below */
+    }
+
+
+
+    .button-container {
+        margin: 0; /* Remove default margin */
     }
 </style>
+
 <h1>Teams</h1>
 
-<p class="button-container">
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-    <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a> <!-- Export to Excel button -->
-</p>
-</p>
+<div class="search-button-container">
+    <div class="search-container">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="width:193px;height:50px" />
+    </div>
+    <p class="button-container">
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+        <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
+    </p>
+</div>
 <table class="table" style="width:100%;">
     <thead>
         <tr>
-            <th>
-                Team Name
-            </th>
-            <th>
-                Team Description
-            </th>
-            <th>
-               Client Name
-            </th>
+            <th>Team Name</th>
+            <th>Team Description</th>
+            <th>Client Name</th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TeamName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TeamDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Client.ClientName)
-            </td>
-            <td>
-                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.TeamID">Edit</a> |
-                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.TeamID">Details</a> |
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.TeamID">Delete</a>
-            </td>
-        </tr>
-}
+    <tbody id="tableBody">
+        <!-- Add id to tbody -->
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.TeamName)</td>
+                <td>@Html.DisplayFor(modelItem => item.TeamDescription)</td>
+                <td>@Html.DisplayFor(modelItem => item.Client.ClientName)</td>
+                <td>
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.TeamID">Edit</a> |
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.TeamID">Details</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.TeamID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
 <!-- Bootstrap Modal for Success Message -->
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -92,8 +124,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    
-
     <script>
         $(document).ready(function () {
             // Check if there is a success message
@@ -101,6 +131,15 @@
             if (successMessage) {
                 $("#successModal").modal("show");
             }
+
+            // Real-time filtering of table rows
+            $('#searchInput').on('keyup', function () {
+                var value = $(this).val().toLowerCase();  // Get input value
+
+                $("#tableBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);  // Show rows that match the input
+                });
+            });
         });
     </script>
 }

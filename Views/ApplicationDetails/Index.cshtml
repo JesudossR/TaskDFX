@@ -39,6 +39,26 @@
         text-align: center;
         padding:20px;
     }
+    .search-container {
+        margin-bottom: 20px;
+        margin-top:20px;
+        text-align: left; /* Align search input to the left */
+        margin-right: 800px;
+    }
+
+    .search-button-container {
+        display: flex;
+        justify-content: space-between; /* Space out the items */
+        align-items: center; /* Center vertically */
+        margin-bottom: 20px; /* Space below */
+    }
+
+    
+
+    .button-container {
+        margin: 0; /* Remove default margin */
+    }
+
 </style>
 
 
@@ -67,11 +87,16 @@
 
 <h1>Application Details </h1>
 
-<p  class="button-container">
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-    <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
-
-</p>
+<!-- Search Input -->
+<div class="search-button-container">
+    <div class="search-container">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="width:193px;height:50px" />
+    </div>
+    <p class="button-container">
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+        <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
+    </p>
+</div>
 <table class="table"  style="width:100%;">
     <thead  class = "theading">
         <tr>
@@ -102,7 +127,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody >
+    <tbody id="tableBody">
 @foreach (var item in Model) {
         <tr>
             <td   >
@@ -175,6 +200,14 @@
             if (successMessage) {
                 $("#successModal").modal("show");
             }
+             // Real-time filtering of table rows
+            $('#searchInput').on('keyup', function () {
+                var value = $(this).val().toLowerCase();  // Get input value
+
+                $("#tableBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);  // Show rows that match the input
+                });
+            });
         });
     </script>
 }
