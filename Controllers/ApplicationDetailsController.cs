@@ -55,7 +55,7 @@ namespace DolphinFx.Controllers
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName");
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName");
             ViewData["UserId"] = new SelectList(_context.UserRoles, "UserID", "Role");
-            return View();
+            return PartialView();
         }
 
         // POST: ApplicationDetails/Create
@@ -76,7 +76,7 @@ namespace DolphinFx.Controllers
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName", applicationDetails.ClientID);
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName", applicationDetails.EnvironmentID);
             ViewData["UserId"] = new SelectList(_context.UserRoles, "UserID", "Role", applicationDetails.UserId);
-            return View(applicationDetails);
+            return PartialView(applicationDetails);
         }
 
         // GET: ApplicationDetails/Edit/5
@@ -96,7 +96,7 @@ namespace DolphinFx.Controllers
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName", applicationDetails.ClientID);
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName", applicationDetails.EnvironmentID);
             ViewData["UserId"] = new SelectList(_context.UserRoles, "UserID", "Role", applicationDetails.UserId);
-            return View(applicationDetails);
+            return PartialView(applicationDetails);
         }
 
         // POST: ApplicationDetails/Edit/5
