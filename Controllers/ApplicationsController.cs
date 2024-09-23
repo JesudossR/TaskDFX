@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
 using OfficeOpenXml;
+using X.PagedList;
 
 namespace DolphinFx.Controllers
 {
@@ -20,10 +21,20 @@ namespace DolphinFx.Controllers
         }
 
         // GET: Applications
-        public async Task<IActionResult> Index()
+        // public async Task<IActionResult> Index()
+        // {
+        //     return View(await _context.Applications.ToListAsync());
+        // }
+        // this method is changed for pagination shown below
+        public async Task<IActionResult> Index(int? page)
         {
-            return View(await _context.Applications.ToListAsync());
+            int pageSize = 6; // Number of records per page
+            int pageNumber = page ?? 1; // Default to page 1 if no page is specified
+            var applications = await _context.Applications.ToListAsync();
+            return View(applications.ToPagedList(pageNumber, pageSize));
         }
+
+
 
         // GET: Applications/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -191,3 +202,8 @@ namespace DolphinFx.Controllers
         }
     }
 }
+
+
+
+
+
