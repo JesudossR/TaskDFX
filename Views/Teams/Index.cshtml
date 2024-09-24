@@ -63,7 +63,7 @@
         <!-- Add id to tbody -->
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="team-row" data-id="@item.TeamID">
                 <td>@Html.DisplayFor(modelItem => item.TeamName)</td>
                 <td>@Html.DisplayFor(modelItem => item.TeamDescription)</td>
                 <td>@Html.DisplayFor(modelItem => item.Client.ClientName)</td>
@@ -77,6 +77,26 @@
         }
     </tbody>
 </table>
+
+<!-- Bootstrap Modal for Team Details -->
+<div class="modal fade" id="teamDetailsModal" tabindex="-1" role="dialog" aria-labelledby="teamDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="teamDetailsModalLabel">Team Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="teamDetailsBody">
+                <!-- Team details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Bootstrap Modal for Success Message -->
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
@@ -108,6 +128,10 @@
 
     <script>
         $(document).ready(function () {
+            $('.team-row').on('dblclick', function () {
+                var id = $(this).data('id');
+                loadTeamDetails(id);
+            });
             // Check if there is a success message
             var successMessage = '@TempData["SuccessMessage"]';
             if (successMessage) {
@@ -151,6 +175,20 @@
         }
         function loadCreateForm() {
             loadForm('@Url.Action("Create", "Teams")', '#createFormContainer', '.edit-button', '.create-button');
+        }
+        function loadTeamDetails(id) {
+            $.ajax({
+                url: '@Url.Action("Details", "Teams")/' + id,
+                type: 'GET',
+                success: function (result) {
+                    $('#teamDetailsBody').html(result);
+                    $('#teamDetailsModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred while loading the details: " + error);
+                    console.error("Error details:", xhr, status, error);
+                }
+            });
         }
     </script>
 }

@@ -183,3 +183,55 @@ margin-right: auto; /* Optional margin to add space from the right */
      -webkit-appearance: none;
      margin: 0;
  }
+
+
+ /*this the css for details modal*/
+
+ .modal-content {
+  background-color: #ffffff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+.modal-header {
+  background: linear-gradient(135deg, #a2c2e6, #e4c1f9);/* Bootstrap primary color */
+  color: white; /* White text color */
+  padding: 1rem; /* More padding */
+  border-bottom: 2px solid #0056b3; /* Darker border at the bottom */
+}
+.modal-body {
+  padding: 1.5rem; /* Add some padding */
+  font-size: 1rem; /* Increase font size */
+  line-height: 1.5; /* Improve readability */
+}
+.modal-footer .btn {
+  padding: 0.5rem 1.5rem; /* More padding for buttons */
+  border-radius: 4px; /* Slightly rounded buttons */
+}
+
+.modal-footer .btn-secondary {
+  background-color: #6c757d; /* Bootstrap secondary color */
+  color: white;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #5a6268; /* Darker shade on hover */
+}
+.modal {
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+.modal.show {
+  transform: scale(1.05); /* Slight scale up effect on show */
+}
+.modal-dialog {
+  max-width: 500px; /* Limit max width */
+  width: 90%; /* Full width on small screens */
+}
+.modal-title {
+  font-size: 1.5rem; /* Larger title font size */
+  font-weight: bold; /* Bold title */
+}
+
+.modal-body dl {
+  margin: 0; /* Remove margin */
+}

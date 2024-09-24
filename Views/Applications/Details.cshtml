@@ -1,36 +1,13 @@
 ﻿@model DolphinFx.Models.Application
 
-@{
-    ViewData["Title"] = "Details";
-}
+<h4>Application Details</h4>
+<dl class="row">
+    <dt class="col-sm-6">Application Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.ApplicationName)</dd>
 
-<h1>Details</h1>
+    <dt class="col-sm-6">Short Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.ApplicationShortName)</dd>
 
-<div class="details-container">
-    <h4>Application</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            ApplicationName
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationName)
-        </dd>
-        <dt class = "col-sm-2">
-            ApplicationShortName
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationShortName)
-        </dd>
-        <dt class = "col-sm-2">
-            ApplicationDescription
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationDescription)
-        </dd>
-    </dl>
-</div>
-<div class="details-actions">
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.ApplicationID">Edit</a> |
-    <a class="btn btn-primary" asp-action="Index">Back to List</a>
-</div>
+    <dt class="col-sm-6">Description</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.ApplicationDescription)</dd>
+</dl>

@@ -1,61 +1,15 @@
 ﻿@model DolphinFx.Models.Client
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Client Details</h1>
-
-<div class="details-container">
-    <h4>Client</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Client Name
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ClientName)
-        </dd>
-        <dt class="col-sm-2">
-            Primary Contact
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PrimaryContact)
-        </dd>
-        <dt class="col-sm-2">
-            Primary EmailID
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PrimaryEmailID)
-        </dd>
-        <dt class="col-sm-2">
-            Secondary Contact
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SecondaryContact)
-        </dd>
-        <dt class="col-sm-2">
-            Secondary EmailID
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SecondaryEmailID)
-        </dd>
-    </dl>
-</div>
-
-<div class="details-actions">
-    <a class="btn btn-primary yellow" asp-action="Edit" asp-route-id="@Model.ClientID">Edit</a> |
-    <a class="btn btn-primary red" asp-action="Index">Back to List</a>
-</div>
-
-@section Styles {
-    <style>
-        .details-container {
-            margin-bottom: 20px;
-        }
-
-        .details-actions {
-            margin-top: 20px;
-        }
-    </style>
-}
+<h4>Client Details</h4>
+<dl class="row">
+    <dt class="col-sm-6">Client Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.ClientName)</dd>
+    <dt class="col-sm-6">Primary Contact</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.PrimaryContact)</dd>
+    <dt class="col-sm-6">Primary EmailID</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.PrimaryEmailID)</dd>
+    <dt class="col-sm-6">Secondary Contact</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.SecondaryContact)</dd>
+    <dt class="col-sm-6">Secondary EmailID</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.SecondaryEmailID)</dd>
+</dl>

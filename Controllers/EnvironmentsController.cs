@@ -40,7 +40,7 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
 
-            return View(environment);
+            return PartialView(environment);
         }
 
         // GET: Environments/Create

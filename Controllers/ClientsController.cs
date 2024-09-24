@@ -37,6 +37,10 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
+            if (IsAjaxRequest(Request))
+            {
+                return PartialView("Details", client);
+            }
 
             return View(client);
         }
@@ -186,6 +190,16 @@ namespace DolphinFx.Controllers
         private bool ClientExists(int id)
         {
             return _context.Clients.Any(e => e.ClientID == id);
+        }
+
+        public static bool IsAjaxRequest(HttpRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            return request.Headers["X-Requested-With"] == "XMLHttpRequest";
         }
     }
 }

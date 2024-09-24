@@ -1,54 +1,17 @@
 ﻿@model DolphinFx.Models.DatabaseDetail
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
-
-<div class="details-container">
-    <h4>DatabaseDetail</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            DataSource
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Datasource)
-        </dd>
-        <dt class = "col-sm-2">
-            User Name
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-        <dt class = "col-sm-2">
-            Password
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Client)
-        </dt>
-        <dd class = "col-sm-10">
-            Client Name
-        </dd>
-        <dt class = "col-sm-2">
-            Environment Name
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Environments.EnvironmentName)
-        </dd>
-        <dt class = "col-sm-2">
-            Application Name
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Application.ApplicationName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a  class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.DbId">Edit</a> |
-    <a  class="btn btn-primary" asp-action="Index">Back to List</a>
-</div>
+<h4>Database Detail</h4>
+<dl class="row">
+    <dt class="col-sm-6">DataSource</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.Datasource)</dd>
+    <dt class="col-sm-6">User Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.Username)</dd>
+    <dt class="col-sm-6">Password</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.Password)</dd>
+    <dt class="col-sm-6">Client Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.Client.ClientName)</dd>
+    <dt class="col-sm-6">Environment Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.Environments.EnvironmentName)</dd>
+    <dt class="col-sm-6">Application Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.Application.ApplicationName)</dd>
+</dl>

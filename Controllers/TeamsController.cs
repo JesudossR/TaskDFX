@@ -42,7 +42,7 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
 
-            return View(team);
+            return PartialView(team);
         }
 
         // GET: Teams/Create

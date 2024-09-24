@@ -50,7 +50,7 @@
     </thead>
     <tbody id="tableBody">
 @foreach (var item in Model) {
-        <tr>
+        <tr class="database-table-row" data-id="@item.DbId">
             <td>
                 @Html.DisplayFor(modelItem => item.Datasource)
             </td>
@@ -79,6 +79,26 @@
 }
     </tbody>
 </table>
+
+<!-- Modal for showing database details -->
+<div class="modal fade" id="databaseDetailsModal" tabindex="-1" role="dialog" aria-labelledby="databaseDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="databaseDetailsModalLabel">Database Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Bootstrap Modal for Success Message -->
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -106,16 +126,15 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    
-
     <script>
+        
         $(document).ready(function () {
             // Check if there is a success message
             var successMessage = '@TempData["SuccessMessage"]';
             if (successMessage) {
                 $("#successModal").modal("show");
             }
+            
              // Real-time filtering of table rows
             $('#searchInput').on('keyup', function () {
                 var value = $(this).val().toLowerCase();  // Get input value
@@ -125,6 +144,25 @@
                 });
             });
         });
+        $('.database-table-row').dblclick(function () {
+                var id = $(this).data('id'); // Get the ID from the data attribute
+
+                // AJAX call to fetch details
+                $.ajax({
+                    url: '@Url.Action("Details", "DatabaseDetails")/' + id,
+                    type: 'GET',
+                    success: function (data) {
+                        // Load the fetched data into the modal's body
+                        $('#databaseDetailsModal .modal-body').html(data);
+                        // Show the modal
+                        $('#databaseDetailsModal').modal('show');
+                    },
+                    error: function () {
+                        $('#databaseDetailsModal .modal-body').html('<p>Error loading details.</p>');
+                        $('#databaseDetailsModal').modal('show');
+                    }
+                });
+            });
         function loadForm(url, container, disableButtonClass, enableButtonClass) {
             // Disable the specified buttons before making the AJAX call
             $(disableButtonClass).prop('disabled', true).addClass('disabled');
@@ -154,5 +192,6 @@
         function loadCreateForm() {
             loadForm('@Url.Action("Create", "DatabaseDetails")', '#createFormContainer', '.edit-button', '.create-button');
         }
+        
     </script>
 }

@@ -50,6 +50,10 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
+            if (IsAjaxRequest(Request))
+            {
+                return PartialView("Details", application);
+            }
 
             return View(application);
         }
@@ -199,6 +203,16 @@ namespace DolphinFx.Controllers
         private bool ApplicationExists(int id)
         {
             return _context.Applications.Any(e => e.ApplicationID == id);
+        }
+
+        public static bool IsAjaxRequest(HttpRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            return request.Headers["X-Requested-With"] == "XMLHttpRequest";
         }
     }
 }

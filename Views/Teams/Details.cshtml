@@ -1,37 +1,13 @@
 ﻿@model DolphinFx.Models.Team
 
-@{
-    ViewData["Title"] = "Details";
-}
+<h4>Team Details</h4>
+<dl class="row">
+    <dt class="col-sm-6">Team Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.TeamName)</dd>
 
-<h1>Details</h1>
+    <dt class="col-sm-6">Team Description</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.TeamDescription)</dd>
 
-<div class="details-container">
-    <h4>Team</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            Team Name
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TeamName)
-        </dd>
-        <dt class = "col-sm-2">
-            Team Description
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TeamDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            Client Name
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Client.ClientName)
-        </dd>
-    </dl>
-</div>
-<div class="details-actions">
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.TeamID">Edit</a> |
-    <a class="btn btn-primary
-    " asp-action="Index">Back to List</a>
-</div>
+    <dt class="col-sm-6">Client Name</dt>
+    <dd class="col-sm-6">@Html.DisplayFor(model => model.Client.ClientName)</dd>
+</dl>

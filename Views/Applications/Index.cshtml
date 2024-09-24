@@ -6,8 +6,6 @@
 }
 
 <style>
-    
-
     /*pagination*/
     .pagination {
 
@@ -93,6 +91,12 @@
         margin: 0;
         /* Remove default margin */
     }
+
+    .table-row {
+        cursor: pointer;
+        /* Show pointer cursor on hover */
+        text-align: center;
+    }
 </style>
 
 <h1>Applications</h1>
@@ -100,13 +104,13 @@
 <!-- Search Input -->
 <div class="search-button-container">
     <div class="search-container">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search..."/>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." />
     </div>
     <p class="button-container">
-    <a class="btn btn-primary create-button" href="javascript:void(0);" onclick="loadCreateForm()">Create New</a>
-    @* <a class="btn btn-primary" asp-action="Create">Create New</a> *@
-    <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
-</p>
+        <a class="btn btn-primary create-button" href="javascript:void(0);" onclick="loadCreateForm()">Create New</a>
+        @* <a class="btn btn-primary" asp-action="Create">Create New</a> *@
+        <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
+    </p>
 </div>
 
 
@@ -125,14 +129,14 @@
     <tbody id="tableBody">
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="table-row" data-id="@item.ApplicationID">
                 <td>@Html.DisplayFor(modelItem => item.ApplicationName)</td>
                 <td>@Html.DisplayFor(modelItem => item.ApplicationShortName)</td>
                 <td>@Html.DisplayFor(modelItem => item.ApplicationDescription)</td>
                 <td>
-                    <a class="btn btn-success edit-button" href="javascript:void(0);"onclick="loadEditForm(@item.ApplicationID)">Edit</a>
-                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.ApplicationID">Edit</a> | *@
-                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ApplicationID">Details</a> |
+                    <a class="btn btn-success edit-button" href="javascript:void(0);"
+                        onclick="loadEditForm(@item.ApplicationID)">Edit</a>
+                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.ApplicationID">Edit</a> | *@ |
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ApplicationID">Delete</a>
                 </td>
             </tr>
@@ -163,6 +167,27 @@
                 {
                     @TempData["SuccessMessage"]
                 }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for showing application details -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Application Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Details will be loaded here -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -221,5 +246,26 @@
         function loadCreateForm() {
             loadForm('@Url.Action("Create", "Applications")', '#createFormContainer', '.edit-button', '.create-button');
         }
+
+        $('.table-row').dblclick(function () {
+            var id = $(this).data('id'); // Get the ID from the data attribute
+
+            // AJAX call to fetch details
+            $.ajax({
+                url: '@Url.Action("Details", "Applications")/' + id,
+                type: 'GET',
+                success: function (data) {
+                    // Load the fetched data into the modal's body
+                    $('#detailsModal .modal-body').html(data);
+                    // Show the modal
+                    $('#detailsModal').modal('show');
+                },
+                error: function () {
+                    $('#detailsModal .modal-body').html('<p>Error loading details.</p>');
+                    $('#detailsModal').modal('show');
+                }
+            });
+        });
+
     </script>
 }
