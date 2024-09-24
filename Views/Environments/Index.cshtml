@@ -62,8 +62,7 @@
                 <td>@Html.DisplayFor(modelItem => item.EnvironmentDescription)</td>
                 <td>
                     <a class="btn btn-success edit-button" href="javascript:void(0);"onclick="loadEditForm(@item.EnvironmentID)">Edit</a>
-                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.EnvironmentID">Edit</a> | *@
-                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.EnvironmentID">Details</a> |
+                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.EnvironmentID">Edit</a> | *@ |
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EnvironmentID">Delete</a>
                 </td>
             </tr>
