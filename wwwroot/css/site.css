@@ -1,42 +1,4 @@
-html {
-  font-size: 14px;
-}
-body {
-  margin: 0px;
-  padding: 0px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-.row label{
-  text-align: left;
-}
-.navbar {
-  flex-direction: column; /* Stack the items vertically */
-  width: 200px; /* Set a fixed width for the sidebar */
-  position: fixed; /* Fix it to the left side */
-  height: 100%; /* Make it full height */
-  background-color: #ffffff; /* Background color for navbar */
-  border-right: 1px solid #e5e5e5; /* Right border */
-}
-
-.container {
-  margin-left: 195px; /* Leave space for the navbar */
-}
-
-.navbar-nav .nav-item {
-  width: 100%; /* Make nav items take full width */
-}
-
-.navbar-nav .nav-link {
-  text-align: left; /* Align text to the left */
-  padding: 10px 15px; /* Add padding for better touch targets */
-}
 
 .flex-box {
   display: flex;
