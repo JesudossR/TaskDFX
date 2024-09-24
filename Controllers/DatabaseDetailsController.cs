@@ -44,7 +44,7 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
 
-            return View(databaseDetail);
+            return PartialView(databaseDetail);
         }
 
         // GET: DatabaseDetails/Create
@@ -53,7 +53,7 @@ namespace DolphinFx.Controllers
             ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName");
             ViewData["ClientId"] = new SelectList(_context.Clients, "ClientID", "ClientName");
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName");
-            return View();
+            return PartialView();
         }
 
         // POST: DatabaseDetails/Create
@@ -73,7 +73,7 @@ namespace DolphinFx.Controllers
             ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", databaseDetail.ApplicationID);
             ViewData["ClientId"] = new SelectList(_context.Clients, "ClientID", "ClientName", databaseDetail.ClientId);
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName", databaseDetail.EnvironmentID);
-            return View(databaseDetail);
+            return PartialView(databaseDetail);
         }
 
         // GET: DatabaseDetails/Edit/5
@@ -92,7 +92,7 @@ namespace DolphinFx.Controllers
             ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", databaseDetail.ApplicationID);
             ViewData["ClientId"] = new SelectList(_context.Clients, "ClientID", "ClientName", databaseDetail.ClientId);
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName", databaseDetail.EnvironmentID);
-            return View(databaseDetail);
+            return PartialView(databaseDetail);
         }
 
         // POST: DatabaseDetails/Edit/5
@@ -131,7 +131,7 @@ namespace DolphinFx.Controllers
             ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", databaseDetail.ApplicationID);
             ViewData["ClientId"] = new SelectList(_context.Clients, "ClientID", "ClientName", databaseDetail.ClientId);
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName", databaseDetail.EnvironmentID);
-            return View(databaseDetail);
+            return PartialView(databaseDetail);
         }
 
         // GET: DatabaseDetails/Delete/5

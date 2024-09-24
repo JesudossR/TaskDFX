@@ -49,7 +49,7 @@ namespace DolphinFx.Controllers
         public IActionResult Create()
         {
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName");
-            return View();
+            return PartialView();
         }
 
         // POST: Teams/Create
@@ -67,7 +67,7 @@ namespace DolphinFx.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName", team.ClientID);
-            return View(team);
+            return PartialView(team);
         }
 
         // GET: Teams/Edit/5
@@ -84,7 +84,7 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName", team.ClientID);
-            return View(team);
+            return PartialView(team);
         }
 
         // POST: Teams/Edit/5
@@ -121,7 +121,7 @@ namespace DolphinFx.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName", team.ClientID);
-            return View(team);
+            return PartialView(team);
         }
 
         // GET: Teams/Delete/5

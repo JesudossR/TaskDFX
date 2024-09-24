@@ -46,7 +46,7 @@ namespace DolphinFx.Controllers
         // GET: Environments/Create
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Environments/Create
@@ -63,7 +63,7 @@ namespace DolphinFx.Controllers
                 TempData["SuccessMessage"] = "Environment added.";
                 return RedirectToAction(nameof(Index));
             }
-            return View(environment);
+            return PartialView(environment);
         }
 
         // GET: Environments/Edit/5
@@ -79,7 +79,7 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-            return View(environment);
+            return PartialView(environment);
         }
 
         // POST: Environments/Edit/5
@@ -115,7 +115,7 @@ namespace DolphinFx.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(environment);
+            return PartialView(environment);
         }
 
         // GET: Environments/Delete/5

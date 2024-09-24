@@ -55,12 +55,10 @@ namespace DolphinFx.Controllers
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName");
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName");
             ViewData["UserId"] = new SelectList(_context.UserRoles, "UserID", "Role");
-            return View();
+            return PartialView();
         }
 
         // POST: ApplicationDetails/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ClientID,EnvironmentID,ApplicationID,Link,Path,User,UserId,Password")] ApplicationDetails applicationDetails)
@@ -70,12 +68,25 @@ namespace DolphinFx.Controllers
                 _context.Add(applicationDetails);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Application detail added.";
+
+                // If AJAX request, return JSON success response
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true, message = "Application detail added." });
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", applicationDetails.ApplicationID);
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName", applicationDetails.ClientID);
-            ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName", applicationDetails.EnvironmentID);
-            ViewData["UserId"] = new SelectList(_context.UserRoles, "UserID", "Role", applicationDetails.UserId);
+
+            // Repopulate ViewData for the partial view in case of validation errors
+            PopulateDropDowns(applicationDetails);
+
+            // If it's an AJAX request, return the partial view with validation messages
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView(applicationDetails);
+            }
+
             return View(applicationDetails);
         }
 
@@ -92,16 +103,12 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-            ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", applicationDetails.ApplicationID);
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName", applicationDetails.ClientID);
-            ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName", applicationDetails.EnvironmentID);
-            ViewData["UserId"] = new SelectList(_context.UserRoles, "UserID", "Role", applicationDetails.UserId);
-            return View(applicationDetails);
+
+            PopulateDropDowns(applicationDetails);
+            return PartialView(applicationDetails);
         }
 
         // POST: ApplicationDetails/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ClientID,EnvironmentID,ApplicationID,Link,Path,User,UserId,Password")] ApplicationDetails applicationDetails)
@@ -118,6 +125,14 @@ namespace DolphinFx.Controllers
                     _context.Update(applicationDetails);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Application detail updated.";
+
+                    // If AJAX request, return JSON success response
+                    if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    {
+                        return Json(new { success = true, message = "Application detail updated." });
+                    }
+
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,19 +140,31 @@ namespace DolphinFx.Controllers
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
-                return RedirectToAction(nameof(Index));
             }
+
+            // Repopulate ViewData for the partial view in case of validation errors
+            PopulateDropDowns(applicationDetails);
+
+            // If it's an AJAX request, return the partial view with validation messages
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView(applicationDetails);
+            }
+
+            return View(applicationDetails);
+        }
+
+        // Helper method to populate dropdowns
+        private void PopulateDropDowns(ApplicationDetails applicationDetails)
+        {
             ViewData["ApplicationID"] = new SelectList(_context.Applications, "ApplicationID", "ApplicationName", applicationDetails.ApplicationID);
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "ClientName", applicationDetails.ClientID);
             ViewData["EnvironmentID"] = new SelectList(_context.Environments, "EnvironmentID", "EnvironmentName", applicationDetails.EnvironmentID);
             ViewData["UserId"] = new SelectList(_context.UserRoles, "UserID", "Role", applicationDetails.UserId);
-            return View(applicationDetails);
         }
+
 
         // GET: ApplicationDetails/Delete/5
         public async Task<IActionResult> Delete(int? id)

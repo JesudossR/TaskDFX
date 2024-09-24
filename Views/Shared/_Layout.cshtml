@@ -5,109 +5,191 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DolphinFx</title>
-    @* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"> *@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DolphinFx.styles.css" asp-append-version="true" />
-     @RenderSection("Styles", required: false)
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    @RenderSection("Styles", required: false)
 
     <style>
-        /* Custom class for the active button */
         .active-link {
-            background: linear-gradient(135deg, #a2c2e6, #e4c1f9); /* Light blue background */
-            color: black !important; /* White text color */
+            background: linear-gradient(135deg, #a2c2e6, #e4c1f9);
+            color: black !important;
             border-radius: 5px;
         }
 
-        body{
-             /*background: linear-gradient(to right, #F78FAD, #FDEB82);
-             background: linear-gradient(135deg, #ffafbd, #ffc3a0);
-             background: linear-gradient(135deg, #a2c2e6, #e4c1f9);
-                     background: linear-gradient(135deg, #ff7e5f, #feb47b);
-                             background: linear-gradient(135deg, #89f7fe, #66a6ff);
-             */
+        body {
             background: linear-gradient(135deg, #a2c2e6, #e4c1f9);
-            
+            overflow-x: hidden;
         }
+
+        /* Sidebar Styling */
+        .navbar {
+            flex-direction: column;
+            width: 200px;
+            position: fixed;
+            height: 100%;
+            background-color: #ffffff;
+            border-right: 1px solid #e5e5e5;
+            transition: width 0.3s ease;
+        }
+
+        .navbar.collapsed {
+            width: 60px;
+        }
+
+        .navbar.collapsed .nav-link .link-text {
+            display: none;
+        }
+
+        .navbar.collapsed .nav-link i {
+            font-size: 1.5rem;
+            margin-right: 0;
+        }
+
+        .navbar.collapsed #hamburgerIcon {
+            margin: 0 auto;
+        }
+
+        /* Container adjustment based on sidebar width */
+        .container {
+            margin-left: 200px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .container.collapsed {
+            margin-left: 60px;
+        }
+
+        /* Hamburger icon */
+        #hamburgerIcon {
+            cursor: pointer;
+            padding: 10px;
+              background: linear-gradient(135deg, #a2c2e6, #e4c1f9);
+            margin-left: 120px;
+        }
+
+        .hamburger-bar {
+            width: 25px;
+            height: 3px;
+            background-color: #000;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* On hover effect for better feedback */
+        #hamburgerIcon:hover .hamburger-bar {
+            background-color: #007bff;
+        }
+
+        /* Additional styling for other elements */
+        .navbar-nav .nav-item {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link {
+            text-align: left;
+            padding: 10px 8px;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            font-size: 1.25rem;
+        }
+
+        .link-text {
+            transition: opacity 0.3s ease;
+        }
+
     </style>
 </head>
 
 <body>
     <header>
-        @* <nav class="navbar navbar-toggleable-sm navbar-light bg-dark  border-bottom box-shadow mb-3">*@
-           <nav class="navbar navbar-toggleable-sm navbar-light bg-dark text-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-toggleable-sm navbar-light bg-dark text-white border-bottom box-shadow mb-3" id="sidebar">
+            <div class="container-fluid">
+                <!-- Hamburger Icon -->
+                <div id="hamburgerIcon">
+                    <div class="hamburger-bar"></div>
+                    <div class="hamburger-bar"></div>
+                    <div class="hamburger-bar"></div>
+                </div>
 
-        <div class="container-fluid">
-            <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">DolphinFx</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-                 <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse show-list" id="navbarNav">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span class="link-text">Dashboard</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Clients" asp-action="Index">Client</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Clients" asp-action="Index">
+                            <i class="fas fa-users"></i>
+                            <span class="link-text">Client</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Teams" asp-action="Index">Team</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Teams" asp-action="Index">
+                            <i class="fas fa-users-cog"></i>
+                            <span class="link-text">Team</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Applications" asp-action="Index">Application</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Applications" asp-action="Index">
+                            <i class="fas fa-th-large"></i>
+                            <span class="link-text">Application</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Environments" asp-action="Index">Environment</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Environments" asp-action="Index">
+                            <i class="fas fa-server"></i>
+                            <span class="link-text">Environment</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="UserRoles" asp-action="Index">User Role</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="UserRoles" asp-action="Index">
+                            <i class="fas fa-user-tag"></i>
+                            <span class="link-text">User Role</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="ApplicationDetails" asp-action="Index">Application Detail</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="ApplicationDetails" asp-action="Index">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="link-text">Application Detail</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="DatabaseDetails" asp-action="Index">Database Detail</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="DatabaseDetails" asp-action="Index">
+                            <i class="fas fa-database"></i>
+                            <span class="link-text">Database Detail</span>
+                        </a>
                     </li>
                 </ul>
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
-    <div class="container">
+    <div class="container" id="mainContent">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    @* <footer class="border-top footer text-muted">
-    <div class="container" style="text-align: center;">
-    &copy; 2024 - DolphinFx - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-    </footer> *@
-    @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.3/jquery.validate.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate.unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
-
-   
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.3/jquery.validate.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.1.2/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
 
     <script>
         $(document).ready(function () {
+            // Toggle sidebar visibility
+            $("#hamburgerIcon").click(function () {
+                $("#sidebar").toggleClass("collapsed");
+                $("#mainContent").toggleClass("collapsed");
+            });
+
             // Apply 'active-link' class to the current clicked link
             $(".nav-link").click(function () {
-                // Remove the active class from all links
                 $(".nav-link").removeClass("active-link");
-
-                // Add the active class to the clicked link
                 $(this).addClass("active-link");
             });
 
@@ -121,7 +203,6 @@
         });
     </script>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

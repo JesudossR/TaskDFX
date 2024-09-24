@@ -3,62 +3,69 @@
 @{
     ViewData["Title"] = "Index";
 }
-<style>
-    .table{
-        text-align: center;
-        margin: 0 auto;
-    }
-      body {
-      height: 100%;
-      margin: 0;
-     
-      justify-content: center; /* Horizontal centering */
-      align-items: center;    /* Vertical centering */
-      text-align: center;     /* Centers text and table content */
-    }
-    .button-container {
-      text-align: right; /* Align buttons to the right */
-      margin-right: auto; /* Optional margin to add space from the right */
-    }
-</style>
-<h1>Clients</h1>
-
-<p class="button-container">
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-    <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
-</p>
 
 <style>
     .table {
-        padding: 0;
-        /* Reduce table padding */
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+    }
 
+    body {
+        height: 100%;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .button-container {
+        text-align: right;
     }
 
     .table th,
     .table td {
         padding: 10px;
-        /* Adjust padding for table cells */
     }
 
     .action-buttons a {
         margin: 0 4px;
-        /* Space out the buttons */
         padding: 4px 8px;
-        /* Adjust button padding */
         text-decoration: none;
-        /* Remove underline from buttons */
         color: #fff;
-        /* Ensure text color is white */
     }
 
     .action-buttons .btn-primary {
         font-size: 0.875rem;
-        /* Adjust button font size */
     }
+
+    .button-container {
+        margin: 0; /* Remove default margin */
+    }
+
 </style>
 
-<table class="table "  style="width:100%;">
+<h1>Clients</h1>
+
+
+<!-- Search Input -->
+<div class="search-button-container">
+    <div class="search-container">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." />
+    </div>
+    <p class="button-container">
+        <a class="btn btn-primary create-button" href="javascript:void(0);" onclick="loadCreateForm()">Create New</a>
+        @* <a class="btn btn-primary" asp-action="Create">Create New</a> *@
+        <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
+    </p>
+</div>
+    
+
+
+<div id="createFormContainer" class="form-container"></div>
+<div id="editFormContainer"></div>
+
+<table class="table">
     <thead>
         <tr>
             <th>Client Name</th>
@@ -66,10 +73,10 @@
             <th>Primary EmailID</th>
             <th>Secondary Contact</th>
             <th>Secondary EmailID</th>
-            <th>Actions</th> <!-- Column header for action buttons -->
+            <th>Actions</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tableBody">
         @foreach (var item in Model)
         {
             <tr>
@@ -79,7 +86,8 @@
                 <td>@Html.DisplayFor(modelItem => item.SecondaryContact)</td>
                 <td>@Html.DisplayFor(modelItem => item.SecondaryEmailID)</td>
                 <td class="action-buttons">
-                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.ClientID">Edit</a>
+                    <a class="btn btn-success edit-button" href="javascript:void(0);"onclick="loadEditForm(@item.ClientID)">Edit</a>
+                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.ClientID">Edit</a> *@
                     <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ClientID">Details</a>
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ClientID">Delete</a>
                 </td>
@@ -112,19 +120,57 @@
 </div>
 
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM8B5O1DGGpS7JIZJ4u7hFb6eQk6Zf5j5BqK5z" crossorigin="anonymous">
+    <!-- Add these in the correct order -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    
-
     <script>
         $(document).ready(function () {
-            // Check if there is a success message
+            // Show success modal if there is a success message
             var successMessage = '@TempData["SuccessMessage"]';
             if (successMessage) {
                 $("#successModal").modal("show");
             }
+
+            // Real-time filtering of table rows
+            $('#searchInput').on('keyup', function () {
+                var value = $(this).val().toLowerCase();  // Get input value
+
+                $("#tableBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)  // Show rows that match the input
+                });
+            });
         });
+        function loadForm(url, container, disableButtonClass, enableButtonClass) {
+            // Disable the specified buttons before making the AJAX call
+            $(disableButtonClass).prop('disabled', true).addClass('disabled');
+            $(enableButtonClass).prop('disabled', true).addClass('disabled');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (result) {
+                    $(container).html(result);
+                    $('html, body').animate({
+                        scrollTop: $(container).offset().top
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred: " + error);
+                    console.error("Error details:", xhr, status, error);
+                },
+                complete: function () {
+                    // Re-enable the other button after AJAX call completes
+                    $(enableButtonClass).prop('disabled', false);
+                }
+            });
+        }
+        function loadEditForm(id) {
+            loadForm('@Url.Action("Edit", "Clients")/' + id, '#editFormContainer', '.create-button', '.edit-button');
+        }
+        function loadCreateForm() {
+            loadForm('@Url.Action("Create", "Clients")', '#createFormContainer', '.edit-button', '.create-button');
+        }
     </script>
 }

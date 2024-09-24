@@ -4,29 +4,26 @@
     ViewData["Title"] = "Index";
 }
 <style>
-    .table{
-        text-align: center;
-        margin: 0 auto;
-    }
-      body {
-      height: 100%;
-      margin: 0;
-     
-      justify-content: center; /* Horizontal centering */
-      align-items: center;    /* Vertical centering */
-      text-align: center;     /* Centers text and table content */
-    }
-    .button-container {
-      text-align: right; /* Align buttons to the right */
-      margin-right: auto; /* Optional margin to add space from the right */
-    }
+    
 </style>
 <h1>Databases</h1>
 
-<p class="button-container">
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-    <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
-</p>
+<!-- Search Input -->
+<div class="search-button-container">
+    <div class="search-container">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." />
+    </div>
+    <p class="button-container">
+        <a class="btn btn-primary create-button" href="javascript:void(0);" onclick="loadCreateForm()">Create New</a>
+        @* <a class="btn btn-primary" asp-action="Create">Create New</a> *@
+        <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
+    </p>
+</div>
+    
+
+<div id="createFormContainer" class="form-container"></div>
+<div id="editFormContainer"></div>
+
 <table class="table"  style="width:100%;">
     <thead>
         <tr>
@@ -51,7 +48,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tableBody">
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -73,7 +70,8 @@
                 @Html.DisplayFor(modelItem => item.Application.ApplicationName)
             </td>
             <td>
-                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.DbId">Edit</a> |
+                 <a class="btn btn-success edit-button" href="javascript:void(0);"onclick="loadEditForm(@item.DbId)">Edit</a>
+                @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.DbId">Edit</a> | *@
                 <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.DbId">Details</a> |
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DbId">Delete</a>
             </td>
@@ -118,6 +116,43 @@
             if (successMessage) {
                 $("#successModal").modal("show");
             }
+             // Real-time filtering of table rows
+            $('#searchInput').on('keyup', function () {
+                var value = $(this).val().toLowerCase();  // Get input value
+
+                $("#tableBody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);  // Show rows that match the input
+                });
+            });
         });
+        function loadForm(url, container, disableButtonClass, enableButtonClass) {
+            // Disable the specified buttons before making the AJAX call
+            $(disableButtonClass).prop('disabled', true).addClass('disabled');
+            $(enableButtonClass).prop('disabled', true).addClass('disabled');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (result) {
+                    $(container).html(result);
+                    $('html, body').animate({
+                        scrollTop: $(container).offset().top
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred: " + error);
+                    console.error("Error details:", xhr, status, error);
+                },
+                complete: function () {
+                    // Re-enable the other button after AJAX call completes
+                    $(enableButtonClass).prop('disabled', false);
+                }
+            });
+        }
+        function loadEditForm(id) {
+            loadForm('@Url.Action("Edit", "DatabaseDetails")/' + id, '#editFormContainer', '.create-button', '.edit-button');
+        }
+        function loadCreateForm() {
+            loadForm('@Url.Action("Create", "DatabaseDetails")', '#createFormContainer', '.edit-button', '.create-button');
+        }
     </script>
 }

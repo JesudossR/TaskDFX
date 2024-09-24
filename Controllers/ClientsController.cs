@@ -44,7 +44,7 @@ namespace DolphinFx.Controllers
         // GET: Clients/Create
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Clients/Create
@@ -59,7 +59,7 @@ namespace DolphinFx.Controllers
                 TempData["SuccessMessage"] = "Client added.";
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            return PartialView(client);
         }
 
         // GET: Clients/Edit/5
@@ -75,7 +75,7 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-            return View(client);
+            return PartialView(client);
         }
 
         // POST: Clients/Edit/5
@@ -109,7 +109,7 @@ namespace DolphinFx.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            return PartialView(client);
         }
 
         // GET: Clients/Delete/5

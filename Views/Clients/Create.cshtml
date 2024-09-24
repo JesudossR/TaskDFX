@@ -4,39 +4,8 @@
     ViewData["Title"] = "Create";
 }
 <style>
-    
-    .flex-box {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 16px;
-        max-width: 100%;
-    }
 
-    .form-group {
-        flex: 1 1 45%;
-        margin-bottom: 16px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 4px;
-    }
-
-    .form-group input {
-        display: block;
-        width: 100%;
-        padding: .375rem .75rem;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #212529;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    }
+   
     /* Remove any margin or padding from the body */
     body {
         margin: 0;
@@ -87,9 +56,9 @@
                 </div>
             </div>
 
-            <div class="">
+            <div class="can-align">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <a class="btn btn-primary" asp-action="Index">Back to List</a>
+                <a class="btn btn-danger" asp-action="Index">Cancel</a>
             </div>
         </form>
     </div>
@@ -104,6 +73,7 @@
 </style>
 </div>
 @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script>
@@ -134,5 +104,5 @@
     });
 });
 </script>
-    <partial name="_ValidationScriptsPartial" />
+    
 }

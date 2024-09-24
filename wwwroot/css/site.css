@@ -1,40 +1,26 @@
-html {
-  font-size: 14px;
-}
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
+
+
+.flex-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Adjust the gap between elements */
+  margin-right: 25px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-.navbar {
-  flex-direction: column; /* Stack the items vertically */
-  width: 200px; /* Set a fixed width for the sidebar */
-  position: fixed; /* Fix it to the left side */
-  height: 100%; /* Make it full height */
-  background-color: #ffffff; /* Background color for navbar */
-  border-right: 1px solid #e5e5e5; /* Right border */
+.form-group {
+  flex: 1 1 45%; /* Adjusts the flex basis to ensure two items per row */
+  margin-bottom: 16px; /* Adds space below each form group */
 }
 
-.container {
-  margin-left: 195px; /* Leave space for the navbar */
+.form-group label {
+  display: block; /* Ensures the label takes up its own line */
+  margin-bottom: 4px; /* Adds space between label and input */
 }
-
-.navbar-nav .nav-item {
-  width: 100%; /* Make nav items take full width */
+.can-align {
+  display: flex;
+  justify-content: flex-start; /* Aligns items to the left */
+  gap: 5px;
 }
-
-.navbar-nav .nav-link {
-  text-align: left; /* Align text to the left */
-  padding: 10px 15px; /* Add padding for better touch targets */
-}
-
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus,input:focus,.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -59,7 +45,19 @@ body {
   font-size: 16px;
   text-align: left;
 }
+.table{
+  text-align: center;
+  margin: 0 auto;
+}
 
+.button-container {
+text-align: right; /* Align buttons to the right */
+margin-right: auto; /* Optional margin to add space from the right */
+}
+
+.button-container {
+  margin: 0; /* Remove default margin */
+}
 .table thead {
   background-color: #f4f4f4;
   color: #333;
@@ -155,14 +153,19 @@ body {
 .details-actions a.btn-primary:hover {
   background-color: #0056b3;
 }
-.yellow:hover{
-  background-color: rgb(43, 206, 10);
+
+.search-container {
+  margin-bottom: 20px;
+  text-align: left; /* Align search input to the left */
+  margin-right: 10px;
+  width:193px;height:40px
 }
-.red:hover{
-  background-color: red;
-}
-.blue:hover{
-  background-color: blueviolet;
+
+.search-button-container {
+  display: flex;
+  justify-content: space-between; /* Space out the items */
+  align-items: center; /* Center vertically */
+  margin-bottom: 20px; /* Space below */
 }
 
 .modal-dialog {
@@ -173,3 +176,10 @@ body {
   text-align: center;
   height: 90%; /* Ensures full height for vertical centering */
 }
+
+ /* Hide the default spinner buttons */
+ input[type=number]::-webkit-inner-spin-button,
+ input[type=number]::-webkit-outer-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
+ }
