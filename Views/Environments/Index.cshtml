@@ -23,19 +23,6 @@
         margin-right: auto; /* Optional margin to add space from the right */
     }
 
-    .search-container {
-        margin-bottom: 20px;
-        text-align: left; /* Align search input to the left */
-        margin-right: 10px;
-    }
-
-    .search-button-container {
-        display: flex;
-        justify-content: space-between; /* Space out the items */
-        align-items: center; /* Center vertically */
-        margin-bottom: 20px; /* Space below */
-    }
-
     .button-container {
         margin: 0; /* Remove default margin */
     }
@@ -45,13 +32,19 @@
 
 <div class="search-button-container">
     <div class="search-container">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="width:193px;height:50px" />
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..."  />
     </div>
     <p class="button-container">
-        <a class="btn btn-primary" asp-action="Create">Create New</a>
+          <a class="btn btn-primary create-button" href="javascript:void(0);" onclick="loadCreateForm()">Create New</a>
+        @* <a class="btn btn-primary" asp-action="Create">Create New</a> *@
         <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
     </p>
 </div>
+    
+
+<div id="createFormContainer" class="form-container"></div>
+<div id="editFormContainer"></div>
+
 
 <table class="table" style="width:100%;">
     <thead>
@@ -68,7 +61,8 @@
                 <td>@Html.DisplayFor(modelItem => item.EnvironmentName)</td>
                 <td>@Html.DisplayFor(modelItem => item.EnvironmentDescription)</td>
                 <td>
-                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.EnvironmentID">Edit</a> |
+                    <a class="btn btn-success edit-button" href="javascript:void(0);"onclick="loadEditForm(@item.EnvironmentID)">Edit</a>
+                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.EnvironmentID">Edit</a> | *@
                     <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.EnvironmentID">Details</a> |
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EnvironmentID">Delete</a>
                 </td>
@@ -122,5 +116,34 @@
                 });
             });
         });
+        function loadForm(url, container, disableButtonClass, enableButtonClass) {
+            // Disable the specified buttons before making the AJAX call
+            $(disableButtonClass).prop('disabled', true).addClass('disabled');
+            $(enableButtonClass).prop('disabled', true).addClass('disabled');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (result) {
+                    $(container).html(result);
+                    $('html, body').animate({
+                        scrollTop: $(container).offset().top
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred: " + error);
+                    console.error("Error details:", xhr, status, error);
+                },
+                complete: function () {
+                    // Re-enable the other button after AJAX call completes
+                    $(enableButtonClass).prop('disabled', false);
+                }
+            });
+        }
+        function loadEditForm(id) {
+            loadForm('@Url.Action("Edit", "Environments")/' + id, '#editFormContainer', '.create-button', '.edit-button');
+        }
+        function loadCreateForm() {
+            loadForm('@Url.Action("Create", "Environments")', '#createFormContainer', '.edit-button', '.create-button');
+        }
     </script>
 }

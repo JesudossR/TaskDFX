@@ -4,22 +4,7 @@
     ViewData["Title"] = "Create";
 }
 <style>
-    .flex-box {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px; /* Adjust the gap between elements */
-        margin-right: 25px;
-    }
     
-    .form-group {
-        flex: 1 1 45%; /* Adjusts the flex basis to ensure two items per row */
-        margin-bottom: 16px; /* Adds space below each form group */
-    }
-    
-    .form-group label {
-        display: block; /* Ensures the label takes up its own line */
-        margin-bottom: 4px; /* Adds space between label and input */
-    }
 </style>
 <h1>Create</h1>
 
@@ -90,6 +75,7 @@
 </div>
 
 @section Scripts {
+      
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Validate URL
@@ -121,10 +107,7 @@
                 passwordErrorMessage.textContent = "";
             }
         });
-    });
-
-
-
-       
+    });  
     </script>
+      
 }

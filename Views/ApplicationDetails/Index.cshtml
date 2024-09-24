@@ -16,9 +16,12 @@
         padding: 3px;
         /* Adjust padding for table cells */
     }
-    .table td ,.table tr{
-         padding: 7px;
+
+    .table td,
+    .table tr {
+        padding: 7px;
     }
+
     .action-buttons a {
         margin: 0 4px;
         /* Space out the buttons */
@@ -34,137 +37,134 @@
         font-size: 0.875rem;
         /* Adjust button font size */
     }
-   table .theading
-    {
+
+    table .theading {
         text-align: center;
-        padding:20px;
+        padding: 20px;
     }
-    .search-container {
-        margin-bottom: 20px;
-        margin-top:20px;
-        text-align: left; /* Align search input to the left */
-        margin-right: 800px;
-    }
-
-    .search-button-container {
-        display: flex;
-        justify-content: space-between; /* Space out the items */
-        align-items: center; /* Center vertically */
-        margin-bottom: 20px; /* Space below */
-    }
-
-    
 
     .button-container {
-        margin: 0; /* Remove default margin */
+        margin: 0;
+        /* Remove default margin */
     }
-
 </style>
 
 
 <style>
-    @* .table{
-        text-align: center;
-        margin: 0 auto;
-        @* border-radius: 15px solid !important; *@
-    }
-      body { 
-      height: 100%;
-      margin: 0;
-     
-      justify-content: center; /* Horizontal centering */
-      align-items: center;    /* Vertical centering */
-      text-align: center;     /* Centers text and table content */
+    @*.table{text-align:center;margin:0auto;@*border-radius:15pxsolid!important;*@
     }
 
-     .button-container {
-      text-align: right; /* Align buttons to the right */
-      margin-right: auto; /* Optional margin to add space from the right */
+    body {
+        height: 100%;
+        margin: 0;
+
+        justify-content: center;
+        /* Horizontal centering */
+        align-items: center;
+        /* Vertical centering */
+        text-align: center;
+        /* Centers text and table content */
+    }
+
+    .button-container {
+        text-align: right;
+        /* Align buttons to the right */
+        margin-right: 25px;
+        /* Optional margin to add space from the right */
     }
 </style>
-
-
 
 <h1>Application Details </h1>
 
 <!-- Search Input -->
 <div class="search-button-container">
     <div class="search-container">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="width:193px;height:50px" />
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..."/>
     </div>
     <p class="button-container">
-        <a class="btn btn-primary" asp-action="Create">Create New</a>
+        <a class="btn btn-primary create-button"  onclick="loadCreateForm()">Create New</a>
+        @* <a class="btn btn-primary" asp-action="Create">Create New</a> *@
         <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
     </p>
+
 </div>
-<table class="table"  style="width:100%;">
-    <thead  class = "theading">
+    
+
+<div id="editFormContainer"></div>
+<div id="createFormContainer" class="form-container"></div>
+
+<table class="table" style="width:100%;">
+    <thead class="theading">
         <tr>
-            <th  >
+            <th>
                 Client Name
             </th>
-            <th  >
+            <th>
                 Environment Name
             </th>
             <th>
                 Application Name
             </th>
-            <th >
+            <th>
                 Link
             </th>
-            <th >
+            <th>
                 Path
             </th>
-            <th >
+            <th>
                 User
-            </th >
-            <th  >
+            </th>
+            <th>
                 User Role
             </th>
-            <th  >
+            <th>
                 Password
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody id="tableBody">
-@foreach (var item in Model) {
-        <tr>
-            <td   >
-                @Html.DisplayFor(modelItem => item.Client.ClientName)
-            </td>
-            <td  >
-                @Html.DisplayFor(modelItem => item.Environments.EnvironmentName)
-            </td>
-            <td  >
-                @Html.DisplayFor(modelItem => item.Applications.ApplicationName)
-            </td>
-            <td  >
-                  <a href="@item.Link" target="_blank">Go to Link</a>
-            </td>
-            <td  >
-                @Html.DisplayFor(modelItem => item.Path)
-            </td>
-            <td  >
-                @Html.DisplayFor(modelItem => item.User)
-            </td>
-            <td  >
-                @Html.DisplayFor(modelItem => item.UserRole.Role)
-            </td>
-            <td  >
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td  >
-                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.ClientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Environments.EnvironmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Applications.ApplicationName)
+                </td>
+                <td>
+                    <a href="@item.Link" target="_blank">Go to Link</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Path)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserRole.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    <a class="btn btn-success edit-button" href="javascript:void(0);" onclick="loadEditForm(@item.Id)">Edit</a>
+                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> | *@
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
 <!-- Bootstrap Modal for Success Message -->
-<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -191,8 +191,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    
 
+     
     <script>
         $(document).ready(function () {
             // Check if there is a success message
@@ -200,7 +200,7 @@
             if (successMessage) {
                 $("#successModal").modal("show");
             }
-             // Real-time filtering of table rows
+            // Real-time filtering of table rows
             $('#searchInput').on('keyup', function () {
                 var value = $(this).val().toLowerCase();  // Get input value
 
@@ -209,5 +209,35 @@
                 });
             });
         });
+        
+        function loadForm(url, container, disableButtonClass, enableButtonClass) {
+            // Disable the specified buttons before making the AJAX call
+            $(disableButtonClass).prop('disabled', true).addClass('disabled');
+            $(enableButtonClass).prop('disabled', true).addClass('disabled');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (result) {
+                    $(container).html(result);
+                    $('html, body').animate({
+                        scrollTop: $(container).offset().top
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred: " + error);
+                    console.error("Error details:", xhr, status, error);
+                },
+                complete: function () {
+                    // Re-enable the other button after AJAX call completes
+                    $(enableButtonClass).prop('disabled', false);
+                }
+            });
+        }
+        function loadEditForm(id) {
+            loadForm('@Url.Action("Edit", "ApplicationDetails")/' + id, '#editFormContainer', '.create-button', '.edit-button');
+        }
+        function loadCreateForm() {
+            loadForm('@Url.Action("Create", "ApplicationDetails")', '#createFormContainer', '.edit-button', '.create-button');
+        }
     </script>
 }

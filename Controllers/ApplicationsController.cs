@@ -57,7 +57,7 @@ namespace DolphinFx.Controllers
         // GET: Applications/Create
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Applications/Create
@@ -74,7 +74,7 @@ namespace DolphinFx.Controllers
                 TempData["SuccessMessage"] = "Application created.";
                 return RedirectToAction(nameof(Index));
             }
-            return View(application);
+            return PartialView(application);
         }
 
         // GET: Applications/Edit/5
@@ -90,7 +90,7 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-            return View(application);
+            return PartialView(application);
         }
 
         // POST: Applications/Edit/5
@@ -126,7 +126,7 @@ namespace DolphinFx.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(application);
+            return PartialView(application);
         }
 
         // GET: Applications/Delete/5

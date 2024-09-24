@@ -6,100 +6,93 @@
 }
 
 <style>
-    .table {
-        text-align: center;
-        margin: 0 auto;
-    }
-
-    body {
-        height: 100%;
-        margin: 0;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .button-container {
-        text-align: right;
-        margin-right: auto;
-    }
+    
 
     /*pagination*/
-.pagination {
-    
-    display: flex; /* Use flexbox for better alignment */
-    justify-content: center; /* Center the pagination */
-    align-items: center; /* Align items vertically in the center */
-}
+    .pagination {
 
-.pagination li {
-    list-style: none; /* Remove default list styling */
-    margin: 0 5px; /* Space between buttons */
-}
+        display: flex;
+        /* Use flexbox for better alignment */
+        justify-content: center;
+        /* Center the pagination */
+        align-items: center;
+        /* Align items vertically in the center */
+    }
 
-.pagination li a {
-    
-    text-decoration: none; /* Remove underline from links */
-    padding: 10px 12px; /* Add padding for better click area */
-    font-size: 20px; /* Set a larger font size */
-    border: 1px solid #007bff; /* Border for buttons */
-    border-radius: 4px; /* Rounded corners */
-    color: #007bff; /* Text color for links */
-    background-color: white; /* Background color */
-    line-height: 1.5; /* Adjust line height for vertical centering */
-    display: inline-block; /* Ensure the link behaves as a block */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
-}
+    .pagination li {
+        list-style: none;
+        /* Remove default list styling */
+        margin: 0 5px;
+        /* Space between buttons */
+    }
 
-.pagination li a:hover {
-    background-color: #007bff; /* Change background on hover */
-    color: white; /* Change text color on hover */
-}
+    .pagination li a {
 
-/* Optional: Highlight the active page */
-.pagination li.active a {
-    background-color: #007bff; /* Highlight active page */
-    color: white; /* Change text color for active page */
-}
+        text-decoration: none;
+        /* Remove underline from links */
+        padding: 10px 12px;
+        /* Add padding for better click area */
+        font-size: 20px;
+        /* Set a larger font size */
+        border: 1px solid #007bff;
+        /* Border for buttons */
+        border-radius: 4px;
+        /* Rounded corners */
+        color: #007bff;
+        /* Text color for links */
+        background-color: white;
+        /* Background color */
+        line-height: 1.5;
+        /* Adjust line height for vertical centering */
+        display: inline-block;
+        /* Ensure the link behaves as a block */
+        transition: background-color 0.3s, color 0.3s;
+        /* Smooth transitions */
+    }
+
+    .pagination li a:hover {
+        background-color: #007bff;
+        /* Change background on hover */
+        color: white;
+        /* Change text color on hover */
+    }
+
+    /* Optional: Highlight the active page */
+    .pagination li.active a {
+        background-color: #007bff;
+        /* Highlight active page */
+        color: white;
+        /* Change text color for active page */
+    }
 
     .search-container {
         margin-bottom: 20px;
-        text-align: left; /* Align search input to the left */
+        text-align: left;
+        /* Align search input to the left */
         margin-right: 10px;
     }
 
     .search-button-container {
         display: flex;
-        justify-content: space-between; /* Space out the items */
-        align-items: center; /* Center vertically */
-        margin-bottom: 20px; /* Space below */
-    }
-
-
-
-    .button-container {
-        margin: 0; /* Remove default margin */
-    }
-
-     .search-container {
+        justify-content: space-between;
+        /* Space out the items */
+        align-items: center;
+        /* Center vertically */
         margin-bottom: 20px;
-        text-align: left; /* Align search input to the left */
-        margin-right: 10px;
+        /* Space below */
     }
 
-    .search-button-container {
-        display: flex;
-        justify-content: space-between; /* Space out the items */
-        align-items: center; /* Center vertically */
-        margin-bottom: 20px; /* Space below */
-    }
 
-    
 
     .button-container {
-        margin: 0; /* Remove default margin */
+        margin: 0;
+        /* Remove default margin */
     }
 
+    .button-container {
+        margin: 0;
+        /* Remove default margin */
+    }
 </style>
 
 <h1>Applications</h1>
@@ -107,16 +100,21 @@
 <!-- Search Input -->
 <div class="search-button-container">
     <div class="search-container">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search..." style="width:193px;height:50px" />
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..."/>
     </div>
     <p class="button-container">
-        <a class="btn btn-primary" asp-action="Create">Create New</a>
-        <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
-    </p>
+    <a class="btn btn-primary create-button" href="javascript:void(0);" onclick="loadCreateForm()">Create New</a>
+    @* <a class="btn btn-primary" asp-action="Create">Create New</a> *@
+    <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
+</p>
 </div>
 
-<table class="table table-striped table-bordered table-hover" style="width: 100%;">
-    <thead class="thead-dark">
+
+
+<div id="createFormContainer" class="form-container"></div>
+<div id="editFormContainer"></div>
+<table class="table" style="width:100%;">
+    <thead class="theading">
         <tr>
             <th>Application Name</th>
             <th>Application ShortName</th>
@@ -132,7 +130,8 @@
                 <td>@Html.DisplayFor(modelItem => item.ApplicationShortName)</td>
                 <td>@Html.DisplayFor(modelItem => item.ApplicationDescription)</td>
                 <td>
-                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.ApplicationID">Edit</a> |
+                    <a class="btn btn-success edit-button" href="javascript:void(0);"onclick="loadEditForm(@item.ApplicationID)">Edit</a>
+                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.ApplicationID">Edit</a> | *@
                     <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ApplicationID">Details</a> |
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ApplicationID">Delete</a>
                 </td>
@@ -141,13 +140,12 @@
     </tbody>
 </table>
 
+
+
 <!-- Pagination Controls -->
 <div class="pagination">
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 </div>
-
-
-
 
 <!-- Modal for Success Message -->
 <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
@@ -194,5 +192,34 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);  // Show rows that match the input
             });
         });
+        function loadForm(url, container, disableButtonClass, enableButtonClass) {
+            // Disable the specified buttons before making the AJAX call
+            $(disableButtonClass).prop('disabled', true).addClass('disabled');
+            $(enableButtonClass).prop('disabled', true).addClass('disabled');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (result) {
+                    $(container).html(result);
+                    $('html, body').animate({
+                        scrollTop: $(container).offset().top
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred: " + error);
+                    console.error("Error details:", xhr, status, error);
+                },
+                complete: function () {
+                    // Re-enable the other button after AJAX call completes
+                    $(enableButtonClass).prop('disabled', false);
+                }
+            });
+        }
+        function loadEditForm(id) {
+            loadForm('@Url.Action("Edit", "Applications")/' + id, '#editFormContainer', '.create-button', '.edit-button');
+        }
+        function loadCreateForm() {
+            loadForm('@Url.Action("Create", "Applications")', '#createFormContainer', '.edit-button', '.create-button');
+        }
     </script>
 }

@@ -4,28 +4,14 @@
     ViewData["Title"] = "Edit";
 }
 <style>
-    .flex-box {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px; /* Adjust the gap between elements */
-    }
     
-    .form-group {
-        flex: 1 1 45%; /* Adjusts the flex basis to ensure two items per row */
-        margin-bottom: 16px; /* Adds space below each form group */
-    }
-    
-    .form-group label {
-        display: block; /* Ensures the label takes up its own line */
-        margin-bottom: 4px; /* Adds space between label and input */
-    }
 </style>
 <h1>Edit</h1>
 
 <h4>Team</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TeamID" />
@@ -49,9 +35,9 @@
             </div>
             </div> 
             
-            <div class="form-group">
+            <div class="form-group can-align ">
                 <input type="submit" value="Save" class="btn btn-primary" />
-                 <a class="btn btn-primary" asp-action="Index">Back to List</a>
+                 <a class="btn btn-danger" asp-action="Index">Cancel</a>
             </div>
         </form>
     </div>
