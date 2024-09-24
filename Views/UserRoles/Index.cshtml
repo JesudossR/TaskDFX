@@ -20,6 +20,9 @@
       text-align: right; /* Align buttons to the right */
       margin-right: auto; /* Optional margin to add space from the right */
     }
+    .table-row {
+        cursor: pointer; /* Pointer on hover to show the row is clickable */
+    }
 </style>
 
 <h1>User Roles Table</h1>
@@ -28,6 +31,40 @@
     <a class="btn btn-primary" asp-action="Create">Create New</a>
     <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a> <!-- Export to Excel button -->
 </p>
+
+@* <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Create User Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createForm">
+                    <div class="form-group">
+                        <label asp-for="Role" class="control-label">Role</label>
+                        <select asp-for="Role" asp-items="@(ViewData["Roles"] as IEnumerable<SelectListItem>)" class="form-control">
+                            <option value="">Select a Role</option>
+                        </select>
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RoleDescription" class="control-label">Role Description</label>
+                        <input asp-for="RoleDescription" class="form-control" />
+                        <span asp-validation-for="RoleDescription" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitCreateForm">Create</button>
+            </div>
+        </div>
+    </div>
+</div> *@
+
 <table class="table"  style="width:100%;">
     <thead>
         <tr>
@@ -42,16 +79,11 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleDescription)
-            </td>
+        <tr class="table-row" data-id="@item.UserID">
+            <td>@Html.DisplayFor(modelItem => item.Role)</td>
+            <td>@Html.DisplayFor(modelItem => item.RoleDescription)</td>
             <td>
                 <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
-                <a class="btn btn-primary " asp-action="Details" asp-route-id="@item.UserID">Details</a> |
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
             </td>
         </tr>
@@ -60,6 +92,27 @@
 </table>
 
 <!-- Success Message -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (TempData["InfoMessage"] != null)
+                {
+                    @TempData["InfoMessage"]
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- Bootstrap Modal for Success Message -->
@@ -85,8 +138,27 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">User Role Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- The details will be loaded here via AJAX -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -94,11 +166,40 @@
 
     <script>
         $(document).ready(function () {
-            // Check if there is a success message
+              @if (TempData["InfoMessage"] != null)
+            {
+                <text>
+                    $('#infoModal').modal('show');
+                </text>
+            }
+            // Handle double-click event on table row to show the details modal
+            $('.table-row').dblclick(function () {
+                var userId = $(this).data('id'); // Get the user ID from the data attribute
+
+                // AJAX call to fetch details
+                $.ajax({
+                    url: '@Url.Action("Details", "UserRoles")/' + userId,
+                    type: 'GET',
+                    success: function (data) {
+                        // Load the fetched data into the modal's body
+                        $('#detailsModal .modal-body').html(data);
+
+                        // Show the modal
+                        $('#detailsModal').modal('show');
+                    },
+                    error: function () {
+                        $('#detailsModal .modal-body').html('<p>Error loading details.</p>');
+                        $('#detailsModal').modal('show');
+                    }
+                });
+            });
+
+            // Show success modal if there's a success message
             var successMessage = '@TempData["SuccessMessage"]';
             if (successMessage) {
                 $("#successModal").modal("show");
             }
+            
         });
     </script>
 }

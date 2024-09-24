@@ -39,7 +39,8 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
 
-            return View(userRole);
+            // Return the partial view for the modal
+            return PartialView("Details", userRole);
         }
 
         // GET: UserRoles/Create
@@ -48,7 +49,7 @@ namespace DolphinFx.Controllers
             ViewData["Roles"] = GetRoles(); // Populate the dropdown
             return View();
         }
-
+    
         // POST: UserRoles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -94,6 +95,22 @@ namespace DolphinFx.Controllers
             if (id != userRole.UserID)
             {
                 return NotFound();
+            }
+            var existingUserRole = await _context.UserRoles.AsNoTracking()
+                              .FirstOrDefaultAsync(ur => ur.UserID == id);
+
+            if (existingUserRole == null)
+            {
+                return NotFound();
+            }
+
+            // Check if there are any changes between the existing and new object
+            if (existingUserRole.Role == userRole.Role &&
+                existingUserRole.RoleDescription == userRole.RoleDescription)
+            {
+                // No changes detected
+                TempData["InfoMessage"] = "No changes were made.";
+                return RedirectToAction(nameof(Index));
             }
 
             if (ModelState.IsValid)
