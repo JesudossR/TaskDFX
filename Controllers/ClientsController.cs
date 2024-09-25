@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DolphinFx.Models;
 using OfficeOpenXml;
+using X.PagedList;
 
 namespace DolphinFx.Controllers
 {
@@ -18,9 +19,12 @@ namespace DolphinFx.Controllers
         }
 
         // GET: Clients
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int ? page)
         {
-            return View(await _context.Clients.ToListAsync());
+            int pageNumber = page ?? 1;
+            int pageSize = 5;
+            var result = await _context.Clients.ToListAsync();
+            return View(result.ToPagedList(pageNumber,pageSize));
         }
 
         // GET: Clients/Details/5

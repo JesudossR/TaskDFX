@@ -1,10 +1,72 @@
-﻿@model IEnumerable<DolphinFx.Models.ApplicationDetails>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<DolphinFx.Models.ApplicationDetails>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <style>
+     /*pagination*/
+    .pg{
+        margin-top: 40px;
+    }
+    .pagination {
+
+        display: flex;
+        /* Use flexbox for better alignment */
+        justify-content: center;
+        /* Center the pagination */
+        align-items: center;
+        /* Align items vertically in the center */
+    }
+
+    .pagination li {
+        list-style: none;
+        /* Remove default list styling */
+        margin: 0 5px;
+        /* Space between buttons */
+    }
+
+    .pagination li a {
+
+        text-decoration: none;
+        /* Remove underline from links */
+
+        padding: 1px 7px;
+        /* Add padding for better click area */
+        font-size: 14px;
+        /* Set a larger font size */
+        border: 1px solid #007bff;
+        /* Border for buttons */
+        border-radius: 4px;
+        /* Rounded corners */
+        color: #007bff;
+        /* Text color for links */
+        background-color: white;
+        /* Background color */
+        line-height: 1.5;
+        /* Adjust line height for vertical centering */
+        display: inline-block;
+        /* Ensure the link behaves as a block */
+        transition: background-color 0.3s, color 0.3s;
+        /* Smooth transitions */
+    }
+
+    .pagination li a:hover {
+        background-color: #007bff;
+        /* Change background on hover */
+        color: white;
+        /* Change text color on hover */
+    }
+
+    /* Optional: Highlight the active page */
+    .pagination li.active a {
+        background-color: #007bff;
+        /* Highlight active page */
+        color: white;
+        /* Change text color for active page */
+    }
     .table {
         padding: 0;
         /* Reduce table padding */
@@ -75,6 +137,9 @@
     .table-row{
         text-align: center;
     }
+    .table-row{
+        cursor: pointer;
+    }
 </style>
 
 <h1>Application Details </h1>
@@ -96,7 +161,7 @@
 <div id="editFormContainer"></div>
 <div id="createFormContainer" class="form-container"></div>
 
-<table class="table" style="width:100%;">
+<table class="table table-striped table-bordered table-hover" style="width:100%;">
     <thead class="theading">
         <tr>
             <th>
@@ -129,7 +194,7 @@
     <tbody id="tableBody">
         @foreach (var item in Model)
         {
-            <tr class="table-row" data-id="@item.Id">
+            <tr class="table-row" data-id="@item.Id" title="Double tap to view Details">
                 <td>
                     @Html.DisplayFor(modelItem => item.Client.ClientName)
                 </td>
@@ -163,6 +228,23 @@
         }
     </tbody>
 </table>
+<!-- Pagination Controls -->
+<div class="pg">
+<div class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+{
+    LinkToPreviousPageFormat = "Prev",
+    LinkToNextPageFormat = "Next",
+    MaximumPageNumbersToDisplay = 2, // Adjust this to show more or fewer page numbers
+    DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,// makes the 1st page  as link if needed
+    DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,//makes the last page no. as link if needed
+    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,//previous page link is always visible unless and untill it comes to first page
+    DisplayLinkToNextPage = PagedListDisplayMode.Always,//next page link is always visible unless and untill it comes to last page
+    UlElementClasses = new[] { "pagination" }, // Pass class name as array
+    LiElementClasses = new[] { "page-item" } // Pass class name as array
+})
+</div>
+</div>
 <!-- Modal for showing details -->
 <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

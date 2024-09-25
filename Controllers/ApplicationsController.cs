@@ -28,7 +28,7 @@ namespace DolphinFx.Controllers
         // this method is changed for pagination shown below
         public async Task<IActionResult> Index(int? page)
         {
-            int pageSize = 6; // Number of records per page
+            int pageSize = 5; // Number of records per page
             int pageNumber = page ?? 1; // Default to page 1 if no page is specified
             var applications = await _context.Applications.ToListAsync();
             return View(applications.ToPagedList(pageNumber, pageSize));
