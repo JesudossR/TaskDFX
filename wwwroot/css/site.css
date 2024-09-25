@@ -1,5 +1,19 @@
 
+ /* Sticky Footer */
+ .footer-bottom {
+  /* background-color: #f8f9fa; */
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 
+.footer-bottom p{
+  margin-left: 187px;
+  color:#333;
+  font-weight: bold;
+}
 .flex-box {
   display: flex;
   flex-wrap: wrap;
@@ -234,4 +248,8 @@ margin-right: auto; /* Optional margin to add space from the right */
 
 .modal-body dl {
   margin: 0; /* Remove margin */
+}
+h1,h4,label
+{
+    text-align:left;
 }

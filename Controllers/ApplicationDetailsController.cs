@@ -77,11 +77,7 @@ namespace DolphinFx.Controllers
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Application detail added.";
 
-                // If AJAX request, return JSON success response
-                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-                {
-                    return Json(new { success = true, message = "Application detail added." });
-                }
+                
 
                 return RedirectToAction(nameof(Index));
             }
@@ -135,10 +131,7 @@ namespace DolphinFx.Controllers
                     TempData["SuccessMessage"] = "Application detail updated.";
 
                     // If AJAX request, return JSON success response
-                    if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-                    {
-                        return Json(new { success = true, message = "Application detail updated." });
-                    }
+                    
 
                     return RedirectToAction(nameof(Index));
                 }
