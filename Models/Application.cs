@@ -11,12 +11,12 @@ namespace DolphinFx.Models
         [Column("APPLICATION_NAME")]
         [Required(ErrorMessage = "Application Name is required.")]
         [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9\s]*$", ErrorMessage = "ApplicationName must start with a letter and contain only letters, numbers, and spaces.")]
-        [StringLength(20, ErrorMessage = "ApplicationName should not contain more than 20 characters")]
+        [StringLength(30, ErrorMessage = "ApplicationName should not contain more than 20 characters")]
         public string ApplicationName { get; set; } = string.Empty; // Required
         [Column("APPLICATION_SHORTNAME")]
         [Required(ErrorMessage = "ApplicationShortName is required.")]
         [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9\s]*$", ErrorMessage = "ApplicationShortName must start with a letter and contain only letters, numbers, and spaces.")]
-        [StringLength(5, ErrorMessage = "ApplicationName should not contain more than 5 characters")]
+        [StringLength(10, ErrorMessage = "ApplicationName should not contain more than 5 characters")]
         public string ApplicationShortName { get; set; } = string.Empty; // Required
 
         [Column("APPLICATION_DESCRIPTION")]

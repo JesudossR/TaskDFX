@@ -212,7 +212,8 @@
                     <a href="@item.Link" target="_blank">Go to Link</a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Path)
+                     @* @Html.DisplayFor(modelItem => item.Path)  *@
+                     <a href="@item.Path" target="_blank">Go to Path</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.User)
