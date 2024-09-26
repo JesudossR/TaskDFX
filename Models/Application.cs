@@ -8,7 +8,7 @@ namespace DolphinFx.Models
         [Key]
         [Column("APPLICATION_ID")]
         public int ApplicationID { get; set; } // Primary Key
-        [Column("APPLICATIO_NNAME")]
+        [Column("APPLICATION_NAME")]
         [Required(ErrorMessage = "Application Name is required.")]
         [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9\s]*$", ErrorMessage = "ApplicationName must start with a letter and contain only letters, numbers, and spaces.")]
         [StringLength(20, ErrorMessage = "ApplicationName should not contain more than 20 characters")]
