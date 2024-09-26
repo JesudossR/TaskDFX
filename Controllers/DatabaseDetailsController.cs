@@ -114,7 +114,14 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-
+            var existingDb = await _context.DatabaseDetails.AsNoTracking().FirstOrDefaultAsync(d => d.DbId == id);
+            if(existingDb == null) {
+                return NotFound();
+            }
+            if(existingDb.Datasource == databaseDetail.Datasource && existingDb.Username == databaseDetail.Username && existingDb.Password == databaseDetail.Password && existingDb.ClientId == databaseDetail.ClientId && existingDb.ApplicationID == databaseDetail.ApplicationID && existingDb.EnvironmentID == databaseDetail.EnvironmentID){
+                TempData["InfoMessage"] = "No changes were made.";
+                return RedirectToAction(nameof(Index));
+            }
             if (ModelState.IsValid)
             {
                 try

@@ -97,7 +97,14 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-
+            var existingEnvironment = await _context.Environments.AsNoTracking().FirstOrDefaultAsync(e => e.EnvironmentID == id);
+            if(existingEnvironment == null) {
+                return NotFound();
+            }
+            if(existingEnvironment.EnvironmentName == environment.EnvironmentName && existingEnvironment.EnvironmentDescription == environment.EnvironmentDescription){
+                TempData["InfoMessage"] = "No changes were made.";
+                return RedirectToAction(nameof(Index));
+            }
             if (ModelState.IsValid)
             {
                 try

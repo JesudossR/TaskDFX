@@ -95,7 +95,14 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-
+            var existingClient = await _context.Clients.AsNoTracking().FirstOrDefaultAsync(c => c.ClientID == id);
+            if(existingClient == null) {
+                return NotFound();
+            }
+            if(existingClient.ClientName == client.ClientName && existingClient.PrimaryContact == client.PrimaryContact && existingClient.PrimaryEmailID == client.PrimaryEmailID && existingClient.SecondaryContact == client.SecondaryContact && existingClient.SecondaryEmailID == client.SecondaryEmailID){
+                TempData["InfoMessage"] = "No changes were made.";
+                return RedirectToAction(nameof(Index));
+            }
             if (ModelState.IsValid)
             {
                 try

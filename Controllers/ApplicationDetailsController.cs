@@ -121,7 +121,14 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-
+            var existingAppDetail = await _context.ApplicationDetails.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
+            if(existingAppDetail == null) {
+                return NotFound();
+            }
+            if(existingAppDetail.ClientID == applicationDetails.ClientID && existingAppDetail.EnvironmentID == applicationDetails.EnvironmentID && existingAppDetail.ApplicationID == applicationDetails.ApplicationID && existingAppDetail.Link == applicationDetails.Link && existingAppDetail.Path == applicationDetails.Path && existingAppDetail.UserId == applicationDetails.UserId && existingAppDetail.Password == applicationDetails.Password ){
+                TempData["InfoMessage"] = "No changes were made.";
+                return RedirectToAction(nameof(Index));
+            }
             if (ModelState.IsValid)
             {
                 try

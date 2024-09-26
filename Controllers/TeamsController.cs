@@ -102,7 +102,14 @@ namespace DolphinFx.Controllers
             {
                 return NotFound();
             }
-
+            var existingTeam = await _context.Teams.AsNoTracking().FirstOrDefaultAsync(t => t.TeamID == id);
+            if(existingTeam == null) {
+                return NotFound();
+            }
+            if(existingTeam.ClientID == team.ClientID && existingTeam.TeamName == team.TeamName && existingTeam.TeamDescription == team.TeamDescription){
+                TempData["InfoMessage"] = "No changes were made.";
+                return RedirectToAction(nameof(Index));
+            }
             if (ModelState.IsValid)
             {
                 try
