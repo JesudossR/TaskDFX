@@ -154,7 +154,7 @@ aria-hidden="true">
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="table-row" data-id="@item.UserID tit" title="Double tap to view Details">
+            <tr class="table-row" data-id="@item.UserID" title="Double tap to view Details">
                 <td>@Html.DisplayFor(modelItem => item.Role)</td>
                 <td>@Html.DisplayFor(modelItem => item.RoleDescription)</td>
                 <td>
