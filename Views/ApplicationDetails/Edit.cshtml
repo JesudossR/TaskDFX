@@ -7,18 +7,23 @@
     .flex-box {
         display: flex;
         flex-wrap: wrap;
-        gap: 16px; /* Adjust the gap between elements */
+        gap: 16px;
+        /* Adjust the gap between elements */
         margin-right: 25px;
     }
-    
+
     .form-group {
-        flex: 1 1 45%; /* Adjusts the flex basis to ensure two items per row */
-        margin-bottom: 16px; /* Adds space below each form group */
+        flex: 1 1 45%;
+        /* Adjusts the flex basis to ensure two items per row */
+        margin-bottom: 16px;
+        /* Adds space below each form group */
     }
-    
+
     .form-group label {
-        display: block; /* Ensures the label takes up its own line */
-        margin-bottom: 4px; /* Adds space between label and input */
+        display: block;
+        /* Ensures the label takes up its own line */
+        margin-bottom: 4px;
+        /* Adds space between label and input */
     }
 </style>
 
@@ -33,53 +38,53 @@
             <input type="hidden" asp-for="Id" />
             <div class="flex-box">
                 <div class="form-group">
-                <label asp-for="ClientID" class="control-label">Client Name</label>
-                <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
-                <span asp-validation-for="ClientID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EnvironmentID" class="control-label">Environment Name</label>
-                <select asp-for="EnvironmentID" class="form-control" asp-items="ViewBag.EnvironmentID"></select>
-                <span asp-validation-for="EnvironmentID" class="text-danger"></span>
-            </div>
+                    <label asp-for="ClientID" class="control-label">Client Name</label>
+                    <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
+                    <span asp-validation-for="ClientID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EnvironmentID" class="control-label">Environment Name</label>
+                    <select asp-for="EnvironmentID" class="form-control" asp-items="ViewBag.EnvironmentID"></select>
+                    <span asp-validation-for="EnvironmentID" class="text-danger"></span>
+                </div>
             </div>
             <div class="flex-box">
                 <div class="form-group">
-                <label asp-for="ApplicationID" class="control-label">Application Name</label>
-                <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID"></select>
-                <span asp-validation-for="ApplicationID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Link" class="control-label"></label>
-                <input asp-for="Link" class="form-control" />
-                <span asp-validation-for="Link" class="text-danger"></span>
-            </div>
+                    <label asp-for="ApplicationID" class="control-label">Application Name</label>
+                    <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID"></select>
+                    <span asp-validation-for="ApplicationID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Link" class="control-label"></label>
+                    <input asp-for="Link" class="form-control" />
+                    <span asp-validation-for="Link" class="text-danger"></span>
+                </div>
             </div>
             <div class="flex-box">
                 <div class="form-group">
-                <label asp-for="Path" class="control-label"></label>
-                <input asp-for="Path" class="form-control" />
-                <span asp-validation-for="Path" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User" class="control-label"></label>
-                <input asp-for="User" class="form-control" />
-                <span asp-validation-for="User" class="text-danger"></span>
-            </div>
+                    <label asp-for="Path" class="control-label"></label>
+                    <input asp-for="Path" class="form-control" />
+                    <span asp-validation-for="Path" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="User" class="control-label"></label>
+                    <input asp-for="User" class="form-control" />
+                    <span asp-validation-for="User" class="text-danger"></span>
+                </div>
             </div>
             <div class="flex-box">
                 <div class="form-group">
-                <label asp-for="UserId" class="control-label">User Name</label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
+                    <label asp-for="UserId" class="control-label">User Name</label>
+                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            </div>
-            
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
                 <a class="btn btn-danger" asp-action="Index">Cancel</a>
@@ -87,4 +92,3 @@
         </form>
     </div>
 </div>
-

@@ -7,10 +7,11 @@
 }
 
 <style>
-     /*pagination*/
-    .pg{
+    /*pagination*/
+    .pg {
         margin-top: 40px;
     }
+
     .pagination {
 
         display: flex;
@@ -67,6 +68,7 @@
         color: white;
         /* Change text color for active page */
     }
+
     .table {
         padding: 0;
         /* Reduce table padding */
@@ -134,10 +136,12 @@
         margin-right: 25px;
         /* Optional margin to add space from the right */
     }
-    .table-row{
+
+    .table-row {
         text-align: center;
     }
-    .table-row{
+
+    .table-row {
         cursor: pointer;
     }
 </style>
@@ -147,16 +151,16 @@
 <!-- Search Input -->
 <div class="search-button-container">
     <div class="search-container">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search..."/>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..." />
     </div>
     <p class="button-container">
-        <a class="btn btn-primary create-button"  onclick="loadCreateForm()">Create New</a>
+        <a class="btn btn-primary create-button" onclick="loadCreateForm()">Create New</a>
         @* <a class="btn btn-primary" asp-action="Create">Create New</a> *@
         <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
     </p>
 
 </div>
-    
+
 
 <div id="editFormContainer"></div>
 <div id="createFormContainer" class="form-container"></div>
@@ -220,7 +224,8 @@
                     @Html.DisplayFor(modelItem => item.Password)
                 </td>
                 <td>
-                    <a class="btn btn-success edit-button" href="javascript:void(0);" onclick="loadEditForm(@item.Id)">Edit</a>
+                    <a class="btn btn-success edit-button" href="javascript:void(0);"
+                        onclick="loadEditForm(@item.Id)">Edit</a>
                     @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> | *@ |
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
@@ -230,23 +235,24 @@
 </table>
 <!-- Pagination Controls -->
 <div class="pg">
-<div class="pagination">
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
-{
-    LinkToPreviousPageFormat = "Prev",
-    LinkToNextPageFormat = "Next",
-    MaximumPageNumbersToDisplay = 2, // Adjust this to show more or fewer page numbers
-    DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,// makes the 1st page  as link if needed
-    DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,//makes the last page no. as link if needed
-    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,//previous page link is always visible unless and untill it comes to first page
-    DisplayLinkToNextPage = PagedListDisplayMode.Always,//next page link is always visible unless and untill it comes to last page
-    UlElementClasses = new[] { "pagination" }, // Pass class name as array
-    LiElementClasses = new[] { "page-item" } // Pass class name as array
-})
-</div>
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+   {
+       LinkToPreviousPageFormat = "Prev",
+       LinkToNextPageFormat = "Next",
+       MaximumPageNumbersToDisplay = 2, // Adjust this to show more or fewer page numbers
+       DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,// makes the 1st page as link if needed
+       DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,//makes the last page no. as link if needed
+       DisplayLinkToPreviousPage = PagedListDisplayMode.Always,//previous page link is always visible unless and untill it comes to first page
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,//next page link is always visible unless and untill it comes to last page
+        UlElementClasses = new[] { "pagination" }, // Pass class name as array
+       LiElementClasses = new[] { "page-item" } // Pass class name as array
+   })
+    </div>
 </div>
 <!-- Modal for showing details -->
-<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -318,34 +324,34 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-     
+
     <script>
         $(document).ready(function () {
-            @if (TempData["InfoMessage"] != null)
-            {
-                <text>
-                    $('#infoModal').modal('show');
-                </text>
-            }
-            $('.table-row').dblclick(function () {
-                var id = $(this).data('id'); // Get the ID from the data attribute
+        @if (TempData["InfoMessage"] != null)
+        {
+            <text>
+                        $('#infoModal').modal('show');
+            </text>
+        }
+                $('.table-row').dblclick(function () {
+                    var id = $(this).data('id'); // Get the ID from the data attribute
 
-                // AJAX call to fetch details
-                $.ajax({
-                    url: '@Url.Action("Details", "ApplicationDetails")/' + id,
-                    type: 'GET',
-                    success: function (data) {
-                        // Load the fetched data into the modal's body
-                        $('#detailsModal .modal-body').html(data);
-                        // Show the modal
-                        $('#detailsModal').modal('show');
-                    },
-                    error: function () {
-                        $('#detailsModal .modal-body').html('<p>Error loading details.</p>');
-                        $('#detailsModal').modal('show');
-                    }
+                    // AJAX call to fetch details
+                    $.ajax({
+                        url: '@Url.Action("Details", "ApplicationDetails")/' + id,
+                        type: 'GET',
+                        success: function (data) {
+                            // Load the fetched data into the modal's body
+                            $('#detailsModal .modal-body').html(data);
+                            // Show the modal
+                            $('#detailsModal').modal('show');
+                        },
+                        error: function () {
+                            $('#detailsModal .modal-body').html('<p>Error loading details.</p>');
+                            $('#detailsModal').modal('show');
+                        }
+                    });
                 });
-            });
             // Check if there is a success message
             var successMessage = '@TempData["SuccessMessage"]';
             if (successMessage) {
@@ -360,7 +366,7 @@
                 });
             });
         });
-        
+
         function loadForm(url, container, disableButtonClass, enableButtonClass) {
             // Disable the specified buttons before making the AJAX call
             $(disableButtonClass).prop('disabled', true).addClass('disabled');

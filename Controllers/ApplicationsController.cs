@@ -109,10 +109,12 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
             var existingApp = await _context.Applications.AsNoTracking().FirstOrDefaultAsync(a => a.ApplicationID == id);
-            if(existingApp == null){
+            if (existingApp == null)
+            {
                 return NotFound();
             }
-            if(existingApp.ApplicationName == application.ApplicationName && existingApp.ApplicationShortName == application.ApplicationShortName && existingApp.ApplicationDescription == application.ApplicationDescription){
+            if (existingApp.ApplicationName == application.ApplicationName && existingApp.ApplicationShortName == application.ApplicationShortName && existingApp.ApplicationDescription == application.ApplicationDescription)
+            {
                 TempData["InfoMessage"] = "No changes were made.";
                 return RedirectToAction(nameof(Index));
             }

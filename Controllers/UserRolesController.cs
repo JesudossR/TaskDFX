@@ -20,12 +20,12 @@ namespace DolphinFx.Controllers
         }
 
         // GET: UserRoles
-        public async Task<IActionResult> Index(int ? page)
+        public async Task<IActionResult> Index(int? page)
         {
-             int pageSize = 5; // Number of records per page
+            int pageSize = 5; // Number of records per page
             int pageNumber = page ?? 1; // Default to page 1 if no page is specified
             var result = await _context.UserRoles.ToListAsync();
-            return View(result.ToPagedList(pageNumber,pageSize));
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: UserRoles/Details/5
@@ -53,7 +53,7 @@ namespace DolphinFx.Controllers
             ViewData["Roles"] = GetRoles(); // Populate the dropdown
             return View();
         }
-    
+
         // POST: UserRoles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

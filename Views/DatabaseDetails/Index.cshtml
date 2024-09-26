@@ -6,10 +6,11 @@
     ViewData["Title"] = "Index";
 }
 <style>
-     /*pagination*/
-    .pg{
+    /*pagination*/
+    .pg {
         margin-top: 40px;
     }
+
     .pagination {
 
         display: flex;
@@ -66,7 +67,8 @@
         color: white;
         /* Change text color for active page */
     }
-    .database-table-row{
+
+    .database-table-row {
         cursor: pointer;
     }
 </style>
@@ -83,12 +85,12 @@
         <a class="btn btn-success" asp-action="ExportToExcel">Export to Excel</a>
     </p>
 </div>
-    
+
 
 <div id="createFormContainer" class="form-container"></div>
 <div id="editFormContainer"></div>
 
-<table class="table table-striped table-bordered table-hover"  style="width:100%;">
+<table class="table table-striped table-bordered table-hover" style="width:100%;">
     <thead>
         <tr>
             <th>
@@ -113,54 +115,57 @@
         </tr>
     </thead>
     <tbody id="tableBody">
-@foreach (var item in Model) {
-        <tr class="database-table-row" data-id="@item.DbId" title="Double tap to view Details">
-            <td>
-                @Html.DisplayFor(modelItem => item.Datasource)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Client.ClientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Environments.EnvironmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Application.ApplicationName)
-            </td>
-            <td>
-                 <a class="btn btn-success edit-button" href="javascript:void(0);"onclick="loadEditForm(@item.DbId)">Edit</a>
-                @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.DbId">Edit</a> | *@ |
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DbId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="database-table-row" data-id="@item.DbId" title="Double tap to view Details">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datasource)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.ClientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Environments.EnvironmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Application.ApplicationName)
+                </td>
+                <td>
+                    <a class="btn btn-success edit-button" href="javascript:void(0);"
+                        onclick="loadEditForm(@item.DbId)">Edit</a>
+                    @* <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.DbId">Edit</a> | *@ |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.DbId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <!-- Pagination Controls -->
 <div class="pg">
-<div class="pagination">
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
-{
-    LinkToPreviousPageFormat = "Prev",
-    LinkToNextPageFormat = "Next",
-    MaximumPageNumbersToDisplay = 2, // Adjust this to show more or fewer page numbers
-    DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,// makes the 1st page  as link if needed
-    DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,//makes the last page no. as link if needed
-    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,//previous page link is always visible unless and untill it comes to first page
-    DisplayLinkToNextPage = PagedListDisplayMode.Always,//next page link is always visible unless and untill it comes to last page
-    UlElementClasses = new[] { "pagination" }, // Pass class name as array
-    LiElementClasses = new[] { "page-item" } // Pass class name as array
-})
-</div>
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+   {
+       LinkToPreviousPageFormat = "Prev",
+       LinkToNextPageFormat = "Next",
+       MaximumPageNumbersToDisplay = 2, // Adjust this to show more or fewer page numbers
+       DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,// makes the 1st page as link if needed
+       DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,//makes the last page no. as link if needed
+       DisplayLinkToPreviousPage = PagedListDisplayMode.Always,//previous page link is always visible unless and untill it comes to first page
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,//next page link is always visible unless and untill it comes to last page
+        UlElementClasses = new[] { "pagination" }, // Pass class name as array
+       LiElementClasses = new[] { "page-item" } // Pass class name as array
+   })
+    </div>
 </div>
 <!-- Modal for showing database details -->
-<div class="modal fade" id="databaseDetailsModal" tabindex="-1" role="dialog" aria-labelledby="databaseDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="databaseDetailsModal" tabindex="-1" role="dialog"
+    aria-labelledby="databaseDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -203,7 +208,8 @@
 </div>
 
 <!-- Bootstrap Modal for Success Message -->
-<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -230,21 +236,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        
+
         $(document).ready(function () {
-            @if (TempData["InfoMessage"] != null)
-            {
-                <text>
-                    $('#infoModal').modal('show');
-                </text>
-            }
-            // Check if there is a success message
-            var successMessage = '@TempData["SuccessMessage"]';
+        @if (TempData["InfoMessage"] != null)
+        {
+            <text>
+                        $('#infoModal').modal('show');
+            </text>
+        }
+                // Check if there is a success message
+                var successMessage = '@TempData["SuccessMessage"]';
             if (successMessage) {
                 $("#successModal").modal("show");
             }
-            
-             // Real-time filtering of table rows
+
+            // Real-time filtering of table rows
             $('#searchInput').on('keyup', function () {
                 var value = $(this).val().toLowerCase();  // Get input value
 
@@ -254,24 +260,24 @@
             });
         });
         $('.database-table-row').dblclick(function () {
-                var id = $(this).data('id'); // Get the ID from the data attribute
+            var id = $(this).data('id'); // Get the ID from the data attribute
 
-                // AJAX call to fetch details
-                $.ajax({
-                    url: '@Url.Action("Details", "DatabaseDetails")/' + id,
-                    type: 'GET',
-                    success: function (data) {
-                        // Load the fetched data into the modal's body
-                        $('#databaseDetailsModal .modal-body').html(data);
-                        // Show the modal
-                        $('#databaseDetailsModal').modal('show');
-                    },
-                    error: function () {
-                        $('#databaseDetailsModal .modal-body').html('<p>Error loading details.</p>');
-                        $('#databaseDetailsModal').modal('show');
-                    }
-                });
+            // AJAX call to fetch details
+            $.ajax({
+                url: '@Url.Action("Details", "DatabaseDetails")/' + id,
+                type: 'GET',
+                success: function (data) {
+                    // Load the fetched data into the modal's body
+                    $('#databaseDetailsModal .modal-body').html(data);
+                    // Show the modal
+                    $('#databaseDetailsModal').modal('show');
+                },
+                error: function () {
+                    $('#databaseDetailsModal .modal-body').html('<p>Error loading details.</p>');
+                    $('#databaseDetailsModal').modal('show');
+                }
             });
+        });
         function loadForm(url, container, disableButtonClass, enableButtonClass) {
             // Disable the specified buttons before making the AJAX call
             $(disableButtonClass).prop('disabled', true).addClass('disabled');
@@ -301,6 +307,6 @@
         function loadCreateForm() {
             loadForm('@Url.Action("Create", "DatabaseDetails")', '#createFormContainer', '.edit-button', '.create-button');
         }
-        
+
     </script>
 }

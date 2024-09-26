@@ -23,11 +23,11 @@ namespace DolphinFx.Controllers
         // GET: ApplicationDetails
         public async Task<IActionResult> Index(int? page)
         {
-             int pageSize = 5; // Number of records per page
+            int pageSize = 5; // Number of records per page
             int pageNumber = page ?? 1; // Default to page 1 if no page is specified
             var appDbContext = _context.ApplicationDetails.Include(a => a.Applications).Include(a => a.Client).Include(a => a.Environments).Include(a => a.UserRole);
             var result = await appDbContext.ToListAsync();
-            return View(result.ToPagedList(pageNumber,pageSize));
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ApplicationDetails/Details/5
@@ -77,7 +77,7 @@ namespace DolphinFx.Controllers
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Application detail added.";
 
-                
+
 
                 return RedirectToAction(nameof(Index));
             }
@@ -122,10 +122,12 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
             var existingAppDetail = await _context.ApplicationDetails.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
-            if(existingAppDetail == null) {
+            if (existingAppDetail == null)
+            {
                 return NotFound();
             }
-            if(existingAppDetail.ClientID == applicationDetails.ClientID && existingAppDetail.EnvironmentID == applicationDetails.EnvironmentID && existingAppDetail.ApplicationID == applicationDetails.ApplicationID && existingAppDetail.Link == applicationDetails.Link && existingAppDetail.Path == applicationDetails.Path && existingAppDetail.UserId == applicationDetails.UserId && existingAppDetail.Password == applicationDetails.Password ){
+            if (existingAppDetail.ClientID == applicationDetails.ClientID && existingAppDetail.EnvironmentID == applicationDetails.EnvironmentID && existingAppDetail.ApplicationID == applicationDetails.ApplicationID && existingAppDetail.Link == applicationDetails.Link && existingAppDetail.Path == applicationDetails.Path && existingAppDetail.UserId == applicationDetails.UserId && existingAppDetail.Password == applicationDetails.Password)
+            {
                 TempData["InfoMessage"] = "No changes were made.";
                 return RedirectToAction(nameof(Index));
             }
@@ -138,7 +140,7 @@ namespace DolphinFx.Controllers
                     TempData["SuccessMessage"] = "Application detail updated.";
 
                     // If AJAX request, return JSON success response
-                    
+
 
                     return RedirectToAction(nameof(Index));
                 }

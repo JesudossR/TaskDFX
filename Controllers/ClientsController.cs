@@ -19,12 +19,12 @@ namespace DolphinFx.Controllers
         }
 
         // GET: Clients
-        public async Task<IActionResult> Index(int ? page)
+        public async Task<IActionResult> Index(int? page)
         {
             int pageNumber = page ?? 1;
             int pageSize = 5;
             var result = await _context.Clients.ToListAsync();
-            return View(result.ToPagedList(pageNumber,pageSize));
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Clients/Details/5
@@ -96,10 +96,12 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
             var existingClient = await _context.Clients.AsNoTracking().FirstOrDefaultAsync(c => c.ClientID == id);
-            if(existingClient == null) {
+            if (existingClient == null)
+            {
                 return NotFound();
             }
-            if(existingClient.ClientName == client.ClientName && existingClient.PrimaryContact == client.PrimaryContact && existingClient.PrimaryEmailID == client.PrimaryEmailID && existingClient.SecondaryContact == client.SecondaryContact && existingClient.SecondaryEmailID == client.SecondaryEmailID){
+            if (existingClient.ClientName == client.ClientName && existingClient.PrimaryContact == client.PrimaryContact && existingClient.PrimaryEmailID == client.PrimaryEmailID && existingClient.SecondaryContact == client.SecondaryContact && existingClient.SecondaryEmailID == client.SecondaryEmailID)
+            {
                 TempData["InfoMessage"] = "No changes were made.";
                 return RedirectToAction(nameof(Index));
             }

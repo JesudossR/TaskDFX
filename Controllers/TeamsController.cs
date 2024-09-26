@@ -21,13 +21,13 @@ namespace DolphinFx.Controllers
         }
 
         // GET: Teams
-        public async Task<IActionResult> Index(int ? page)
+        public async Task<IActionResult> Index(int? page)
         {
-             int pageSize = 5; // Number of records per page
+            int pageSize = 5; // Number of records per page
             int pageNumber = page ?? 1; // Default to page 1 if no page is specified
             var appDbContext = _context.Teams.Include(t => t.Client);
             var result = await appDbContext.ToListAsync();
-            return View(result.ToPagedList(pageNumber,pageSize));
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Teams/Details/5
@@ -103,10 +103,12 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
             var existingTeam = await _context.Teams.AsNoTracking().FirstOrDefaultAsync(t => t.TeamID == id);
-            if(existingTeam == null) {
+            if (existingTeam == null)
+            {
                 return NotFound();
             }
-            if(existingTeam.ClientID == team.ClientID && existingTeam.TeamName == team.TeamName && existingTeam.TeamDescription == team.TeamDescription){
+            if (existingTeam.ClientID == team.ClientID && existingTeam.TeamName == team.TeamName && existingTeam.TeamDescription == team.TeamDescription)
+            {
                 TempData["InfoMessage"] = "No changes were made.";
                 return RedirectToAction(nameof(Index));
             }

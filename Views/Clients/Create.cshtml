@@ -4,106 +4,103 @@
     ViewData["Title"] = "Create";
 }
 <style>
-
-   
     /* Remove any margin or padding from the body */
     body {
         margin: 0;
         padding: 0;
         overflow-x: hidden;
     }
-  
-;=
-    
 </style>
 <div class="pad">
-<h1>Create</h1>
+    <h1>Create</h1>
 
-<h4>Client</h4>
-<hr />
-<div class="row" >
-    <div class="col-md-12">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="flex-box">
-                <div class="form-group">
+    <h4>Client</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="flex-box">
+                    <div class="form-group">
                         <label asp-for="ClientName" class="control-label">Client Name</label>
-                    <input asp-for="ClientName" class="form-control" />
-                    <span asp-validation-for="ClientName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                        <input asp-for="ClientName" class="form-control" />
+                        <span asp-validation-for="ClientName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="PrimaryContact" class="control-label">Primary Contact</label>
-                    <input asp-for="PrimaryContact" class="form-control" data-validate style="appearance: none; -moz-appearance: textfield;"/>
-                    <span asp-validation-for="PrimaryContact" class="text-danger"></span>
+                        <input asp-for="PrimaryContact" class="form-control" data-validate
+                            style="appearance: none; -moz-appearance: textfield;" />
+                        <span asp-validation-for="PrimaryContact" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="flex-box">
-                <div class="form-group">
+                <div class="flex-box">
+                    <div class="form-group">
                         <label asp-for="PrimaryEmailID" class="control-label">Primary EmailID</label>
-                    <input asp-for="PrimaryEmailID" class="form-control" />
-                    <span asp-validation-for="PrimaryEmailID" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                        <input asp-for="PrimaryEmailID" class="form-control" />
+                        <span asp-validation-for="PrimaryEmailID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="SecondaryContact" class="control-label">Secondary Contact</label>
-                    <input asp-for="SecondaryContact" class="form-control" data-validate style="appearance: none; -moz-appearance: textfield;"/>
-                    <span asp-validation-for="SecondaryContact" class="text-danger"></span>
+                        <input asp-for="SecondaryContact" class="form-control" data-validate
+                            style="appearance: none; -moz-appearance: textfield;" />
+                        <span asp-validation-for="SecondaryContact" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="flex-box">
-                <div class="form-group">
+                <div class="flex-box">
+                    <div class="form-group">
                         <label asp-for="SecondaryEmailID" class="control-label">Secondary EmailID</label>
-                    <input asp-for="SecondaryEmailID" class="form-control" />
-                    <span asp-validation-for="SecondaryEmailID" class="text-danger"></span>
+                        <input asp-for="SecondaryEmailID" class="form-control" />
+                        <span asp-validation-for="SecondaryEmailID" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="can-align">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a class="btn btn-danger" asp-action="Index">Cancel</a>
-            </div>
-        </form>
+                <div class="can-align">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a class="btn btn-danger" asp-action="Index">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<style>
-    /* Hide the default spinner buttons */
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-</style>
+    <style>
+        /* Hide the default spinner buttons */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
 </div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script>
- document.addEventListener('DOMContentLoaded', function() {
-    const clientNameInput = document.querySelector('input[name="ClientName"]');
-   
-    
-    clientNameInput.addEventListener('input', function() {
-    // Regex to ensure the client name starts with a letter and can contain letters, numbers, and spaces, but no special characters
-    const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
-    const errorMessage = document.querySelector('span[data-valmsg-for="ClientName"]');
-    
-    // Replace any character that is not a letter, number, or space
-    this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
-    
-    // Check if the first character is a letter
-    if (!/^[a-zA-Z]/.test(this.value)) {
-        errorMessage.textContent = "Client Name must start with a letter.";
-    } else {
-        errorMessage.textContent = "";
-    }
-});
-    document.querySelectorAll('input[data-validate]').forEach(input => {
-        input.addEventListener('input', function() {
-            // Allow only digits and restrict to 10 characters
-            this.value = this.value.replace(/\D/g, '').slice(0, 10);
+        document.addEventListener('DOMContentLoaded', function () {
+            const clientNameInput = document.querySelector('input[name="ClientName"]');
+
+
+            clientNameInput.addEventListener('input', function () {
+                // Regex to ensure the client name starts with a letter and can contain letters, numbers, and spaces, but no special characters
+                const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
+                const errorMessage = document.querySelector('span[data-valmsg-for="ClientName"]');
+
+                // Replace any character that is not a letter, number, or space
+                this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+
+                // Check if the first character is a letter
+                if (!/^[a-zA-Z]/.test(this.value)) {
+                    errorMessage.textContent = "Client Name must start with a letter.";
+                } else {
+                    errorMessage.textContent = "";
+                }
+            });
+            document.querySelectorAll('input[data-validate]').forEach(input => {
+                input.addEventListener('input', function () {
+                    // Allow only digits and restrict to 10 characters
+                    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+                });
+            });
         });
-    });
-});
-</script>
-    
+    </script>
+
 }

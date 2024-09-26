@@ -16,43 +16,43 @@
             <div class="flex-box">
                 <div class="form-group">
                     <label asp-for="Datasource" class="control-label">DataSource</label>
-                <input asp-for="Datasource" class="form-control" />
-                <span asp-validation-for="Datasource" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label">User Name</label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
+                    <input asp-for="Datasource" class="form-control" />
+                    <span asp-validation-for="Datasource" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label">User Name</label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
             </div>
             <div class="flex-box">
                 <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClientId" class="control-label">Client Name</label>
-                <select asp-for="ClientId" class ="form-control" asp-items="ViewBag.ClientId">
-                    <option value="" disabled selected>--Select a Client--</option>
-                </select>
-            </div>
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ClientId" class="control-label">Client Name</label>
+                    <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId">
+                        <option value="" disabled selected>--Select a Client--</option>
+                    </select>
+                </div>
             </div>
             <div class="flex-box">
                 <div class="form-group">
-                <label asp-for="EnvironmentID" class="control-label">Environment Name</label>
-                <select asp-for="EnvironmentID" class ="form-control" asp-items="ViewBag.EnvironmentID">
-                    <option value="" disabled selected>--Select an Environment--</option>
-                </select>
+                    <label asp-for="EnvironmentID" class="control-label">Environment Name</label>
+                    <select asp-for="EnvironmentID" class="form-control" asp-items="ViewBag.EnvironmentID">
+                        <option value="" disabled selected>--Select an Environment--</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ApplicationID" class="control-label">Application Name</label>
+                    <select asp-for="ApplicationID" class="form-control" asp-items="ViewBag.ApplicationID">
+                        <option value="" disabled selected>--Select an Application--</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ApplicationID" class="control-label">Application Name</label>
-                <select asp-for="ApplicationID" class ="form-control" asp-items="ViewBag.ApplicationID">
-                    <option value="" disabled selected>--Select an Application--</option>
-                </select>
-            </div>
-            </div>
-            
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
                 <a class="btn btn-danger" asp-action="Index">Cancel</a>
@@ -62,29 +62,28 @@
 </div>
 
 <div>
-  
+
 </div>
-@section Scripts{
+@section Scripts {
     <script>
-          document.addEventListener('DOMContentLoaded', function() {
-        const passwordInput = document.querySelector('input[name="Password"]');
-        const passwordErrorMessage = document.querySelector('span[data-valmsg-for="Password"]');
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.querySelector('input[name="Password"]');
+            const passwordErrorMessage = document.querySelector('span[data-valmsg-for="Password"]');
 
-        passwordInput.addEventListener('input', function() {
-            // Regular expression: 
-            // (?=.*[a-z]) -> At least one lowercase letter
-            // (?=.*[A-Z]) -> At least one uppercase letter
-            // (?=.*\d) -> At least one digit
-            // .{8,} -> At least 8 characters (no max limit)
-            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            passwordInput.addEventListener('input', function () {
+                // Regular expression: 
+                // (?=.*[a-z]) -> At least one lowercase letter
+                // (?=.*[A-Z]) -> At least one uppercase letter
+                // (?=.*\d) -> At least one digit
+                // .{8,} -> At least 8 characters (no max limit)
+                const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
-            if (!passwordPattern.test(this.value)) {
-                passwordErrorMessage.textContent = "Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, and one digit.";
-            } else {
-                passwordErrorMessage.textContent = "";
-            }
+                if (!passwordPattern.test(this.value)) {
+                    passwordErrorMessage.textContent = "Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, and one digit.";
+                } else {
+                    passwordErrorMessage.textContent = "";
+                }
+            });
         });
-    });
     </script>
 }
-

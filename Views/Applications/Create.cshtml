@@ -25,25 +25,25 @@
 <h4>create Application</h4>
 <hr />
 <div class="row">
-    <div class="col-md-12" >
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="flex-box">
                 <div class="form-group">
                     <label asp-for="ApplicationName" class="control-label">Application Name</label>
-                    <input asp-for="ApplicationName"  />
+                    <input asp-for="ApplicationName" />
                     <span asp-validation-for="ApplicationName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="ApplicationShortName" class="control-label">Application ShortName</label>
-                    <input asp-for="ApplicationShortName"  />
+                    <input asp-for="ApplicationShortName" />
                     <span asp-validation-for="ApplicationShortName" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <label asp-for="ApplicationDescription" class="control-label">Application Description</label>
-                <input asp-for="ApplicationDescription"  />
+                <input asp-for="ApplicationDescription" />
                 <span asp-validation-for="ApplicationDescription" class="text-danger"></span>
             </div>
             <div class="can-align " style="margin: 7px;">
@@ -59,58 +59,59 @@
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-   @* <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const teamNameInput = document.querySelector('input[name="ApplicationName"]');
-        const errorMessage = document.querySelector('span[data-valmsg-for="ApplicationName"]');
-        
-        teamNameInput.addEventListener('input', function() {
-            // Regex to ensure the team name starts with a letter and can contain letters, numbers, and spaces, but no special characters
-            const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
-            
-            // Validate and replace any character that is not a letter, number, or space
-            if (!regex.test(this.value)) {
-                this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+    @* <script>
+document.addEventListener('DOMContentLoaded', function() {
+const teamNameInput = document.querySelector('input[name="ApplicationName"]');
+const errorMessage = document.querySelector('span[data-valmsg-for="ApplicationName"]');
+
+teamNameInput.addEventListener('input', function() {
+// Regex to ensure the team name starts with a letter and can contain letters, numbers, and spaces, but no special
+characters
+const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
+
+// Validate and replace any character that is not a letter, number, or space
+if (!regex.test(this.value)) {
+this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+}
+
+// Check if the first character is a letter
+if (!/^[a-zA-Z]/.test(this.value)) {
+errorMessage.textContent = "Application Name must start with a letter.";
+} else {
+errorMessage.textContent = "";
+}
+});
+});
+</script> *@
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Define the validation function
+            function addValidation(inputName, fieldName) {
+                const inputField = document.querySelector(`input[name="${inputName}"]`);
+                const errorMessage = document.querySelector(`span[data-valmsg-for="${inputName}"]`);
+
+                inputField.addEventListener('input', function () {
+                    const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
+
+                    // Replace invalid characters
+                    if (!regex.test(this.value)) {
+                        this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+                    }
+
+                    // Ensure the first character is a letter
+                    if (!/^[a-zA-Z]/.test(this.value)) {
+                        errorMessage.textContent = `${fieldName} must start with a letter.`;
+                    } else {
+                        errorMessage.textContent = "";
+                    }
+                });
             }
-            
-            // Check if the first character is a letter
-            if (!/^[a-zA-Z]/.test(this.value)) {
-                errorMessage.textContent = "Application Name must start with a letter.";
-            } else {
-                errorMessage.textContent = "";
-            }
+
+            // Apply validation to the desired fields
+            addValidation("ApplicationName", "Application Name");
+            addValidation("ApplicationShortName", "Application Short Name");
+            addValidation("ApplicationDescription", "Application Description");
         });
-    });
-    </script> *@
-     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Define the validation function
-        function addValidation(inputName, fieldName) {
-            const inputField = document.querySelector(`input[name="${inputName}"]`);
-            const errorMessage = document.querySelector(`span[data-valmsg-for="${inputName}"]`);
-            
-            inputField.addEventListener('input', function() {
-                const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
-
-                // Replace invalid characters
-                if (!regex.test(this.value)) {
-                    this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
-                }
-
-                // Ensure the first character is a letter
-                if (!/^[a-zA-Z]/.test(this.value)) {
-                    errorMessage.textContent = `${fieldName} must start with a letter.`;
-                } else {
-                    errorMessage.textContent = "";
-                }
-            });
-        }
-
-        // Apply validation to the desired fields
-        addValidation("ApplicationName", "Application Name");
-        addValidation("ApplicationShortName", "Application Short Name");
-        addValidation("ApplicationDescription", "Application Description");
-    });
     </script>
     <partial name="_ValidationScriptsPartial" />
 }

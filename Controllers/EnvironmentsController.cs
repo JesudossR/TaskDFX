@@ -21,12 +21,12 @@ namespace DolphinFx.Controllers
         }
 
         // GET: Environments
-        public async Task<IActionResult> Index(int ? page)
+        public async Task<IActionResult> Index(int? page)
         {
-             int pageSize = 5; // Number of records per page
+            int pageSize = 5; // Number of records per page
             int pageNumber = page ?? 1; // Default to page 1 if no page is specified
             var result = await _context.Environments.ToListAsync();
-            return View(result.ToPagedList(pageNumber,pageSize));
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Environments/Details/5
@@ -98,10 +98,12 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
             var existingEnvironment = await _context.Environments.AsNoTracking().FirstOrDefaultAsync(e => e.EnvironmentID == id);
-            if(existingEnvironment == null) {
+            if (existingEnvironment == null)
+            {
                 return NotFound();
             }
-            if(existingEnvironment.EnvironmentName == environment.EnvironmentName && existingEnvironment.EnvironmentDescription == environment.EnvironmentDescription){
+            if (existingEnvironment.EnvironmentName == environment.EnvironmentName && existingEnvironment.EnvironmentDescription == environment.EnvironmentDescription)
+            {
                 TempData["InfoMessage"] = "No changes were made.";
                 return RedirectToAction(nameof(Index));
             }

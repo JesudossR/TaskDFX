@@ -21,13 +21,13 @@ namespace DolphinFx.Controllers
         }
 
         // GET: DatabaseDetails
-        public async Task<IActionResult> Index(int?page)
+        public async Task<IActionResult> Index(int? page)
         {
-             int pageSize = 5; // Number of records per page
+            int pageSize = 5; // Number of records per page
             int pageNumber = page ?? 1; // Default to page 1 if no page is specified
             var appDbContext = _context.DatabaseDetails.Include(d => d.Application).Include(d => d.Client).Include(d => d.Environments);
             var result = await appDbContext.ToListAsync();
-            return View(result.ToPagedList(pageNumber,pageSize));
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: DatabaseDetails/Details/5
@@ -115,10 +115,12 @@ namespace DolphinFx.Controllers
                 return NotFound();
             }
             var existingDb = await _context.DatabaseDetails.AsNoTracking().FirstOrDefaultAsync(d => d.DbId == id);
-            if(existingDb == null) {
+            if (existingDb == null)
+            {
                 return NotFound();
             }
-            if(existingDb.Datasource == databaseDetail.Datasource && existingDb.Username == databaseDetail.Username && existingDb.Password == databaseDetail.Password && existingDb.ClientId == databaseDetail.ClientId && existingDb.ApplicationID == databaseDetail.ApplicationID && existingDb.EnvironmentID == databaseDetail.EnvironmentID){
+            if (existingDb.Datasource == databaseDetail.Datasource && existingDb.Username == databaseDetail.Username && existingDb.Password == databaseDetail.Password && existingDb.ClientId == databaseDetail.ClientId && existingDb.ApplicationID == databaseDetail.ApplicationID && existingDb.EnvironmentID == databaseDetail.EnvironmentID)
+            {
                 TempData["InfoMessage"] = "No changes were made.";
                 return RedirectToAction(nameof(Index));
             }

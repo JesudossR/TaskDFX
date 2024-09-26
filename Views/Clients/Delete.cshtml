@@ -11,38 +11,38 @@
     <h4>Client</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Client Name
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ClientName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Primary Contact
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PrimaryContact)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Primary EmailID
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PrimaryEmailID)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Secondary Contact
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SecondaryContact)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Secondary EmailID
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SecondaryEmailID)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="ClientID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

@@ -4,9 +4,14 @@ using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// builder.Services.AddDbContext<AppDbContext>(options =>
+//     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+//     new MySqlServerVersion(new Version(8, 0, 21))));  // Specify MySQL server version
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-    new MySqlServerVersion(new Version(8, 0, 21))));  // Specify MySQL server version
+    options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection"))
+           .EnableSensitiveDataLogging() // Optional: include sensitive data in logs
+           .LogTo(Console.WriteLine, LogLevel.Information)); // Log SQL to console
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

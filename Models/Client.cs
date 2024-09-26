@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace DolphinFx.Models
@@ -8,33 +9,34 @@ namespace DolphinFx.Models
     {
 
         [Key]
+        [Column("CLIENTID")]
         public int ClientID { get; set; } // Primary Key
 
         [Required(ErrorMessage = "Client Name is required.")]
         [RegularExpression("^[a-zA-Z][a-zA-Z0-9\\s]*$", ErrorMessage = "Client Name must start with a letter and can contain letters, numbers, and spaces.")]
         [StringLength(20, ErrorMessage = "Client Name cannot exceed 20 characters.")]
+        [Column("CLIENTNAME")]
         public string ClientName { get; set; } = string.Empty; // Required and non-nullable
 
 
         [Required(ErrorMessage = "Primary Contact is required.")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Primary Contact must be a 10-digit number.")]
+        [Column("PRIMARYCONTACT")]
         public long PrimaryContact { get; set; } // 10 digits
 
         [Required(ErrorMessage = "Primary Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email format for Primary Email.")]
         [RegularExpression(@"^[\w\.-]+@[a-zA-Z\d\.-]+(\.com|\.co\.in|\.in)$", ErrorMessage = "Email must end with '.com', '.co.in', or '.in'")]
-
+        [Column("PRIMARYEMAILID")]
         public string PrimaryEmailID { get; set; } = string.Empty; // Required and valid email
 
-
-
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Primary Contact must be a 10-digit number.")]
+        [Column("SECONDARYCONTACT")]
         public long? SecondaryContact { get; set; } // 10 digits
-
-
 
         [EmailAddress(ErrorMessage = "Invalid email format for Secondary Email.")]
         [RegularExpression(@"^[\w\.-]+@[a-zA-Z\d\.-]+(\.com|\.co\.in|\.in)$", ErrorMessage = "Email must end with '.com', '.co.in', or '.in'")]
+        [Column("SECONDARYEMAILID")]
         public string? SecondaryEmailID { get; set; } // Optional and valid email
 
         // Navigation property

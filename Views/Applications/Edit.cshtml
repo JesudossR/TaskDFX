@@ -66,42 +66,42 @@
             </div>
             <div class=" can-align " style="margin: 7px;">
                 <input type="submit" value="Save" class="btn btn-primary" />
-                 <a class="btn btn-danger" asp-action="Index">cancel</a>
+                <a class="btn btn-danger" asp-action="Index">cancel</a>
             </div>
         </form>
     </div>
 </div>
 
 
-@section Scripts{
-     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Define the validation function
-        function addValidation(inputName, fieldName) {
-            const inputField = document.querySelector(`input[name="${inputName}"]`);
-            const errorMessage = document.querySelector(`span[data-valmsg-for="${inputName}"]`);
-            
-            inputField.addEventListener('input', function() {
-                const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Define the validation function
+            function addValidation(inputName, fieldName) {
+                const inputField = document.querySelector(`input[name="${inputName}"]`);
+                const errorMessage = document.querySelector(`span[data-valmsg-for="${inputName}"]`);
 
-                // Replace invalid characters
-                if (!regex.test(this.value)) {
-                    this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
-                }
+                inputField.addEventListener('input', function () {
+                    const regex = /^[a-zA-Z][a-zA-Z0-9\s]*$/;
 
-                // Ensure the first character is a letter
-                if (!/^[a-zA-Z]/.test(this.value)) {
-                    errorMessage.textContent = `${fieldName} must start with a letter.`;
-                } else {
-                    errorMessage.textContent = "";
-                }
-            });
-        }
+                    // Replace invalid characters
+                    if (!regex.test(this.value)) {
+                        this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '');
+                    }
 
-        // Apply validation to the desired fields
-        addValidation("ApplicationName", "Application Name");
-        addValidation("ApplicationShortName", "Application Short Name");
-        addValidation("ApplicationDescription", "Application Description");
-    });
+                    // Ensure the first character is a letter
+                    if (!/^[a-zA-Z]/.test(this.value)) {
+                        errorMessage.textContent = `${fieldName} must start with a letter.`;
+                    } else {
+                        errorMessage.textContent = "";
+                    }
+                });
+            }
+
+            // Apply validation to the desired fields
+            addValidation("ApplicationName", "Application Name");
+            addValidation("ApplicationShortName", "Application Short Name");
+            addValidation("ApplicationDescription", "Application Description");
+        });
     </script>
 }

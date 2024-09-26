@@ -16,49 +16,26 @@ namespace DolphinFx.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Client to Team (One-to-Many)
             modelBuilder.Entity<Client>()
-                .HasMany(c => c.Teams)
-                .WithOne(t => t.Client)
-                .HasForeignKey(t => t.ClientID);
+       .ToTable("CLIENT", schema: "FXJPMENRICHDEV");
 
-            // ApplicationDetails with Application and Client
-            //modelBuilder.Entity<ApplicationDetails>()
-            //    .HasOne<Application>()
-            //    .WithMany()
-            //    .HasForeignKey(ad => ad.ApplicationID);
+            modelBuilder.Entity<Team>()
+       .ToTable("TEAM", schema: "FXJPMENRICHDEV");
 
-            //modelBuilder.Entity<ApplicationDetails>()
-            //    .HasOne<Client>()
-            //    .WithMany()
-            //    .HasForeignKey(ad => ad.ClientID);
-
-            // Application to ApplicationDetails
             modelBuilder.Entity<Application>()
-                .HasMany<ApplicationDetails>()
-                .WithOne()
-                .HasForeignKey(ad => ad.ApplicationID);
+       .ToTable("APPLICATION", schema: "FXJPMENRICHDEV");
+
+            modelBuilder.Entity<Environment>()
+       .ToTable("ENVIRONMENT", schema: "FXJPMENRICHDEV");
+
+            modelBuilder.Entity<UserRole>()
+       .ToTable("USERROLE", schema: "FXJPMENRICHDEV");
 
             modelBuilder.Entity<ApplicationDetails>()
-               .HasKey(ad => ad.Id);
+      .ToTable("APPLICATIONDETAILS", schema: "FXJPMENRICHDEV");
 
-            // Application to ApplicationDetails (One-to-Many)
-            modelBuilder.Entity<Application>()
-                .HasMany(a => a.ApplicationDetails)
-                .WithOne( ad => ad.Applications)
-                .HasForeignKey(ad => ad.ApplicationID);
-
-            // Client to ApplicationDetails (One-to-Many)
-            modelBuilder.Entity<Client>()
-                .HasMany(c => c.ApplicationDetails)
-                .WithOne(ad => ad.Client)
-                .HasForeignKey(ad => ad.ClientID);
-
-            // DatabaseDetails is Keyless
-
-            // UserRole is standalone
-            modelBuilder.Entity<UserRole>()
-                .HasKey(ur => ur.UserID);
+            modelBuilder.Entity<DatabaseDetail>()
+        .ToTable("DATABASEDETAIL", schema: "FXJPMENRICHDEV");
         }
     }
 }
