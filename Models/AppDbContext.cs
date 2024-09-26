@@ -17,25 +17,25 @@ namespace DolphinFx.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
-       .ToTable("CLIENT", schema: "FXJPMENRICHDEV");
+       .ToTable("B_CLIENT", schema: "FXJPMENRICHDEV");
 
             modelBuilder.Entity<Team>()
-       .ToTable("TEAM", schema: "FXJPMENRICHDEV");
+       .ToTable("B_TEAM", schema: "FXJPMENRICHDEV");
 
             modelBuilder.Entity<Application>()
-       .ToTable("APPLICATION", schema: "FXJPMENRICHDEV");
+       .ToTable("B_APPLICATION", schema: "FXJPMENRICHDEV");
 
             modelBuilder.Entity<Environment>()
-       .ToTable("ENVIRONMENT", schema: "FXJPMENRICHDEV");
+       .ToTable("B_ENVIRONMENT", schema: "FXJPMENRICHDEV");
 
             modelBuilder.Entity<UserRole>()
-       .ToTable("USERROLE", schema: "FXJPMENRICHDEV");
+       .ToTable("B_USER_ROLE", schema: "FXJPMENRICHDEV");
 
             modelBuilder.Entity<ApplicationDetails>()
-      .ToTable("APPLICATIONDETAILS", schema: "FXJPMENRICHDEV");
+      .ToTable("B_APPLICATION_DETAIL", schema: "FXJPMENRICHDEV");
 
             modelBuilder.Entity<DatabaseDetail>()
-        .ToTable("DATABASEDETAIL", schema: "FXJPMENRICHDEV");
+        .ToTable("B_DATABASE_DETAIL", schema: "FXJPMENRICHDEV");
         }
     }
 }

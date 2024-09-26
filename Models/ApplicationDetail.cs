@@ -11,17 +11,17 @@ namespace DolphinFx.Models
 
     [Required]
     [ForeignKey("Client")]
-    [Column("CLIENTID")]
+    [Column("CLIENT_ID")]
     public int ClientID { get; set; } // Foreign Key to Client
     public virtual Client? Client { get; set; } // Navigation property
     [Required]
-    [Column("ENVIRONMENTID")]
+    [Column("ENVIRONMENT_ID")]
     [ForeignKey("Environment")]
     public int EnvironmentID { get; set; }
     public virtual Environment? Environments { get; set; } // Navigation property
     [Required]
     [ForeignKey("Application")]
-    [Column("APPLICATIONID")]
+    [Column("APPLICATION_ID")]
     public int ApplicationID { get; set; } // Foreign Key to Application
     public virtual Application? Applications { get; set; } // Navigation property
 
@@ -38,12 +38,12 @@ namespace DolphinFx.Models
     [Required(ErrorMessage = "User Name is required.")]
     [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9\s]*$", ErrorMessage = "UserName must start with a letter and contain only letters, numbers, and spaces.")]
     [StringLength(20, ErrorMessage = "UserName should not contain more than 20 characters.")]
-    [Column("USERNAME")]
+    [Column("USER_NAME")]
     public string? User { get; set; }
 
     [Required]
     [ForeignKey("UserRole")]
-    [Column("USERID")]
+    [Column("USER_ID")]
 
     public int UserId { get; set; } // Foreign Key to Application
     public virtual UserRole? UserRole { get; set; } // 

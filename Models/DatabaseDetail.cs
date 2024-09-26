@@ -6,7 +6,7 @@ namespace DolphinFx.Models
     public class DatabaseDetail
     {
         [Key]
-        [Column("DBID")]
+        [Column("DB_ID")]
         public int DbId { get; set; }
 
         [Required]
@@ -25,17 +25,17 @@ namespace DolphinFx.Models
         public string? Password { get; set; }
 
         [ForeignKey("Client")]
-        [Column("CLIENTID")]
+        [Column("CLIENT_ID")]
         public int ClientId { get; set; }
         public virtual Client? Client { get; set; }
 
         [ForeignKey("Environment")]
-        [Column("ENVIRONMENTID")]
+        [Column("ENVIRONMENT_ID")]
         public int EnvironmentID { get; set; }
         public virtual Environment? Environments { get; set; }
 
         [ForeignKey("Application")]
-        [Column("APPLICATIONID")]
+        [Column("APPLICATION_ID")]
         public int ApplicationID { get; set; }
         public virtual Application? Application { get; set; }
 

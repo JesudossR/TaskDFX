@@ -6,7 +6,7 @@ namespace DolphinFx.Models
     public class UserRole
     {
         [Key]
-        [Column("USERID")]
+        [Column("USER_ID")]
 
         public int UserID { get; set; } // Primary Key
 
@@ -18,7 +18,7 @@ namespace DolphinFx.Models
 
         [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9\s]*$", ErrorMessage = "RoleDescription must start with a letter and contain only letters, numbers, and spaces.")]
         [StringLength(10, ErrorMessage = "RoleDescription should not contain more than 10 characters.")]
-        [Column("ROLEDESCRIPTION")]
+        [Column("ROLE_DESCRIPTION")]
         public string? RoleDescription { get; set; } // Optional
     }
 }
